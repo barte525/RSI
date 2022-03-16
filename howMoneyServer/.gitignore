@@ -1,5 +1,4 @@
 **/.vs
 **/bin/Debug/
 **/obj
-*.csproj
-*.sln
+**/.DS_Store
