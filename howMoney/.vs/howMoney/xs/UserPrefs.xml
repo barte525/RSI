@@ -1,0 +1,32 @@
+﻿<Properties StartupConfiguration="{44C2B3A4-E648-4FB4-9F8E-A8B6181BA3A4}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/WeatherForecastController.cs">
+    <Files>
+      <File FileName="docker-compose.yml" Line="24" Column="31" />
+      <File FileName="appsettings.json" Line="14" Column="1" />
+      <File FileName="AppDbContext.cs" Line="16" Column="1" />
+      <File FileName="Asset.cs" Line="8" Column="8" />
+      <File FileName="Startup.cs" Line="31" Column="15" />
+      <File FileName="Controllers/WeatherForecastController.cs" Line="40" Column="36" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="howMoney" expanded="True">
+            <Node name="howMoney" expanded="True">
+              <Node name="Controllers" expanded="True">
+                <Node name="WeatherForecastController.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.howMoney PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
