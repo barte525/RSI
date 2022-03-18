@@ -12,5 +12,13 @@ namespace howMoney.Data
         }
 
         public DbSet<Asset> Assets { get; set; }
-}
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.HasPostgresExtension("uuid-ossp");
+            modelBuilder.ApplyConfiguration(new AssetConfiguration());
+        }
+    }
 }

@@ -25,7 +25,13 @@ namespace howMoney.Controllers
         [HttpGet]
         public IEnumerable<Asset> Get()
         {
-            _context.Assets.Add(new Asset() { Type = "Currency" });
+            _context.Assets.Add(new Asset() {
+                Type = "Currency",
+                Name = "EUR",
+                ConverterEUR = 1.0,
+                ConverterPLN = 4.71,
+                ConverterUSD = 1.1
+            });
             _context.SaveChanges();
             return _context.Assets.ToList();
         }
