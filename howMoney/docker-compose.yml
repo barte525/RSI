@@ -5,7 +5,7 @@ volumes:
 
 services:
   database:
-    image: "postgres:latest" # use latest official postgres version
+    image: "postgres:latest"
     restart: unless-stopped
     ports:
       - 5432:5432
@@ -14,7 +14,7 @@ services:
       POSTGRES_PASSWORD: howmoney
       POSTGRES_DB: postgres
     volumes:
-      - database-data-volume:/var/lib/postgresql/data/ # persist data even if container shuts down
+      - database-data-volume:/var/lib/postgresql/data/
 
   pgadmin:
     image: dpage/pgadmin4

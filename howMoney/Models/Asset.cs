@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace howMoney
+namespace howMoney.Models
 {
     public class Asset
     {
