@@ -13,27 +13,64 @@ namespace howMoney.Controllers
     [Route("api/[controller]")]
     public class AssetController : ControllerBase
     {
-        private readonly ILogger<AssetController> _logger;
         private AppDbContext _context;
+        private readonly ILogger<AssetController> _logger;
+        private readonly IRepository<Asset> _assetRepository;
 
-        public AssetController(ILogger<AssetController> logger, AppDbContext context)
+        public AssetController(ILogger<AssetController> logger, AppDbContext context, IRepository<Asset> assetRepository)
         {
             _logger = logger;
             _context = context;
+            _assetRepository = assetRepository;
         }
 
         [HttpGet]
-        public IEnumerable<Asset> Get()
+        public IEnumerable<Asset> Get() => _assetRepository.GetAll();
+
+        [HttpGet("{id}")]
+        public Asset Get(Guid id) => _assetRepository.GetById(id);
+
+        [HttpPost]
+        public async Task<Object> Post([FromBody] Asset asset)
         {
-            _context.Assets.Add(new Asset() {
-                Type = "Currency",
-                Name = "EUR",
-                ConverterEUR = 1.0,
-                ConverterPLN = 4.71,
-                ConverterUSD = 1.1
-            });
-            _context.SaveChanges();
-            return _context.Assets.ToList();
+            try
+            {
+                await _assetRepository.Create(asset);
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public bool DeletePerson(Guid id)
+        {
+            try
+            {
+                _assetRepository.Delete(id);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        [HttpPut("{id}")]
+        public bool Put([FromBody] Asset asset)
+        {
+            try
+            {
+                _assetRepository.Update(asset);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

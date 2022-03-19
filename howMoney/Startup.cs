@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using howMoney.Data;
+using howMoney.Models;
 
 namespace howMoney
 {
@@ -30,6 +31,7 @@ namespace howMoney
         {
             services.AddDbContextPool<AppDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DB_CONNECTION")));
+            services.AddTransient<IRepository<Asset>, AssetRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

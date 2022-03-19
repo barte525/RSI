@@ -1,5 +1,11 @@
 ﻿<Properties StartupConfiguration="{44C2B3A4-E648-4FB4-9F8E-A8B6181BA3A4}|Default">
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Models/IRepository.cs">
+    <Files>
+      <File FileName="Models/AssetRepository.cs" Line="36" Column="1" />
+      <File FileName="Startup.cs" Line="34" Column="70" />
+      <File FileName="Controllers/AssetController.cs" Line="74" Column="10" />
+      <File FileName="Models/IRepository.cs" Line="17" Column="30" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
@@ -8,8 +14,9 @@
               <Node name="Controllers" expanded="True" />
               <Node name="Data" expanded="True" />
               <Node name="Migrations" expanded="True" />
-              <Node name="Models" expanded="True" />
-              <Node name="Startup.cs" selected="True" />
+              <Node name="Models" expanded="True">
+                <Node name="IRepository.cs" selected="True" />
+              </Node>
             </Node>
           </Node>
         </State>
