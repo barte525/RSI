@@ -28,10 +28,6 @@ namespace howMoney.Models
         public string Password { get; set; }
 
         [Required]
-        [MaxLength(30, ErrorMessage = "Type is too long.")]
-        public string Type { get; set; }
-
-        [Required]
         public double Sum { get; set; }
 
         [Required]

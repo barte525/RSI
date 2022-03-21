@@ -11,44 +11,43 @@ namespace howMoney.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AssetController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly ILogger<AssetController> _logger;
-        private readonly IRepository<Asset> _assetRepository;
+        private readonly ILogger<UserController> _logger;
+        private readonly IRepository<User> _userRepository;
 
-        public AssetController(ILogger<AssetController> logger, IRepository<Asset> assetRepository)
+        public UserController(ILogger<UserController> logger, IRepository<User> userRepository)
         {
             _logger = logger;
-            _assetRepository = assetRepository;
+            _userRepository = userRepository;
         }
 
         [HttpGet]
-        public IEnumerable<Asset> Get() => _assetRepository.GetAll();
+        public IEnumerable<User> Get() => _userRepository.GetAll();
 
         [HttpGet("{id}")]
-        public Asset Get(Guid id) => _assetRepository.GetById(id);
+        public User Get(Guid id) => _userRepository.GetById(id);
 
         [HttpPost]
-        public async Task<Object> Post([FromBody] Asset asset)
+        public async Task<Object> Post([FromBody] User user)
         {
             try
             {
-                await _assetRepository.Create(asset);
+                await _userRepository.Create(user);
                 return true;
             }
             catch (Exception ex)
             {
-
                 return ex;
             }
         }
 
         [HttpDelete("{id}")]
-        public bool DeleteAsset(Guid id)
+        public bool DeleteUser(Guid id)
         {
             try
             {
-                _assetRepository.Delete(id);
+                _userRepository.Delete(id);
                 return true;
             }
             catch (Exception)
@@ -58,11 +57,11 @@ namespace howMoney.Controllers
         }
 
         [HttpPut("{id}")]
-        public bool Put([FromBody] Asset asset)
+        public bool Put([FromBody] User user)
         {
             try
             {
-                _assetRepository.Update(asset);
+                _userRepository.Update(user);
                 return true;
             }
             catch (Exception)

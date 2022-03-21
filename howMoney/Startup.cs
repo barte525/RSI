@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using howMoney.Data;
 using howMoney.Models;
+using System.Text.Json.Serialization;
 
 namespace howMoney
 {
@@ -32,7 +33,10 @@ namespace howMoney
             services.AddDbContextPool<AppDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DB_CONNECTION")));
             services.AddTransient<IRepository<Asset>, AssetRepository>();
+            services.AddTransient<IRepository<User>, UserRepository>();
             services.AddControllers();
+            services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "howMoney", Version = "v1" });

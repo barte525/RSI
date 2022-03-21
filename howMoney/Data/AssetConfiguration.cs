@@ -20,7 +20,6 @@ namespace howMoney.Data
                 .IsRequired();
 
             builder.HasIndex(x => x.Id)
-                .HasName("id")
                 .IsUnique();
 
             builder.Property(x => x.Type)
