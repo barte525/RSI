@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -25,5 +26,7 @@ namespace howMoney.Models
 
        [Required]
        public double ConverterUSD { get; set; }
+
+       public ICollection<UserAsset> UserAssets { get; set; }
     }
 }
