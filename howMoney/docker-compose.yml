@@ -1,7 +1,7 @@
 ﻿version: '3'
 
 volumes:
-  database-data-volume: # named volumes can be managed easier using docker-compose
+ howmoney-volume: # named volumes can be managed easier using docker-compose
 
 services:
   database:
@@ -14,7 +14,7 @@ services:
       POSTGRES_PASSWORD: howmoney
       POSTGRES_DB: postgres
     volumes:
-      - ./database-data-volume:/var/lib/postgresql/data/
+      - ./howmoney-volume:/var/lib/postgresql/data/
 
   pgadmin:
     image: dpage/pgadmin4
