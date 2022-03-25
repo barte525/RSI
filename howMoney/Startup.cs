@@ -34,6 +34,7 @@ namespace howMoney
                 options.UseNpgsql(Configuration.GetConnectionString("DB_CONNECTION")));
             services.AddTransient<IRepository<Asset>, AssetRepository>();
             services.AddTransient<IRepository<User>, UserRepository>();
+            services.AddTransient<IRepository<UserAsset>, UserAssetRepository>();
             services.AddControllers();
             services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
