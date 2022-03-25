@@ -12,8 +12,8 @@ namespace howMoney.Models
 
         public IEnumerable<T> GetAll();
 
-        public T GetById(Guid Id);
+        public T GetById(Guid Id, Guid? Id2 = null);
 
-        public void Delete(Guid id);
+        public void Delete(Guid id, Guid? Id2 = null);
     }
 }

@@ -14,9 +14,9 @@ namespace howMoney.Controllers
     public class UserAssetController : ControllerBase
     {
         private readonly ILogger<UserAssetController> _logger;
-        private readonly UserAssetRepository _userAssetRepository;
+        private readonly IRepository<UserAsset> _userAssetRepository;
 
-        public UserAssetController(ILogger<UserAssetController> logger, UserAssetRepository userAssetRepository)
+        public UserAssetController(ILogger<UserAssetController> logger, IRepository<UserAsset> userAssetRepository)
         {
             _logger = logger;
             _userAssetRepository = userAssetRepository;

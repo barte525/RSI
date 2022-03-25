@@ -1,21 +1,11 @@
 ﻿<Properties StartupConfiguration="{44C2B3A4-E648-4FB4-9F8E-A8B6181BA3A4}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Models/UserAssetRepository.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/UserAssetController.cs">
     <Files>
-      <File FileName="Controllers/AssetController.cs" Line="43" Column="7" />
-      <File FileName="Controllers/UserController.cs" />
-      <File FileName="Models/UserRepository.cs" Line="41" Column="1" />
-      <File FileName="Models/AssetRepository.cs" Line="32" Column="33" />
-      <File FileName="Migrations/20220318121755_Add asset fields.cs" />
-      <File FileName="Models/UserAsset.cs" Line="13" Column="1" />
-      <File FileName="Data/AppDbContext.cs" />
-      <File FileName="Data/AssetConfiguration.cs" Line="44" Column="34" />
-      <File FileName="docker-compose.yml" Line="17" Column="50" />
-      <File FileName="appsettings.json" Line="10" Column="104" />
-      <File FileName="Program.cs" />
-      <File FileName="Models/User.cs" Line="37" Column="63" />
-      <File FileName="Models/Asset.cs" Line="1" Column="1" />
-      <File FileName="Data/UserConfiguration.cs" Line="53" Column="34" />
+      <File FileName="Startup.cs" Line="42" Column="14" />
+      <File FileName="Data/UserConfiguration.cs" Line="21" Column="1" />
+      <File FileName="docker-compose.yml" Line="17" Column="9" />
       <File FileName="Models/UserAssetRepository.cs" Line="1" Column="1" />
+      <File FileName="Controllers/UserAssetController.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -23,10 +13,11 @@
           <Node name="howMoney" expanded="True">
             <Node name="howMoney" expanded="True">
               <Node name="Dependencies" expanded="True" />
-              <Node name="Data" expanded="True" />
-              <Node name="Models" expanded="True">
-                <Node name="UserAssetRepository.cs" selected="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="UserAssetController.cs" selected="True" />
               </Node>
+              <Node name="Data" expanded="True" />
+              <Node name="Models" expanded="True" />
             </Node>
           </Node>
         </State>

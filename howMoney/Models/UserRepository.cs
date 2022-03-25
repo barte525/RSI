@@ -22,7 +22,7 @@ namespace howMoney.Models
             return obj.Entity;
         }
 
-        public void Delete(Guid id)
+        public void Delete(Guid id, Guid? Id2 = null)
         {
             var obj = _context.Users.Where(a => a.Id == id).FirstOrDefault();
             _context.Remove(obj);
@@ -34,7 +34,7 @@ namespace howMoney.Models
             return _context.Users.ToList();
         }
 
-        public User GetById(Guid Id)
+        public User GetById(Guid Id, Guid? Id2 = null)
         {
             return _context.Users.Where(a => a.Id == Id).FirstOrDefault();
         }

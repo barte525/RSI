@@ -6,7 +6,7 @@ using howMoney.Data;
 
 namespace howMoney.Models
 {
-    public class UserAssetRepository
+    public class UserAssetRepository : IRepository<UserAsset>
     {
         private readonly AppDbContext _context;
 
@@ -22,7 +22,7 @@ namespace howMoney.Models
             return obj.Entity;
         }
 
-        public void Delete(Guid UserId, Guid AssetId)
+        public void Delete(Guid UserId, Guid? AssetId)
         {
             var obj = _context.UserAssets.Where(a => a.UserId == UserId && a.AssetId == AssetId).FirstOrDefault();
             _context.Remove(obj);
@@ -34,7 +34,7 @@ namespace howMoney.Models
             return _context.UserAssets.ToList();
         }
 
-        public UserAsset GetById(Guid UserId, Guid AssetId)
+        public UserAsset GetById(Guid UserId, Guid? AssetId)
         {
             return _context.UserAssets.Where(a => a.UserId == UserId && a.AssetId == AssetId).FirstOrDefault();
         }
