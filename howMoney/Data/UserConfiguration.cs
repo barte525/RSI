@@ -7,14 +7,14 @@ namespace howMoney.Data
 {
     internal class UserConfiguration : IEntityTypeConfiguration<User>
     {
-        private const string TableName = "user";
+        private const string TableName = "User";
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.ToTable(TableName);
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
-                .HasColumnName("id")
+                .HasColumnName("Id")
                 .HasColumnType("uuid")
                 .HasDefaultValueSql("uuid_generate_v4()")
                 .IsRequired();
@@ -23,7 +23,7 @@ namespace howMoney.Data
                 .IsUnique();
 
             builder.Property(x => x.Email)
-                .HasColumnName("email")
+                .HasColumnName("Email")
                 .HasColumnType("varchar(50)")
                 .HasMaxLength(50);
 
@@ -31,26 +31,26 @@ namespace howMoney.Data
                 .IsUnique();
 
             builder.Property(x => x.Name)
-                .HasColumnName("name")
+                .HasColumnName("Name")
                 .HasColumnType("varchar(30)")
                 .HasMaxLength(30);
 
             builder.Property(x => x.Surname)
-                .HasColumnName("surname")
+                .HasColumnName("Surname")
                 .HasColumnType("varchar(30)")
                 .HasMaxLength(30);
 
             builder.Property(x => x.Password)
-                .HasColumnName("password")
+                .HasColumnName("Password")
                 .HasColumnType("varchar(100)")
                 .HasMaxLength(100);
 
             builder.Property(x => x.Sum)
-                .HasColumnName("sum")
+                .HasColumnName("Sum")
                 .HasColumnType("double precision");
 
             builder.Property(x => x.CurrencyPreference)
-                .HasColumnName("currencyPreferences")
+                .HasColumnName("CurrencyPreferences")
                 .HasColumnType("varchar(30)")
                 .HasMaxLength(30);
         }

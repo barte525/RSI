@@ -7,14 +7,14 @@ namespace howMoney.Data
 {
     internal class AssetConfiguration : IEntityTypeConfiguration<Asset>
     {
-        private const string TableName = "asset";
+        private const string TableName = "Asset";
         public void Configure(EntityTypeBuilder<Asset> builder)
         {
             builder.ToTable(TableName);
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
-                .HasColumnName("id")
+                .HasColumnName("Id")
                 .HasColumnType("uuid")
                 .HasDefaultValueSql("uuid_generate_v4()")
                 .IsRequired();
@@ -23,25 +23,25 @@ namespace howMoney.Data
                 .IsUnique();
 
             builder.Property(x => x.Type)
-                .HasColumnName("type")
+                .HasColumnName("Type")
                 .HasColumnType("varchar(30)")
                 .HasMaxLength(30);
 
             builder.Property(x => x.Name)
-                .HasColumnName("name")
+                .HasColumnName("Name")
                 .HasColumnType("varchar(30)")
                 .HasMaxLength(30);
 
             builder.Property(x => x.ConverterPLN)
-                .HasColumnName("converterPLN")
+                .HasColumnName("ConverterPLN")
                 .HasColumnType("double precision");
 
             builder.Property(x => x.ConverterEUR)
-                .HasColumnName("converterEUR")
+                .HasColumnName("ConverterEUR")
                 .HasColumnType("double precision");
 
             builder.Property(x => x.ConverterUSD)
-                .HasColumnName("converterUSD")
+                .HasColumnName("ConverterUSD")
                 .HasColumnType("double precision");
         }
     }

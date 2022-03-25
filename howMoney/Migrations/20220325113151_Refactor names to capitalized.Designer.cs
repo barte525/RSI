@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using howMoney.Data;
@@ -9,9 +10,10 @@ using howMoney.Data;
 namespace howMoney.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220325113151_Refactor names to capitalized")]
+    partial class Refactornamestocapitalized
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,32 +27,32 @@ namespace howMoney.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
-                        .HasColumnName("Id")
+                        .HasColumnName("id")
                         .HasDefaultValueSql("uuid_generate_v4()");
 
                     b.Property<double>("ConverterEUR")
                         .HasColumnType("double precision")
-                        .HasColumnName("ConverterEUR");
+                        .HasColumnName("converterEUR");
 
                     b.Property<double>("ConverterPLN")
                         .HasColumnType("double precision")
-                        .HasColumnName("ConverterPLN");
+                        .HasColumnName("converterPLN");
 
                     b.Property<double>("ConverterUSD")
                         .HasColumnType("double precision")
-                        .HasColumnName("ConverterUSD");
+                        .HasColumnName("converterUSD");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("varchar(30)")
-                        .HasColumnName("Name");
+                        .HasColumnName("name");
 
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("varchar(30)")
-                        .HasColumnName("Type");
+                        .HasColumnName("type");
 
                     b.HasKey("Id");
 
@@ -65,42 +67,42 @@ namespace howMoney.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
-                        .HasColumnName("Id")
+                        .HasColumnName("id")
                         .HasDefaultValueSql("uuid_generate_v4()");
 
                     b.Property<string>("CurrencyPreference")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("varchar(30)")
-                        .HasColumnName("CurrencyPreferences");
+                        .HasColumnName("currencyPreferences");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)")
-                        .HasColumnName("Email");
+                        .HasColumnName("email");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("varchar(30)")
-                        .HasColumnName("Name");
+                        .HasColumnName("name");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)")
-                        .HasColumnName("Password");
+                        .HasColumnName("password");
 
                     b.Property<double>("Sum")
                         .HasColumnType("double precision")
-                        .HasColumnName("Sum");
+                        .HasColumnName("sum");
 
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("varchar(30)")
-                        .HasColumnName("Surname");
+                        .HasColumnName("surname");
 
                     b.HasKey("Id");
 

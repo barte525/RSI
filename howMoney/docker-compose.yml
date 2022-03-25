@@ -14,7 +14,7 @@ services:
       POSTGRES_PASSWORD: howmoney
       POSTGRES_DB: postgres
     volumes:
-      - ./howmoney-volume:/var/lib/postgresql/data/
+      - howmoney-volume:/var/lib/postgresql/data/
 
   pgadmin:
     image: dpage/pgadmin4
