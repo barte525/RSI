@@ -40,10 +40,15 @@ namespace howMoney.Data
                 .HasColumnType("varchar(30)")
                 .HasMaxLength(30);
 
-            builder.Property(x => x.Password)
-                .HasColumnName("Password")
-                .HasColumnType("varchar(100)")
-                .HasMaxLength(100);
+            builder.Property(x => x.PasswordHash)
+                .HasColumnName("PasswordHash")
+                .HasColumnType("varchar(255)")
+                .HasMaxLength(255);
+
+            builder.Property(x => x.PasswordSalt)
+               .HasColumnName("PasswordSalt")
+               .HasColumnType("varchar(255)")
+               .HasMaxLength(255);
 
             builder.Property(x => x.Sum)
                 .HasColumnName("Sum")

@@ -86,11 +86,17 @@ namespace howMoney.Migrations
                         .HasColumnType("varchar(30)")
                         .HasColumnName("Name");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("Password");
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("PasswordHash");
+
+                    b.Property<string>("PasswordSalt")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("PasswordSalt");
 
                     b.Property<double>("Sum")
                         .HasColumnType("double precision")

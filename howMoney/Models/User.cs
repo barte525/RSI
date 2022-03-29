@@ -13,7 +13,7 @@ namespace howMoney.Models
 
         [Required]
         [MaxLength(50, ErrorMessage = "Email is too long.")]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         [Required]
         [MaxLength(30, ErrorMessage = "Name is too long.")]
@@ -24,8 +24,12 @@ namespace howMoney.Models
         public string Surname { get; set; }
 
         [Required]
-        [MaxLength(100, ErrorMessage = "Password is too long.")]
-        public string Password { get; set; }
+        [MaxLength(255, ErrorMessage = "PasswordHash is too long.")]
+        public string PasswordHash { get; set; }
+
+        [Required]
+        [MaxLength(255, ErrorMessage = "PasswordSalt is too long.")]
+        public string PasswordSalt { get; set; }
 
         [Required]
         public double Sum { get; set; }
@@ -35,5 +39,10 @@ namespace howMoney.Models
         public string CurrencyPreference { get; set; }
 
         public ICollection<UserAsset> UserAssets { get; set; }
+
+        public User()
+        {
+
+        }
     }
 }
