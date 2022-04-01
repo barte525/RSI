@@ -39,6 +39,11 @@ namespace howMoney.Models
             return _context.Users.Where(a => a.Id == Id).FirstOrDefault();
         }
 
+        public User GetByEmail(string email)
+        {
+            return _context.Users.Where(a => a.Email == email).FirstOrDefault();
+        }
+
         public void Update(User _object)
         {
             _context.Users.Update(_object);

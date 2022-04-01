@@ -22,11 +22,16 @@ namespace howMoney.Controllers
             _userRepository = userRepository;
         }
 
+        public UserController()
+        {
+        }
+
         [HttpGet]
         public IEnumerable<User> Get() => _userRepository.GetAll();
 
         [HttpGet("{id}")]
         public User Get(Guid id) => _userRepository.GetById(id);
+
 
         [HttpPost]
         public async Task<Object> Post([FromBody] User user)

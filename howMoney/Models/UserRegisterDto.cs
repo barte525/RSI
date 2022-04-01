@@ -6,11 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace howMoney.Models
 {
-    public class User
+    public class UserRegisterDto
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
-
         [Required]
         [MaxLength(50, ErrorMessage = "Email is too long.")]
         public string Email { get; set; } = string.Empty;
@@ -24,25 +21,12 @@ namespace howMoney.Models
         public string Surname { get; set; }
 
         [Required]
-        [MaxLength(255, ErrorMessage = "PasswordHash is too long.")]
-        public string PasswordHash { get; set; }
+        [MaxLength(30, ErrorMessage = "Password is too long.")]
+        public string Password { get; set; }
 
-        [Required]
-        [MaxLength(255, ErrorMessage = "PasswordSalt is too long.")]
-        public string PasswordSalt { get; set; }
-
-        [Required]
-        public double Sum { get; set; }
 
         [Required]
         [MaxLength(30, ErrorMessage = "Currency preference is too long.")]
         public string CurrencyPreference { get; set; }
-
-        public ICollection<UserAsset> UserAssets { get; set; }
-
-        public User()
-        {
-
-        }
     }
 }

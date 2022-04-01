@@ -14,6 +14,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using howMoney.Data;
 using howMoney.Models;
+using howMoney.Controllers;
+using howMoney.Services;
 using System.Text.Json.Serialization;
 
 namespace howMoney
@@ -35,9 +37,9 @@ namespace howMoney
             services.AddTransient<IRepository<Asset>, AssetRepository>();
             services.AddTransient<IRepository<User>, UserRepository>();
             services.AddTransient<IRepository<UserAsset>, UserAssetRepository>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddHttpContextAccessor();
             services.AddControllers();
-            services.AddControllers().AddJsonOptions(x =>
-                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "howMoney", Version = "v1" });

@@ -9,20 +9,16 @@ services:
     restart: unless-stopped
     ports:
       - 5432:5432
-    environment:
-      POSTGRES_USER: howmoney
-      POSTGRES_PASSWORD: howmoney
-      POSTGRES_DB: postgres
+    env_file:
+      - ./.env
     volumes:
       - howmoney-volume:/var/lib/postgresql/data/
 
   pgadmin:
     image: dpage/pgadmin4
     restart: unless-stopped
-    environment:
-      PGADMIN_DEFAULT_EMAIL: howmoney@howmoney.com
-      PGADMIN_DEFAULT_PASSWORD: howmoney
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    env_file:
+      - ./.env
     volumes:
        - ./.pgadmin:/root/.pgadmin
        - ./.pgadmin-backups:/backups
