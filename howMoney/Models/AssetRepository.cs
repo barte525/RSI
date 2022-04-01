@@ -39,6 +39,11 @@ namespace howMoney.Models
             return _context.Assets.Where(a => a.Id == Id).FirstOrDefault();
         }
 
+        public Asset GetByEmail(string email)
+        {
+            return null;
+        }
+
         public void Update(Asset _object)
         {
             _context.Assets.Update(_object);

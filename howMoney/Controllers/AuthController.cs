@@ -69,11 +69,12 @@ namespace howMoney.Controllers
             }
         }
 
-    //    [HttpPost("login")]
-  /*      public async Task<ActionResult<string>> Login(UserLoginDto request)
+        [HttpPost("login")]
+        public async Task<ActionResult<string>> Login(UserLoginDto request)
         {
+            User user = _userRepository.GetByEmail(request.Email);
 
-            if (user.Email != request.Email)
+            if (user == null)
             {
                 return BadRequest("User not found.");
             }
@@ -85,7 +86,7 @@ namespace howMoney.Controllers
 
             string token = CreateToken(user);
             return Ok(token);
-        }*/
+        }
 
         private string CreateToken(User user)
         {
@@ -121,13 +122,14 @@ namespace howMoney.Controllers
             }
         }
 
-    /*    private bool VerifyPasswordHash(string password, string passwordHash, string passwordSalt)
+        private bool VerifyPasswordHash(string password, string passwordHash, string passwordSalt)
         {
-            using (var hmac = new HMACSHA512(passwordSalt))
+            using (var hmac = new HMACSHA512(Convert.FromBase64String(passwordSalt)))
             {
                 var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                return computedHash.SequenceEqual(passwordHash);
+                var hash = System.Text.Encoding.UTF8.GetBytes(passwordHash);
+                return computedHash.SequenceEqual(Convert.FromBase64String(passwordHash));
             }
-        }*/
+        }
     }
 }

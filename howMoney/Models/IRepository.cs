@@ -14,6 +14,8 @@ namespace howMoney.Models
 
         public T GetById(Guid Id, Guid? Id2 = null);
 
+        public T GetByEmail(string emial);
+
         public void Delete(Guid id, Guid? Id2 = null);
     }
 }
