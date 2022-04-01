@@ -22,10 +22,6 @@ namespace howMoney.Controllers
             _userRepository = userRepository;
         }
 
-        public UserController()
-        {
-        }
-
         [HttpGet]
         public IEnumerable<User> Get() => _userRepository.GetAll();
 

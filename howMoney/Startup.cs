@@ -17,6 +17,8 @@ using howMoney.Models;
 using howMoney.Controllers;
 using howMoney.Services;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace howMoney
 {
@@ -34,6 +36,18 @@ namespace howMoney
         {
             services.AddDbContextPool<AppDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DB_CONNECTION")));
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8
+                        .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
             services.AddTransient<IRepository<Asset>, AssetRepository>();
             services.AddTransient<IRepository<User>, UserRepository>();
             services.AddTransient<IRepository<UserAsset>, UserAssetRepository>();
@@ -60,12 +74,20 @@ namespace howMoney
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+            using (var scope =
+                app.ApplicationServices.CreateScope())
+
+            using (var context = scope.ServiceProvider.GetService<AppDbContext>())
+                context.Database.EnsureCreated();
         }
     }
 }

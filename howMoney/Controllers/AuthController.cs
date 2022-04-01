@@ -32,13 +32,9 @@ namespace howMoney.Controllers
         [HttpGet, Authorize]
         public ActionResult<string> GetMe()
         {
-            var email = _userService.GetMyEmail();
-            return Ok(email);
-
-            //var userName = User?.Identity?.Name;
-            //var userName2 = User.FindFirstValue(ClaimTypes.Name);
-            //var role = User.FindFirstValue(ClaimTypes.Role);
-            //return Ok(new { userName, userName2, role });
+            var userName2 = User.FindFirstValue(ClaimTypes.Email);
+            var role = User.FindFirstValue(ClaimTypes.Role);
+            return Ok(new { userName2, role });
         }
 
 
@@ -94,7 +90,7 @@ namespace howMoney.Controllers
             {
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, "Admin")
-            };
+            }; 
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
                 _configuration.GetSection("AppSettings:Token").Value));
