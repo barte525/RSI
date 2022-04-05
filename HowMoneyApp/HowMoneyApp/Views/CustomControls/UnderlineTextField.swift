@@ -16,7 +16,7 @@ struct UnderlineTextField: View {
             TextField(textFieldTitle, text: $textField)
                 .foregroundColor(.white)
                 .padding([.trailing, .leading], 30)
-                .padding(.top, 40)
+                .padding(.top, 20)
             Divider()
              .frame(height: 1)
              .background(Color.white)

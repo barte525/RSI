@@ -10,6 +10,7 @@
 		7A0267C727FC9C9D009BBCEE /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0267C627FC9C9D009BBCEE /* LogInView.swift */; };
 		7A78425A27FCE07E00F3D05C /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A78425927FCE07E00F3D05C /* UnderlineTextField.swift */; };
 		7A78425C27FCE2F300F3D05C /* ButtonText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A78425B27FCE2F300F3D05C /* ButtonText.swift */; };
+		7A78425E27FCE57100F3D05C /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A78425D27FCE57100F3D05C /* RegisterView.swift */; };
 		7AB0367A27F5066400599837 /* HowMoneyAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB0367927F5066400599837 /* HowMoneyAppApp.swift */; };
 		7AB0367C27F5066400599837 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB0367B27F5066400599837 /* ContentView.swift */; };
 		7AB0367E27F5066600599837 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AB0367D27F5066600599837 /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 		7A0267C627FC9C9D009BBCEE /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LogInView.swift; path = HowMoneyApp/LogInView.swift; sourceTree = SOURCE_ROOT; };
 		7A78425927FCE07E00F3D05C /* UnderlineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
 		7A78425B27FCE2F300F3D05C /* ButtonText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonText.swift; sourceTree = "<group>"; };
+		7A78425D27FCE57100F3D05C /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		7AB0367627F5066400599837 /* HowMoneyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HowMoneyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB0367927F5066400599837 /* HowMoneyAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowMoneyAppApp.swift; sourceTree = "<group>"; };
 		7AB0367B27F5066400599837 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -77,12 +79,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A78425F27FCE88300F3D05C /* CustomControls */ = {
+			isa = PBXGroup;
+			children = (
+				7A78425927FCE07E00F3D05C /* UnderlineTextField.swift */,
+				7A78425B27FCE2F300F3D05C /* ButtonText.swift */,
+			);
+			path = CustomControls;
+			sourceTree = "<group>";
+		};
 		7A89872127FC593200CBF696 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7A78425F27FCE88300F3D05C /* CustomControls */,
 				7A0267C627FC9C9D009BBCEE /* LogInView.swift */,
-				7A78425927FCE07E00F3D05C /* UnderlineTextField.swift */,
-				7A78425B27FCE2F300F3D05C /* ButtonText.swift */,
+				7A78425D27FCE57100F3D05C /* RegisterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -293,6 +304,7 @@
 				7A0267C727FC9C9D009BBCEE /* LogInView.swift in Sources */,
 				7A78425C27FCE2F300F3D05C /* ButtonText.swift in Sources */,
 				7AB0367C27F5066400599837 /* ContentView.swift in Sources */,
+				7A78425E27FCE57100F3D05C /* RegisterView.swift in Sources */,
 				7A78425A27FCE07E00F3D05C /* UnderlineTextField.swift in Sources */,
 				7AB0367A27F5066400599837 /* HowMoneyAppApp.swift in Sources */,
 			);

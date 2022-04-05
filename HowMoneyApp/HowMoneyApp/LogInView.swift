@@ -18,41 +18,41 @@ struct LogInView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(height: 250)
                 .scaledToFit()
-                VStack {
-                    Text("Login Account")
-                        .foregroundColor(Color.white)
-                        .fontWeight(.bold)
-                        .font(.title2)
-                        .padding(.top, 40)
-                        .frame(minWidth: 150, maxWidth: .infinity)
-                    UnderlineTextField(textFieldTitle: "Email", textField: $emailTextfield)
-                    UnderlineTextField(textFieldTitle: "Password", textField: $passwordTextfield)
-                    HStack {
-                        Spacer()
-                        Button {
-                            //TODO: Navgate to forgot password view
-                        } label: {
-                            Text("Forgot password?")
-                                .foregroundColor(.white)
-                                .font(.caption)
-                                .fontWeight(.semibold)
-                        }
-                    }.padding([.leading, .trailing], 30)
-
+            VStack {
+                Text("Login Account")
+                    .foregroundColor(Color.white)
+                    .fontWeight(.bold)
+                    .font(.title2)
+                    .padding(.top, 40)
+                    .frame(minWidth: 150, maxWidth: .infinity)
+                UnderlineTextField(textFieldTitle: "Email", textField: $emailTextfield)
+                UnderlineTextField(textFieldTitle: "Password", textField: $passwordTextfield)
+                HStack {
                     Spacer()
                     Button {
-                        //TODO: signIn()
-                        //1. Correct email and password - navigate to home tab
-                        //2. Incorrect fields - show alert
+                        //TODO: Navgate to forgot password view
                     } label: {
-                        ButtonText(text: "Sign In")
+                        Text("Forgot password?")
+                            .foregroundColor(.white)
+                            .font(.caption)
+                            .fontWeight(.semibold)
                     }
-                    Spacer()
+                }.padding([.leading, .trailing], 30)
+                
+                Spacer()
+                Button {
+                    //TODO: signIn()
+                    //1. Correct email and password - navigate to home tab
+                    //2. Incorrect fields - show alert
+                } label: {
+                    ButtonText(text: "Sign In")
                 }
-                .background(Color("Lavenda"))
-                .cornerRadius(30)
-                .padding([.trailing, .leading], 40)
-                .padding(.bottom, 2)
+                Spacer()
+            }
+            .background(Color("Lavenda"))
+            .cornerRadius(30)
+            .padding([.trailing, .leading], 40)
+            .padding(.bottom, 2)
             HStack {
                 Text("Don't have an account? ")
                     .foregroundColor(.black)
