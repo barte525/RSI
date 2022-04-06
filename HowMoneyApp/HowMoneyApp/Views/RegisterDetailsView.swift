@@ -13,6 +13,7 @@ struct RegisterDetailsView: View {
     @Binding var repeatedPasswordTextField: String
     @State var nameTextField: String = ""
     @State var surnameTextField: String = ""
+    @State var chosenCurrencyPreference: String = "EUR"
     
     var body: some View {
         ZStack {
@@ -23,6 +24,20 @@ struct RegisterDetailsView: View {
                 UnderlineTextField(textFieldTitle: "Repeated password", textField: $repeatedPasswordTextField)
                 UnderlineTextField(textFieldTitle: "Name", textField: $nameTextField)
                 UnderlineTextField(textFieldTitle: "Surname", textField: $surnameTextField)
+                VStack {
+                    Text("Total sum currency preference")
+                        .foregroundColor(Color.white)
+                    Picker("fasfasf", selection: $chosenCurrencyPreference) {
+                        ForEach(K.preferenceCurrencies, id: \.self) {
+                            Text($0)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .background(Color("PickerBackground"))
+                    .cornerRadius(10)
+                    .padding([.leading, .trailing], 20)
+                }
+                .padding(.top, 15)
                 Spacer()
                 Button {
                     //TODO: register()

@@ -19,6 +19,7 @@
 		7AB0369527F5066700599837 /* HowMoneyAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB0369427F5066700599837 /* HowMoneyAppUITests.swift */; };
 		7AB0369727F5066700599837 /* HowMoneyAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB0369627F5066700599837 /* HowMoneyAppUITestsLaunchTests.swift */; };
 		7AE2B2ED27FDFB1500898A1B /* RegisterDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE2B2EC27FDFB1500898A1B /* RegisterDetailsView.swift */; };
+		7AE2B2EF27FE05A200898A1B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE2B2EE27FE05A200898A1B /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		7AB0369427F5066700599837 /* HowMoneyAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowMoneyAppUITests.swift; sourceTree = "<group>"; };
 		7AB0369627F5066700599837 /* HowMoneyAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowMoneyAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		7AE2B2EC27FDFB1500898A1B /* RegisterDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterDetailsView.swift; sourceTree = "<group>"; };
+		7AE2B2EE27FE05A200898A1B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,7 @@
 				7AB0367B27F5066400599837 /* ContentView.swift */,
 				7AB0367D27F5066600599837 /* Assets.xcassets */,
 				7AB0367F27F5066600599837 /* Preview Content */,
+				7AE2B2EE27FE05A200898A1B /* Constants.swift */,
 			);
 			path = HowMoneyApp;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				7A78425E27FCE57100F3D05C /* RegisterView.swift in Sources */,
 				7A78425A27FCE07E00F3D05C /* UnderlineTextField.swift in Sources */,
 				7AB0367A27F5066400599837 /* HowMoneyAppApp.swift in Sources */,
+				7AE2B2EF27FE05A200898A1B /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
