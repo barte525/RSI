@@ -8,9 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("neverLogged") var neverLogged = true
+    
+    init() {
+            UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+        }
+    
     var body: some View {
-//        LogInView()
-        RegisterView()
+        NavigationView {
+            if neverLogged {
+                RegisterView()
+            } else {
+                LogInView()
+            }
+            
+        }
     }
 }
 

@@ -18,6 +18,7 @@
 		7AB0368B27F5066700599837 /* HowMoneyAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB0368A27F5066700599837 /* HowMoneyAppTests.swift */; };
 		7AB0369527F5066700599837 /* HowMoneyAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB0369427F5066700599837 /* HowMoneyAppUITests.swift */; };
 		7AB0369727F5066700599837 /* HowMoneyAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB0369627F5066700599837 /* HowMoneyAppUITestsLaunchTests.swift */; };
+		7AE2B2ED27FDFB1500898A1B /* RegisterDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE2B2EC27FDFB1500898A1B /* RegisterDetailsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		7AB0369027F5066700599837 /* HowMoneyAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HowMoneyAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB0369427F5066700599837 /* HowMoneyAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowMoneyAppUITests.swift; sourceTree = "<group>"; };
 		7AB0369627F5066700599837 /* HowMoneyAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowMoneyAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		7AE2B2EC27FDFB1500898A1B /* RegisterDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterDetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				7A78425F27FCE88300F3D05C /* CustomControls */,
 				7A0267C627FC9C9D009BBCEE /* LogInView.swift */,
 				7A78425D27FCE57100F3D05C /* RegisterView.swift */,
+				7AE2B2EC27FDFB1500898A1B /* RegisterDetailsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A0267C727FC9C9D009BBCEE /* LogInView.swift in Sources */,
+				7AE2B2ED27FDFB1500898A1B /* RegisterDetailsView.swift in Sources */,
 				7A78425C27FCE2F300F3D05C /* ButtonText.swift in Sources */,
 				7AB0367C27F5066400599837 /* ContentView.swift in Sources */,
 				7A78425E27FCE57100F3D05C /* RegisterView.swift in Sources */,

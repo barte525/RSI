@@ -11,6 +11,7 @@ struct RegisterView: View {
     @State var emailTextField: String = ""
     @State var passwordTextField: String = ""
     @State var repeatedPasswordTextField: String = ""
+    @State private var isShowingRegisterDetails: Bool = false
     
     var body: some View {
         VStack {
@@ -33,9 +34,21 @@ struct RegisterView: View {
                 Button {
                     //TODO: register()
                     //1. Passwords are the same - go to next register view
+                    isShowingRegisterDetails.toggle()
                     //2. Incorrect passwords - Show alert
                 } label: {
                     ButtonText(text: "Register")
+                }
+                .sheet(isPresented: $isShowingRegisterDetails) {
+                    NavigationView {
+                        VStack {
+                            RegisterDetailsView(emailTextField: $emailTextField, passwordTextField: $passwordTextField, repeatedPasswordTextField: $repeatedPasswordTextField)
+                        }
+                        .navigationTitle("Create account")
+                        .navigationBarItems(leading: Button("Cancel") {
+                            isShowingRegisterDetails.toggle()
+                        })
+                    }
                 }
                 Spacer()
             }
@@ -46,8 +59,10 @@ struct RegisterView: View {
             HStack {
                 Text("Already have an account? ")
                     .foregroundColor(.black)
-                Button {
+                NavigationLink {
                     //TODO: Navigate to LogIn Account View
+                    LogInView()
+                    
                 } label: {
                     Text("Sign In")
                         .foregroundColor(Color("DarkPurple"))
@@ -58,6 +73,9 @@ struct RegisterView: View {
             .padding(.bottom, 30)
         }
         .background(Color("Background"))
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
     }
 }
 

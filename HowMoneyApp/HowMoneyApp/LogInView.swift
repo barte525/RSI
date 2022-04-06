@@ -56,8 +56,9 @@ struct LogInView: View {
             HStack {
                 Text("Don't have an account? ")
                     .foregroundColor(.black)
-                Button {
+                NavigationLink {
                     //TODO: Navigate to Register Account View
+                    RegisterView()
                 } label: {
                     Text("Create account")
                         .foregroundColor(Color("DarkPurple"))
@@ -68,6 +69,9 @@ struct LogInView: View {
             .padding(.bottom, 30)
         }
         .background(Color("Background"))
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
     }
 }
 
