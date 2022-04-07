@@ -4,3 +4,5 @@
 **/howmoney-volume
 **/venv
 crypto/data
+**/.idea
+**/__pycache__
