@@ -2,3 +2,7 @@
 **/bin
 **/.DS_Store
 **/howmoney-volume
+**/venv
+crypto/data
+**/.idea
+**/__pycache__
