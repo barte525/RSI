@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RegisterDetailsView: View {
+    @Binding var isShowingRegisterDetails: Bool
     @Binding var emailTextField: String
     @Binding var passwordTextField: String
     @Binding var repeatedPasswordTextField: String
@@ -40,9 +41,10 @@ struct RegisterDetailsView: View {
                 .padding(.top, 15)
                 Spacer()
                 Button {
+                    isShowingRegisterDetails.toggle()
                     //TODO: register()
-                    //1. Passwords are the same - go to next register view
-                    //2. Incorrect passwords - Show alert
+                    //1. Fields are correct - navigate to home view
+                    //2. Incorrect fields - Show alert
                 } label: {
                     ButtonText(text: "Register")
                 }
@@ -59,6 +61,6 @@ struct RegisterDetailsView: View {
 
 struct RegisterDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterDetailsView(emailTextField: .constant("john.smith@gmail.com"), passwordTextField: .constant("p@ssw0rd"), repeatedPasswordTextField: .constant("p@ssw0rd"))
+        RegisterDetailsView(isShowingRegisterDetails: .constant(true), emailTextField: .constant("john.smith@gmail.com"), passwordTextField: .constant("p@ssw0rd"), repeatedPasswordTextField: .constant("p@ssw0rd"))
     }
 }

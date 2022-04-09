@@ -12,9 +12,14 @@ struct RegisterView: View {
     @State var passwordTextField: String = ""
     @State var repeatedPasswordTextField: String = ""
     @State private var isShowingRegisterDetails: Bool = false
+    @State private var isRegistered: Bool = false
     
     var body: some View {
         VStack {
+            NavigationLink(destination: Tab(), isActive: $isRegistered) {
+                EmptyView()
+            }.hidden()
+            
             Image("logo")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
@@ -39,10 +44,10 @@ struct RegisterView: View {
                 } label: {
                     ButtonText(text: "Register")
                 }
-                .sheet(isPresented: $isShowingRegisterDetails) {
+                .sheet(isPresented: $isShowingRegisterDetails, onDismiss: { isRegistered.toggle() }) {
                     NavigationView {
                         VStack {
-                            RegisterDetailsView(emailTextField: $emailTextField, passwordTextField: $passwordTextField, repeatedPasswordTextField: $repeatedPasswordTextField)
+                            RegisterDetailsView(isShowingRegisterDetails: $isShowingRegisterDetails, emailTextField: $emailTextField, passwordTextField: $passwordTextField, repeatedPasswordTextField: $repeatedPasswordTextField)
                         }
                         .navigationTitle("Create account")
                         .navigationBarItems(leading: Button("Cancel") {

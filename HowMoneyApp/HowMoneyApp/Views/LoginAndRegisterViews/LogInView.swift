@@ -40,9 +40,10 @@ struct LogInView: View {
                 }.padding([.leading, .trailing], 30)
                 
                 Spacer()
-                Button {
+                NavigationLink {
                     //TODO: signIn()
                     //1. Correct email and password - navigate to home tab
+                    Tab()
                     //2. Incorrect fields - show alert
                 } label: {
                     ButtonText(text: "Sign In")
