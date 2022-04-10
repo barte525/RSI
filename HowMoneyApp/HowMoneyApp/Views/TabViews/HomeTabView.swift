@@ -12,6 +12,7 @@ struct HomeTabView: View {
         VStack {
             Text("Home")
         }
+        .background(Color("Background"))
         
     }
 }

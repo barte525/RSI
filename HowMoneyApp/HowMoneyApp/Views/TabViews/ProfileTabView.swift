@@ -12,6 +12,7 @@ struct ProfileTabView: View {
         VStack {
             Text("Profile")     
         }
+        .background(Color("Background"))
     }
 }
 
