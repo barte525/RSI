@@ -14,18 +14,26 @@ struct AssetsTabView: View {
     
     var body: some View {
         VStack {
-//            TextField("Search", text: $searchText)
-//                .background(Color("SecondaryBackground"))
-//                .cornerRadius(10)
+            VStack {
+                TextField("Search", text: $searchText)
+                    .padding(7)
+                    .background(Color("ControlBackground"))
+                    .cornerRadius(10)
+                    .frame(height: 55)
+            }.padding([.leading, .trailing], 15)
+            
             if userAssets.count > 0 {
-                List(UserAsset.mock) { asset in
-                    HStack {
-                        Text(asset.assetName)
-                        Spacer()
-                        Text("\(asset.assetAmount)")
+                VStack {
+                    List(UserAsset.mock.filter{ searchText.isEmpty || $0.assetName.lowercased().contains(searchText.lowercased())}) { asset in
+                        HStack {
+                            Text(asset.assetName)
+                            Spacer()
+                            Text("\(asset.assetAmount)")
+                        }
+                        .padding([.leading, .trailing], 10)
                     }
-                    .padding([.leading, .trailing], 10)
                 }
+                .padding(.top, -15)
             } else {
                 VStack {
                     Image("logo")
