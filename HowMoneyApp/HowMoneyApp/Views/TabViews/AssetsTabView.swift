@@ -11,6 +11,8 @@ struct AssetsTabView: View {
     
     @State var searchText: String = ""
     @State var userAssets: [UserAsset] = UserAsset.mock
+    @State var isShowingAlert: Bool = false
+    var assetToDelete: IndexSet? = nil
     
     var body: some View {
         VStack {
@@ -31,7 +33,7 @@ struct AssetsTabView: View {
                             Text("\(asset.assetAmount)")
                         }
                         .padding([.leading, .trailing], 10)
-                    }.onDelete(perform: deleteAsset) //TODO: Delete item
+                    }.onDelete(perform: deleteAsset)
                 }
                 .padding(.top, -15)
             } else {
@@ -51,10 +53,18 @@ struct AssetsTabView: View {
             }
         }
         .background(Color("Background"))
+        .alert(isPresented: $isShowingAlert) {
+            Alert(title: Text("Delete asset"),
+                  message: Text("Are you sure you want to permanently delete chosen asset?"), primaryButton: .cancel(), secondaryButton: .destructive(Text("OK")) {
+                //TODO: - Delete asset using view model
+                print("Deleting...")
+            } )
+        }
     }
     
     func deleteAsset(indexSet: IndexSet) {
-        //TODO: Delete asset using view model
+        isShowingAlert.toggle()
+        //TODO: Pass to view model index set to delete asset
     }
 }
 
