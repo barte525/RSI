@@ -23,15 +23,15 @@ struct AssetsTabView: View {
             }.padding([.leading, .trailing], 15)
             
             if userAssets.count > 0 {
-                VStack {
-                    List(UserAsset.mock.filter{ searchText.isEmpty || $0.assetName.lowercased().contains(searchText.lowercased())}) { asset in
+                List {
+                    ForEach(UserAsset.mock.filter{ searchText.isEmpty || $0.assetName.lowercased().contains(searchText.lowercased())}) { asset in
                         HStack {
                             Text(asset.assetName)
                             Spacer()
                             Text("\(asset.assetAmount)")
                         }
                         .padding([.leading, .trailing], 10)
-                    }
+                    }.onDelete(perform: deleteAsset) //TODO: Delete item
                 }
                 .padding(.top, -15)
             } else {
@@ -51,6 +51,10 @@ struct AssetsTabView: View {
             }
         }
         .background(Color("Background"))
+    }
+    
+    func deleteAsset(indexSet: IndexSet) {
+        //TODO: Delete asset using view model
     }
 }
 
