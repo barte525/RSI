@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7A0267C727FC9C9D009BBCEE /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0267C627FC9C9D009BBCEE /* LogInView.swift */; };
+		7A48DCF42805C56200304750 /* NewAssetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A48DCF32805C56200304750 /* NewAssetView.swift */; };
+		7A48DCF72805C6F900304750 /* TabBarSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A48DCF62805C6F900304750 /* TabBarSelection.swift */; };
 		7A78425A27FCE07E00F3D05C /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A78425927FCE07E00F3D05C /* UnderlineTextField.swift */; };
 		7A78425C27FCE2F300F3D05C /* ButtonText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A78425B27FCE2F300F3D05C /* ButtonText.swift */; };
 		7A78425E27FCE57100F3D05C /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A78425D27FCE57100F3D05C /* RegisterView.swift */; };
@@ -47,6 +49,8 @@
 
 /* Begin PBXFileReference section */
 		7A0267C627FC9C9D009BBCEE /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LogInView.swift; path = HowMoneyApp/Views/LoginAndRegisterViews/LogInView.swift; sourceTree = SOURCE_ROOT; };
+		7A48DCF32805C56200304750 /* NewAssetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAssetView.swift; sourceTree = "<group>"; };
+		7A48DCF62805C6F900304750 /* TabBarSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarSelection.swift; sourceTree = "<group>"; };
 		7A78425927FCE07E00F3D05C /* UnderlineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
 		7A78425B27FCE2F300F3D05C /* ButtonText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonText.swift; sourceTree = "<group>"; };
 		7A78425D27FCE57100F3D05C /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
@@ -95,6 +99,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A48DCF22805C54100304750 /* AddingAssetsViews */ = {
+			isa = PBXGroup;
+			children = (
+				7A48DCF32805C56200304750 /* NewAssetView.swift */,
+			);
+			path = AddingAssetsViews;
+			sourceTree = "<group>";
+		};
+		7A48DCF52805C6E200304750 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				7A48DCF62805C6F900304750 /* TabBarSelection.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		7A78425F27FCE88300F3D05C /* CustomControls */ = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +127,7 @@
 		7A89872127FC593200CBF696 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7A48DCF22805C54100304750 /* AddingAssetsViews */,
 				7AC8ABB928022E6F004E5132 /* LoginAndRegisterViews */,
 				7A78425F27FCE88300F3D05C /* CustomControls */,
 				7AC8ABB828022E56004E5132 /* TabViews */,
@@ -153,6 +174,7 @@
 		7AB0367827F5066400599837 /* HowMoneyApp */ = {
 			isa = PBXGroup;
 			children = (
+				7A48DCF52805C6E200304750 /* Utils */,
 				7A89872327FC593D00CBF696 /* ViewModels */,
 				7A89872227FC593800CBF696 /* Models */,
 				7A89872127FC593200CBF696 /* Views */,
@@ -343,12 +365,14 @@
 			files = (
 				7A0267C727FC9C9D009BBCEE /* LogInView.swift in Sources */,
 				7AE2B2ED27FDFB1500898A1B /* RegisterDetailsView.swift in Sources */,
+				7A48DCF72805C6F900304750 /* TabBarSelection.swift in Sources */,
 				7A78425C27FCE2F300F3D05C /* ButtonText.swift in Sources */,
 				7AB0367C27F5066400599837 /* ContentView.swift in Sources */,
 				7A78425E27FCE57100F3D05C /* RegisterView.swift in Sources */,
 				7A8560B1280312A20016CEF8 /* UserAsset+Mock.swift in Sources */,
 				7A78425A27FCE07E00F3D05C /* UnderlineTextField.swift in Sources */,
 				7AB0367A27F5066400599837 /* HowMoneyAppApp.swift in Sources */,
+				7A48DCF42805C56200304750 /* NewAssetView.swift in Sources */,
 				7AC8ABB328022E2F004E5132 /* HomeTabView.swift in Sources */,
 				7A8560AF280312480016CEF8 /* UserAsset.swift in Sources */,
 				7AC8ABB128022E16004E5132 /* TabView.swift in Sources */,

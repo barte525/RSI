@@ -13,21 +13,21 @@ struct Tab: View {
     var body: some View {
         TabView(selection: $selection) {
             HomeTabView()
-                .tag("Home")
+                .tag(TabBarSelection.home.rawValue)
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("Home")
                 }
             
             AssetsTabView()
-                .tag("Your assets")
+                .tag(TabBarSelection.assets.rawValue)
                 .tabItem {
                     Image(systemName: "dollarsign.circle.fill")
                     Text("Assets")
                 }
             
             ProfileTabView()
-                .tag("Profile")
+                .tag(TabBarSelection.profile.rawValue)
                 .tabItem {
                     Image(systemName: "person.fill")
                     Text("Profile")
@@ -40,7 +40,16 @@ struct Tab: View {
         .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarItems(trailing:
                                 NavigationLink {
-
+            switch selection {
+            case TabBarSelection.home.rawValue:
+                EmptyView()
+            case TabBarSelection.assets.rawValue:
+                NewAssetView()
+            case TabBarSelection.profile.rawValue:
+                EmptyView()
+            default:
+                EmptyView()
+            }
         } label: {
             Image(systemName: K.tabBarsTrailingItemsName[selection]!)
         }

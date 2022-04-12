@@ -10,4 +10,5 @@ import Foundation
 struct K {
     static let preferenceCurrencies = ["PLN", "EUR", "USD"]
     static let tabBarsTrailingItemsName = ["Home": "bell.fill", "Your assets": "plus", "Profile": "square.and.pencil"]
+    static let assetTypes = ["Currency", "Crypto", "Metal"]
 }
