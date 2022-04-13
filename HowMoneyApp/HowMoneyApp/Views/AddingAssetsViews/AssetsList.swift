@@ -11,12 +11,26 @@ struct AssetsList: View {
     @Binding var isShowingAssetChoice: Bool
     @Binding var chosenAsset: String
     @State var searchText: String = ""
+    @State var assetsByType: [String: [Asset]] = [:]
     
     var body: some View {
         NavigationView {
             VStack {
                 List {
-                    
+                    ForEach(Array(assetsByType.keys), id: \.self) {
+                        assetType in
+                        if let assets = assetsByType[assetType] {
+                            Section(header: Text(assetType)) {
+                                ForEach(assets.filter { searchText.isEmpty || $0.name.lowercased().contains(searchText.lowercased())}, id: \.self) { asset in
+                                    Text(asset.name)
+                                }
+                            }
+                        }
+                    }
+                }
+                .task {
+                    let assets = Asset.mock //TODO: Fetch data from API
+                    assetsByType = .init(grouping: assets, by: { $0.type })
                 }
                 .navigationTitle("Assets")
                 .navigationBarItems(leading:
