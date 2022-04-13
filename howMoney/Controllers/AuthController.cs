@@ -32,6 +32,8 @@ namespace howMoney.Controllers
         [HttpGet, Authorize]
         public ActionResult<string> GetMe()
         {
+/*            var email = _userService.GetMyEmail();
+            return Ok(email);*/
             var userName2 = User.FindFirstValue(ClaimTypes.Email);
             var role = User.FindFirstValue(ClaimTypes.Role);
             return Ok(new { userName2, role });
