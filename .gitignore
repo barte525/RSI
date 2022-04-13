@@ -6,3 +6,4 @@
 crypto/data
 **/.idea
 **/__pycache__
+**/.env
