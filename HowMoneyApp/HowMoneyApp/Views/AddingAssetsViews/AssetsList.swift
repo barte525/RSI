@@ -22,7 +22,13 @@ struct AssetsList: View {
                         if let assets = assetsByType[assetType] {
                             Section(header: Text(assetType)) {
                                 ForEach(assets.filter { searchText.isEmpty || $0.name.lowercased().contains(searchText.lowercased())}, id: \.self) { asset in
-                                    Text(asset.name)
+                                    Button {
+                                        chosenAsset = asset.name
+                                        isShowingAssetChoice.toggle()
+                                    } label: {
+                                        Text(asset.name)
+                                            .foregroundColor(Color.primary)
+                                    }
                                 }
                             }
                         }

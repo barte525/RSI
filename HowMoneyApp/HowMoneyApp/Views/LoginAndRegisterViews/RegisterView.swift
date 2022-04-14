@@ -63,14 +63,15 @@ struct RegisterView: View {
             .padding(.bottom, 2)
             HStack {
                 Text("Already have an account? ")
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
+                    .opacity(0.7)
                 NavigationLink {
                     //TODO: Navigate to LogIn Account View
                     LogInView()
                     
                 } label: {
                     Text("Sign In")
-                        .foregroundColor(Color("DarkPurple"))
+                        .foregroundColor(.primary)
                         .fontWeight(.semibold)
                 }
             }

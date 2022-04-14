@@ -15,7 +15,7 @@ struct ButtonText: View {
             .frame(minWidth: 150, maxWidth: .infinity, minHeight: 55)
             .foregroundColor(Color("DarkPurple"))
             .font(.system(size: 18, weight: .semibold))
-            .background(Color("Background"))
+            .background(Color.white)
             .cornerRadius(30)
             .padding([.leading, .trailing], 30)
     }

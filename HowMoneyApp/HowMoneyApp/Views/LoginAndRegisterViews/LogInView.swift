@@ -30,7 +30,7 @@ struct LogInView: View {
                 HStack {
                     Spacer()
                     Button {
-                        //TODO: Navgate to forgot password view
+                        //TODO: Navigate to forgot password view
                     } label: {
                         Text("Forgot password?")
                             .foregroundColor(.white)
@@ -56,13 +56,14 @@ struct LogInView: View {
             .padding(.bottom, 2)
             HStack {
                 Text("Don't have an account? ")
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
+                    .opacity(0.7)
                 NavigationLink {
                     //TODO: Navigate to Register Account View
                     RegisterView()
                 } label: {
                     Text("Create account")
-                        .foregroundColor(Color("DarkPurple"))
+                        .foregroundColor(.primary)
                         .fontWeight(.semibold)
                 }
             }

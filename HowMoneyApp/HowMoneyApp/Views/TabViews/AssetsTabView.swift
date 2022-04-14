@@ -18,10 +18,10 @@ struct AssetsTabView: View {
         VStack {
             VStack {
                 TextField("Search", text: $searchText)
-                    .padding(7)
+                    .padding(10)
                     .background(Color("ControlBackground"))
                     .cornerRadius(10)
-                    .frame(height: 55)
+                    .frame(height: 60)
             }.padding([.leading, .trailing], 15)
             
             if userAssets.count > 0 {

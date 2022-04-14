@@ -11,7 +11,7 @@ struct ContentView: View {
     @AppStorage("neverLogged") var neverLogged = true
     
     init() {
-            UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+//            UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.black]
         }
     
     var body: some View {

@@ -13,7 +13,6 @@ struct HomeTabView: View {
             Text("Home")
         }
         .background(Color("Background"))
-        
     }
 }
 

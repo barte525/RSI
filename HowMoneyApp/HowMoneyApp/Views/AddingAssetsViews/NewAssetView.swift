@@ -20,12 +20,14 @@ struct NewAssetView: View {
                 } label: {
                     HStack {
                         Text("Asset")
+                            .foregroundColor(Color.primary)
                         Spacer()
                         Text(chosenAsset)
+                            .foregroundColor(Color.secondary)
                         Image(systemName: "chevron.right")
                     }
                     .padding([.leading, .trailing], 10)
-                    .foregroundColor(Color.black)
+                    .foregroundColor(Color.primary)
                 }
                 
                 TextField(text: $amountTextField, prompt: Text("Amount")) {
@@ -50,7 +52,6 @@ struct NewAssetView: View {
             }
             Spacer()
         }
-        .background(Color("Background"))
         .navigationTitle("New Asset")
         .sheet(isPresented: $isShowingAssetChoice, onDismiss: {  }) {
             AssetsList(isShowingAssetChoice: $isShowingAssetChoice, chosenAsset: $chosenAsset)
