@@ -12,15 +12,24 @@ struct PasswordChangeView: View {
     @Binding var isShown: Bool
     @State var newPasswordTextField: String = ""
     @State var repeatedNewPasswordTextField: String = ""
+    @State var isEnabledTouchID: Bool = false
     
     var body: some View {
         NavigationView {
             Form {
-                TextField("Password", text: $newPasswordTextField)
-                TextField("Verify", text: $repeatedNewPasswordTextField)
+                Section(header: Text("Password")) {
+                    TextField("Password", text: $newPasswordTextField)
+                    TextField("Verify", text: $repeatedNewPasswordTextField)
+                }
+                
+                Section(header: Text("App Lock")) {
+                    Toggle(isOn: $isEnabledTouchID) {
+                        Text("Use Touch ID")
+                    }
+                }
             }
             .padding(.top, 10)
-            .background(Color("Background"))
+            .background(Color("ControlBackground"))
             .navigationTitle("Change password")
             .navigationBarItems(leading: Button("Cancel") {
                 isShown.toggle()

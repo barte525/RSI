@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NewAssetView: View {
+    @Environment(\.presentationMode) var presentationMode
     @State var chosenAsset: String = ""
     @State var amountTextField: String = ""
     @State var isShowingAssetChoice: Bool = false
@@ -40,6 +41,7 @@ struct NewAssetView: View {
             
             Button {
                 //TODO: Add new asset
+                self.presentationMode.wrappedValue.dismiss()
             } label: {
                 Text("Add")
                     .frame(minWidth: 150, maxWidth: .infinity)

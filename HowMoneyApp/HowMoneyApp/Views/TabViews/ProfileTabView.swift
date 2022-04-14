@@ -24,6 +24,7 @@ struct ProfileTabView: View {
                     Text("Surname")
                     Text("Email")
                 }
+                .foregroundColor(Color.secondary)
                 
                 Section(header: Text("Preferences")) {
                     Picker("Currency", selection: $currencyPreferenceSelection) {
