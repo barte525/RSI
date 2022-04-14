@@ -16,6 +16,8 @@
 		7A78425E27FCE57100F3D05C /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A78425D27FCE57100F3D05C /* RegisterView.swift */; };
 		7A8560AF280312480016CEF8 /* UserAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8560AE280312480016CEF8 /* UserAsset.swift */; };
 		7A8560B1280312A20016CEF8 /* UserAsset+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8560B0280312A20016CEF8 /* UserAsset+Mock.swift */; };
+		7A8E7C1D2808C79A009C477F /* PasswordChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E7C1C2808C79A009C477F /* PasswordChangeView.swift */; };
+		7A8E7C1F2808CB23009C477F /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E7C1E2808CB23009C477F /* EditProfileView.swift */; };
 		7AB0367A27F5066400599837 /* HowMoneyAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB0367927F5066400599837 /* HowMoneyAppApp.swift */; };
 		7AB0367C27F5066400599837 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB0367B27F5066400599837 /* ContentView.swift */; };
 		7AB0367E27F5066600599837 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AB0367D27F5066600599837 /* Assets.xcassets */; };
@@ -61,6 +63,8 @@
 		7A78425D27FCE57100F3D05C /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		7A8560AE280312480016CEF8 /* UserAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAsset.swift; sourceTree = "<group>"; };
 		7A8560B0280312A20016CEF8 /* UserAsset+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserAsset+Mock.swift"; sourceTree = "<group>"; };
+		7A8E7C1C2808C79A009C477F /* PasswordChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChangeView.swift; sourceTree = "<group>"; };
+		7A8E7C1E2808CB23009C477F /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		7AB0367627F5066400599837 /* HowMoneyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HowMoneyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB0367927F5066400599837 /* HowMoneyAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowMoneyAppApp.swift; sourceTree = "<group>"; };
 		7AB0367B27F5066400599837 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -136,6 +140,7 @@
 		7A89872127FC593200CBF696 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7A8E7C1B2808C76B009C477F /* ProfileEditingViews */,
 				7A48DCF22805C54100304750 /* AddingAssetsViews */,
 				7AC8ABB928022E6F004E5132 /* LoginAndRegisterViews */,
 				7A78425F27FCE88300F3D05C /* CustomControls */,
@@ -161,6 +166,15 @@
 			children = (
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		7A8E7C1B2808C76B009C477F /* ProfileEditingViews */ = {
+			isa = PBXGroup;
+			children = (
+				7A8E7C1C2808C79A009C477F /* PasswordChangeView.swift */,
+				7A8E7C1E2808CB23009C477F /* EditProfileView.swift */,
+			);
+			path = ProfileEditingViews;
 			sourceTree = "<group>";
 		};
 		7AB0366D27F5066300599837 = {
@@ -389,12 +403,14 @@
 				7A48DCF92805D17100304750 /* AssetsList.swift in Sources */,
 				7A48DCF42805C56200304750 /* NewAssetView.swift in Sources */,
 				7AC8ABB328022E2F004E5132 /* HomeTabView.swift in Sources */,
+				7A8E7C1F2808CB23009C477F /* EditProfileView.swift in Sources */,
 				7A8560AF280312480016CEF8 /* UserAsset.swift in Sources */,
 				7AC8ABB128022E16004E5132 /* TabView.swift in Sources */,
 				7AC8ABB528022E40004E5132 /* AssetsTabView.swift in Sources */,
 				7AC8ABB728022E4C004E5132 /* ProfileTabView.swift in Sources */,
 				7AE2B2EF27FE05A200898A1B /* Constants.swift in Sources */,
 				7AD706BC2807822900CBD66B /* Asset+Mock.swift in Sources */,
+				7A8E7C1D2808C79A009C477F /* PasswordChangeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

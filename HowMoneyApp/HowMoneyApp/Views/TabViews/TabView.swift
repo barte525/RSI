@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Tab: View {
     @State private var selection: String = "Home"
+    @State var isEditingProfile: Bool = false
     
     var body: some View {
         TabView(selection: $selection) {
@@ -46,7 +47,7 @@ struct Tab: View {
             case TabBarSelection.assets.rawValue:
                 NewAssetView()
             case TabBarSelection.profile.rawValue:
-                EmptyView()
+                EditProfileView()
             default:
                 EmptyView()
             }

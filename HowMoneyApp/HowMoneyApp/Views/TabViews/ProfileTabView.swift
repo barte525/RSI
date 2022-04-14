@@ -20,9 +20,9 @@ struct ProfileTabView: View {
         VStack {
             Form {
                 Section(header: Text("General")) {
-                    TextField("Name", text: $nameTextField)
-                    TextField("Surname", text: $surnameTextField)
-                    TextField("Email", text: $emailTextField)
+                    Text("Name")
+                    Text("Surname")
+                    Text("Email")
                 }
                 
                 Section(header: Text("Preferences")) {
@@ -35,7 +35,7 @@ struct ProfileTabView: View {
                 
                 Section(header: Text("Password")) {
                     Button {
-                        
+                        isShowingPasswordChangingAlert.toggle()
                     } label: {
                         HStack {
                             Text("Change password...")
@@ -49,8 +49,7 @@ struct ProfileTabView: View {
             }
         }
         .sheet(isPresented: $isShowingPasswordChangingAlert) {
-            //TODO: Show modal screen to change password
-            EmptyView()
+            PasswordChangeView(isShown: $isShowingPasswordChangingAlert)
         }
         .background(Color("Background"))
     }
