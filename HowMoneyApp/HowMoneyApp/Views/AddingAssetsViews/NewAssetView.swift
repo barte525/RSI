@@ -52,6 +52,7 @@ struct NewAssetView: View {
             }
             Spacer()
         }
+        .background(Color("Background"))
         .navigationTitle("New Asset")
         .sheet(isPresented: $isShowingAssetChoice, onDismiss: {  }) {
             AssetsList(isShowingAssetChoice: $isShowingAssetChoice, chosenAsset: $chosenAsset)
