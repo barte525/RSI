@@ -13,6 +13,7 @@ struct RegisterView: View {
     @State var repeatedPasswordTextField: String = ""
     @State private var isShowingRegisterDetails: Bool = false
     @State private var isRegistered: Bool = false
+    @State private var isNotValidEmail: Bool = false
     
     var body: some View {
         VStack {
@@ -38,15 +39,16 @@ struct RegisterView: View {
                 Spacer()
                 Button {
                     //TODO: register()
-                    //1. Passwords are the same - go to next register view
-                    isShowingRegisterDetails.toggle()
                     //2. Incorrect passwords or email - Show alert
-                    
-                    
+                    isNotValidEmail = !emailTextField.isValidEmail
+                    //1. Passwords are the same - go to next register view
+                    if !isNotValidEmail {
+                        isShowingRegisterDetails.toggle()
+                    }
                 } label: {
                     ButtonText(text: "Register")
                 }
-                .sheet(isPresented: $isShowingRegisterDetails, onDismiss: { isRegistered.toggle() }) {
+                .sheet(isPresented: $isShowingRegisterDetails, onDismiss: {  }) {
                     NavigationView {
                         VStack {
                             RegisterDetailsView(isShowingRegisterDetails: $isShowingRegisterDetails, emailTextField: $emailTextField, passwordTextField: $passwordTextField, repeatedPasswordTextField: $repeatedPasswordTextField)
@@ -79,6 +81,10 @@ struct RegisterView: View {
             }
             .font(.system(size: 16))
             .padding(.bottom, 30)
+        }
+        .alert(isPresented: $isNotValidEmail) {
+            Alert(title: Text("Invalid email"),
+                  message: Text("Please enter valid email"), dismissButton: .cancel(Text("OK")))
         }
         .background(Color("Background"))
         .navigationBarTitle("")
