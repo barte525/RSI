@@ -40,7 +40,9 @@ struct RegisterView: View {
                     //TODO: register()
                     //1. Passwords are the same - go to next register view
                     isShowingRegisterDetails.toggle()
-                    //2. Incorrect passwords - Show alert
+                    //2. Incorrect passwords or email - Show alert
+                    
+                    
                 } label: {
                     ButtonText(text: "Register")
                 }

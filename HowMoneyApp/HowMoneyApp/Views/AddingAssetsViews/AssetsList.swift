@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AssetsList: View {
     @Binding var isShowingAssetChoice: Bool
-    @Binding var chosenAsset: String
+    @Binding var chosenAsset: Asset?
     @State var searchText: String = ""
     @State var assetsByType: [String: [Asset]] = [:]
     
@@ -23,7 +23,7 @@ struct AssetsList: View {
                             Section(header: Text(assetType)) {
                                 ForEach(assets.filter { searchText.isEmpty || $0.name.lowercased().contains(searchText.lowercased())}, id: \.self) { asset in
                                     Button {
-                                        chosenAsset = asset.name
+                                        chosenAsset = asset
                                         isShowingAssetChoice.toggle()
                                     } label: {
                                         Text(asset.name)
@@ -51,6 +51,6 @@ struct AssetsList: View {
 
 struct AssetsList_Previews: PreviewProvider {
     static var previews: some View {
-        AssetsList(isShowingAssetChoice: .constant(true), chosenAsset: .constant("EUR"))
+        AssetsList(isShowingAssetChoice: .constant(true), chosenAsset: .constant(Asset(name: "EUR", type: "Currency")))
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NewAssetView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var chosenAsset: String = ""
+    @State var chosenAsset: Asset? = nil
     @State var amountTextField: String = ""
     @State var isShowingAssetChoice: Bool = false
     
@@ -23,7 +23,7 @@ struct NewAssetView: View {
                         Text("Asset")
                             .foregroundColor(Color.primary)
                         Spacer()
-                        Text(chosenAsset)
+                        Text(chosenAsset?.name ?? "")
                             .foregroundColor(Color.secondary)
                         Image(systemName: "chevron.right")
                     }
@@ -31,9 +31,12 @@ struct NewAssetView: View {
                     .foregroundColor(Color.primary)
                 }
                 
-                TextField(text: $amountTextField, prompt: Text("Amount")) {
-                    
-                }
+                TextField("Amount", text: $amountTextField)
+                    .onChange(of: amountTextField, perform: { amount in
+                        amountTextField = AmountFormatter.formatByType(value: amount, of: chosenAsset?.type)
+                })
+                    .disabled(chosenAsset == nil)
+                .keyboardType(.numberPad)
                 .padding([.leading, .trailing], 10)
             }
             .frame(maxHeight: 150)
