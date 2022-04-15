@@ -26,11 +26,11 @@ struct AssetsTabView: View {
             
             if userAssets.count > 0 {
                 List {
-                    ForEach(UserAsset.mock.filter{ searchText.isEmpty || $0.assetName.lowercased().contains(searchText.lowercased())}) { asset in
+                    ForEach(UserAsset.mock.filter{ searchText.isEmpty || $0.asset.name.lowercased().contains(searchText.lowercased())}) { userAsset in
                         HStack {
-                            Text(asset.assetName)
+                            Text(userAsset.asset.name)
                             Spacer()
-                            Text("\(asset.assetAmount)")
+                            Text("\(AmountFormatter.getRoundedAmountToDecimalPlaces(for: userAsset.assetAmount, assetType: AssetType(rawValue: userAsset.asset.type) ?? .currency))")
                         }
                         .padding([.leading, .trailing], 10)
                     }.onDelete(perform: deleteAsset)

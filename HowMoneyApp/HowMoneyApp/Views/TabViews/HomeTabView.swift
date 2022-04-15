@@ -19,7 +19,7 @@ struct HomeTabView: View {
                     .foregroundColor(Color.white)
                     .font(.system(size: 20))
                     .padding(.bottom, 15)
-                Text("\(currencyPreferenceChoice) \(totalBudget)")
+                Text("\(currencyPreferenceChoice) \(AmountFormatter.getRoundedAmountToDecimalPlaces(for: totalBudget, assetType: AssetType.currency))")
                     .font(.largeTitle)
                     .foregroundColor(Color.white)
             }

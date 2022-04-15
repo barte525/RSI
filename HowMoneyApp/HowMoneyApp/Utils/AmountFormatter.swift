@@ -62,4 +62,17 @@ struct AmountFormatter {
             return value
         }
     }
+    
+    static func getRoundedAmountToDecimalPlaces(for value: Double, assetType: AssetType) -> String {
+        var numberPlaces = 0
+        switch assetType {
+        case .currency:
+            numberPlaces = 2
+        case .crypto:
+            numberPlaces = 8
+        case .metal:
+            numberPlaces = 8
+        }
+        return String(format: "%.\(numberPlaces)f", value)
+    }
 }

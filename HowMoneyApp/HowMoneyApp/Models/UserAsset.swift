@@ -9,6 +9,6 @@ import Foundation
 
 struct UserAsset: Identifiable {
     let id: Int
-    let assetName: String
+    let asset: Asset
     let assetAmount: Double
 }
