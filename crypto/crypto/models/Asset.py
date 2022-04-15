@@ -3,9 +3,10 @@ import json
 import requests
 from django.db import models
 from crypto.settings import env
-from django.db.models import Q
 from django.db.utils import IntegrityError
-NOT_EXIST_ERROR = "Crypto with that name and currency does not exist"
+NOT_EXIST_ERROR = "Crypto with that name and currency does not exist in database"
+EXTERNAL_API_ERROR = "External api did not send correct response"
+NOT_EXIST_API_ERROR = "Crypto with that name and currency does not exist in external API"
 
 
 class Asset(models.Model):
@@ -29,51 +30,58 @@ class Asset(models.Model):
 
     @staticmethod
     def seed_dev_data():
-        Asset.save_asset(guidA="3fa85f64-5717-4562-b3fc-2c963f66afa9", asset_type="crypto", name="BTC",
-                         converterEUR=100000.25, converterPLN=500000.25, converterUSD=110000.25)
-        Asset.save_asset(guidA="4fa85f64-5717-4562-b3fc-2c963f66afa9", asset_type="crypto", name="ETH",
-                         converterEUR=10, converterPLN=50, converterUSD=11)
-        Asset.save_asset(guidA="5fa85f64-5717-4562-b3fc-2c963f66afa9", asset_type="metal", name="GOLD",
-                         converterEUR=120, converterPLN=600, converterUSD=130)
-        Asset.save_asset(guidA="6fa85f64-5717-4562-b3fc-2c963f66afa9", asset_type="metal", name="SILVER",
-                         converterEUR=100000.25, converterPLN=500000.25, converterUSD=110000.25)
-        Asset.save_asset(guidA="7fa85f64-5717-4562-b3fc-2c963f66afa9", asset_type="currency", name="PLN",
-                         converterEUR=100000.25, converterPLN=500000.25, converterUSD=110000.25)
-        Asset.save_asset(guidA="8fa85f64-5717-4562-b3fc-2c963f66afa9", asset_type="currency", name="USD",
-                         converterEUR=10, converterPLN=50, converterUSD=11)
-        Asset.save_asset(guidA="9fa85f64-5717-4562-b3fc-2c963f66afa9", asset_type="currency", name="EUR",
-                         converterEUR=120, converterPLN=600, converterUSD=130)
-        Asset.save_asset(guidA="2fa85f64-5717-4562-b3fc-2c963f66afa9", asset_type="currency", name="GBP",
-                         converterEUR=100000.25, converterPLN=500000.25, converterUSD=110000.25)
+        Asset.create_asset(guidA="3fa85f64-5717-4562-b3fc-2c963f66afa9", asset_type="crypto", name="BTC",
+                           converterEUR=100000.25, converterPLN=500000.25, converterUSD=110000.25)
+        Asset.create_asset(guidA="4fa85f64-5717-4562-b3fc-2c963f66afa9", asset_type="crypto", name="ETH",
+                           converterEUR=10, converterPLN=50, converterUSD=11)
+        Asset.create_asset(guidA="5fa85f64-5717-4562-b3fc-2c963f66afa9", asset_type="metal", name="GOLD",
+                           converterEUR=120, converterPLN=600, converterUSD=130)
+        Asset.create_asset(guidA="6fa85f64-5717-4562-b3fc-2c963f66afa9", asset_type="metal", name="SILVER",
+                           converterEUR=100000.25, converterPLN=500000.25, converterUSD=110000.25)
+        Asset.create_asset(guidA="7fa85f64-5717-4562-b3fc-2c963f66afa9", asset_type="currency", name="PLN",
+                           converterEUR=100000.25, converterPLN=500000.25, converterUSD=110000.25)
+        Asset.create_asset(guidA="8fa85f64-5717-4562-b3fc-2c963f66afa9", asset_type="currency", name="USD",
+                           converterEUR=10, converterPLN=50, converterUSD=11)
+        Asset.create_asset(guidA="9fa85f64-5717-4562-b3fc-2c963f66afa9", asset_type="currency", name="EUR",
+                           converterEUR=120, converterPLN=600, converterUSD=130)
+        Asset.create_asset(guidA="2fa85f64-5717-4562-b3fc-2c963f66afa9", asset_type="currency", name="GBP",
+                           converterEUR=100000.25, converterPLN=500000.25, converterUSD=110000.25)
 
     @staticmethod
-    def save_asset(guidA, asset_type, name, converterEUR, converterPLN, converterUSD):
+    def create_asset(guidA, asset_type, name, converterEUR, converterPLN, converterUSD):
         try:
             Asset(guidA=guidA, asset_type=asset_type, name=name, converterEUR=converterEUR,
                   converterPLN=converterPLN, converterUSD=converterUSD).save()
         except IntegrityError:
             return
 
-    def set_daily_change(self, name, currency_code):
-        response = urlopen(self.crypto_url + '&ids=' + name + '&convert=' + currency_code)
-        data_table = json.loads(response.read())
-        if not data_table:
-            return NOT_EXIST_ERROR
+    def update_asset_price(self, name, currency_code):
         try:
-            crypto = Asset.objects.get(Q(currency=currency_code) & Q(name=name))
+            asset = Asset.objects.get(name=name)
         except Asset.DoesNotExist:
-            crypto = Asset(name=name, currency=currency_code)
-        data_json = data_table[0]
-        crypto.daily_diff = data_json['1d']['price_change']
-        crypto.save()
+            return NOT_EXIST_ERROR
+        price = self.get_new_crypto_price(asset, currency_code=currency_code)
+        if price != EXTERNAL_API_ERROR and price != NOT_EXIST_ERROR:
+            self.set_asset_price(asset, currency_code, price)
 
     @staticmethod
-    def get_daily_change(name, currency_code):
-        try:
-            crypto = Asset.objects.get(Q(name=name) & Q(currency=currency_code))
-        except Asset.DoesNotExist:
-            return NOT_EXIST_ERROR
-        return crypto.daily_diff
+    def set_asset_price(asset, currency_code, price):
+        if currency_code == 'EUR':
+            asset.converterEUR = price
+        if currency_code == 'PLN':
+            asset.converterPLN = price
+        if currency_code == 'USD':
+            asset.converterUSD = price
+        asset.save()
+
+    def get_new_crypto_price(self, asset, currency_code):
+        response = urlopen(self.crypto_url + '&ids=' + asset.name + '&convert=' + currency_code)
+        if response.status != 200:
+            return EXTERNAL_API_ERROR #add logging later
+        data_table = json.loads(response.read())
+        if not data_table:
+            return NOT_EXIST_API_ERROR #add logging later
+        return data_table[0]['price']
 
     def update_asset_in_server(self, name):
         try:

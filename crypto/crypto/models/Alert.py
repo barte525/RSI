@@ -1,6 +1,6 @@
 from django.db import models
 from crypto.models import Asset
-
+from crypto.models.consts import main_currencies
 
 class Alert(models.Model):
     alert_value = models.FloatField(null=False)
@@ -12,7 +12,7 @@ class Alert(models.Model):
         constraints = [
             models.CheckConstraint(
                 name="crypto_alert_currency",
-                check=models.Q(currency__in=('EUR', 'USD', 'PLN'))
+                check=models.Q(currency__in=main_currencies)
             )
         ]
 
