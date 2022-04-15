@@ -9,14 +9,22 @@ import SwiftUI
 
 struct UnderlineTextField: View {
     var textFieldTitle: String
+    var isSecured: Bool
     @Binding var textField: String
     
     var body: some View {
         VStack {
-            TextField(textFieldTitle, text: $textField)
-                .foregroundColor(.white)
-                .padding([.trailing, .leading], 30)
-                .padding(.top, 20)
+            ZStack {
+                if isSecured {
+                    SecureField(textFieldTitle, text: $textField)
+                } else {
+                    TextField(textFieldTitle, text: $textField)
+                }
+            }
+            .foregroundColor(.white)
+            .padding([.trailing, .leading], 30)
+            .padding(.top, 20)
+            
             Divider()
              .frame(height: 1)
              .background(Color.white)
@@ -27,6 +35,6 @@ struct UnderlineTextField: View {
 
 struct UnderlineTextField_Previews: PreviewProvider {
     static var previews: some View {
-        UnderlineTextField(textFieldTitle: "Email", textField: .constant(""))
+        UnderlineTextField(textFieldTitle: "Email", isSecured: false, textField: .constant(""))
     }
 }

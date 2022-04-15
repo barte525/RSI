@@ -25,8 +25,8 @@ struct LogInView: View {
                     .font(.title2)
                     .padding(.top, 40)
                     .frame(minWidth: 150, maxWidth: .infinity)
-                UnderlineTextField(textFieldTitle: "Email", textField: $emailTextfield)
-                UnderlineTextField(textFieldTitle: "Password", textField: $passwordTextfield)
+                UnderlineTextField(textFieldTitle: "Email", isSecured: false, textField: $emailTextfield)
+                UnderlineTextField(textFieldTitle: "Password", isSecured: true, textField: $passwordTextfield)
                 HStack {
                     Spacer()
                     Button {

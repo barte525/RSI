@@ -18,8 +18,8 @@ struct PasswordChangeView: View {
         NavigationView {
             Form {
                 Section(header: Text("Password")) {
-                    TextField("Password", text: $newPasswordTextField)
-                    TextField("Verify", text: $repeatedNewPasswordTextField)
+                    SecureField("Password", text: $newPasswordTextField)
+                    SecureField("Verify", text: $repeatedNewPasswordTextField)
                 }
                 
                 Section(header: Text("App Lock")) {
@@ -29,7 +29,7 @@ struct PasswordChangeView: View {
                 }
             }
             .padding(.top, 10)
-            .background(Color("ControlBackground"))
+            .background(Color("Background"))
             .navigationTitle("Change password")
             .navigationBarItems(leading: Button("Cancel") {
                 isShown.toggle()

@@ -33,9 +33,9 @@ struct RegisterView: View {
                     .font(.title2)
                     .padding(.top, 40)
                     .frame(minWidth: 150, maxWidth: .infinity)
-                UnderlineTextField(textFieldTitle: "Email", textField: $emailTextField)
-                UnderlineTextField(textFieldTitle: "Password", textField: $passwordTextField)
-                UnderlineTextField(textFieldTitle: "Repeated password", textField: $repeatedPasswordTextField)
+                UnderlineTextField(textFieldTitle: "Email", isSecured: false, textField: $emailTextField)
+                UnderlineTextField(textFieldTitle: "Password", isSecured: true, textField: $passwordTextField)
+                UnderlineTextField(textFieldTitle: "Repeated password", isSecured: true, textField: $repeatedPasswordTextField)
                 Spacer()
                 Button {
                     //TODO: register()
@@ -48,7 +48,7 @@ struct RegisterView: View {
                 } label: {
                     ButtonText(text: "Register")
                 }
-                .sheet(isPresented: $isShowingRegisterDetails, onDismiss: {  }) {
+                .sheet(isPresented: $isShowingRegisterDetails) {
                     NavigationView {
                         VStack {
                             RegisterDetailsView(isShowingRegisterDetails: $isShowingRegisterDetails, emailTextField: $emailTextField, passwordTextField: $passwordTextField, repeatedPasswordTextField: $repeatedPasswordTextField)

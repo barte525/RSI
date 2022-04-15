@@ -36,19 +36,16 @@ struct AmountFormatter {
     }
     
     private static func formatCurrency(for value: String) -> String {
-        print("Currency formatting...")
         let validNumber =  getValidNumber(for: value)
         return getMaximumFractionDigits(for: validNumber, fractionDigitsNumber: 2)
     }
     
     private static func formatMetal(for value: String) -> String {
-        print("Metal formatting...")
         let validNumber = getValidNumber(for: value)
         return getMaximumFractionDigits(for: validNumber, fractionDigitsNumber: 8)
     }
     
     private static func formatCrypto(for value: String) -> String {
-        print("Crypto formatting...")
         let validNumber = getValidNumber(for: value)
         return getMaximumFractionDigits(for: validNumber, fractionDigitsNumber: 8)
     }

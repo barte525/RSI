@@ -19,12 +19,12 @@ struct RegisterDetailsView: View {
     var body: some View {
         ZStack {
             VStack {
-                UnderlineTextField(textFieldTitle: "Email", textField: $emailTextField)
+                UnderlineTextField(textFieldTitle: "Email", isSecured: false, textField: $emailTextField)
                     .padding(.top, 20)
-                UnderlineTextField(textFieldTitle: "Password", textField: $passwordTextField)
-                UnderlineTextField(textFieldTitle: "Repeated password", textField: $repeatedPasswordTextField)
-                UnderlineTextField(textFieldTitle: "Name", textField: $nameTextField)
-                UnderlineTextField(textFieldTitle: "Surname", textField: $surnameTextField)
+                UnderlineTextField(textFieldTitle: "Password", isSecured: true, textField: $passwordTextField)
+                UnderlineTextField(textFieldTitle: "Repeated password", isSecured: true, textField: $repeatedPasswordTextField)
+                UnderlineTextField(textFieldTitle: "Name", isSecured: true, textField: $nameTextField)
+                UnderlineTextField(textFieldTitle: "Surname", isSecured: true, textField: $surnameTextField)
                 VStack {
                     Text("Total sum currency preference")
                         .foregroundColor(Color.white)
