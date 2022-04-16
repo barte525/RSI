@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct AssetsList: View {
+    
+    @StateObject var assetViewModel: AssetViewModel = .init(fetcher: AssetFetcher())
+    
     @Binding var isShowingAssetChoice: Bool
     @Binding var chosenAsset: Asset?
     @State var searchText: String = ""
@@ -35,7 +38,8 @@ struct AssetsList: View {
                     }
                 }
                 .task {
-                    let assets = Asset.mock //TODO: Fetch data from API
+                    assetViewModel.getAllAssets()
+                    let assets = assetViewModel.assets//TODO: Fetch data from API
                     assetsByType = .init(grouping: assets, by: { $0.type })
                 }
                 .navigationTitle("Assets")

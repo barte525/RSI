@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		7A0267C727FC9C9D009BBCEE /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0267C627FC9C9D009BBCEE /* LogInView.swift */; };
+		7A10C807280A190F0011EBE4 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A10C806280A190F0011EBE4 /* NetworkError.swift */; };
+		7A10C809280A19510011EBE4 /* AssetFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A10C808280A19510011EBE4 /* AssetFetcher.swift */; };
+		7A10C80B280A1BC10011EBE4 /* AssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A10C80A280A1BC10011EBE4 /* AssetViewModel.swift */; };
 		7A48DCF42805C56200304750 /* NewAssetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A48DCF32805C56200304750 /* NewAssetView.swift */; };
 		7A48DCF72805C6F900304750 /* TabBarSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A48DCF62805C6F900304750 /* TabBarSelection.swift */; };
 		7A48DCF92805D17100304750 /* AssetsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A48DCF82805D17100304750 /* AssetsList.swift */; };
@@ -57,6 +60,9 @@
 
 /* Begin PBXFileReference section */
 		7A0267C627FC9C9D009BBCEE /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LogInView.swift; path = HowMoneyApp/Views/LoginAndRegisterViews/LogInView.swift; sourceTree = SOURCE_ROOT; };
+		7A10C806280A190F0011EBE4 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		7A10C808280A19510011EBE4 /* AssetFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetFetcher.swift; sourceTree = "<group>"; };
+		7A10C80A280A1BC10011EBE4 /* AssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewModel.swift; sourceTree = "<group>"; };
 		7A48DCF32805C56200304750 /* NewAssetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAssetView.swift; sourceTree = "<group>"; };
 		7A48DCF62805C6F900304750 /* TabBarSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarSelection.swift; sourceTree = "<group>"; };
 		7A48DCF82805D17100304750 /* AssetsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsList.swift; sourceTree = "<group>"; };
@@ -115,6 +121,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A10C805280A18C60011EBE4 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				7A10C806280A190F0011EBE4 /* NetworkError.swift */,
+				7A10C808280A19510011EBE4 /* AssetFetcher.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		7A48DCF22805C54100304750 /* AddingAssetsViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +185,7 @@
 		7A89872327FC593D00CBF696 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				7A10C80A280A1BC10011EBE4 /* AssetViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -206,6 +222,7 @@
 		7AB0367827F5066400599837 /* HowMoneyApp */ = {
 			isa = PBXGroup;
 			children = (
+				7A10C805280A18C60011EBE4 /* Network */,
 				7A48DCF52805C6E200304750 /* Utils */,
 				7A89872327FC593D00CBF696 /* ViewModels */,
 				7A89872227FC593800CBF696 /* Models */,
@@ -398,6 +415,7 @@
 				7AD706BE28078A2000CBD66B /* AssetType.swift in Sources */,
 				7AD706BA28077D6800CBD66B /* Asset.swift in Sources */,
 				7A0267C727FC9C9D009BBCEE /* LogInView.swift in Sources */,
+				7A10C80B280A1BC10011EBE4 /* AssetViewModel.swift in Sources */,
 				7AE2B2ED27FDFB1500898A1B /* RegisterDetailsView.swift in Sources */,
 				7A48DCF72805C6F900304750 /* TabBarSelection.swift in Sources */,
 				7A78425C27FCE2F300F3D05C /* ButtonText.swift in Sources */,
@@ -407,6 +425,7 @@
 				7A78425A27FCE07E00F3D05C /* UnderlineTextField.swift in Sources */,
 				7ABA42F02809C9360034319D /* AmountFormatter.swift in Sources */,
 				7AB0367A27F5066400599837 /* HowMoneyAppApp.swift in Sources */,
+				7A10C809280A19510011EBE4 /* AssetFetcher.swift in Sources */,
 				7A48DCF92805D17100304750 /* AssetsList.swift in Sources */,
 				7A48DCF42805C56200304750 /* NewAssetView.swift in Sources */,
 				7AC8ABB328022E2F004E5132 /* HomeTabView.swift in Sources */,
@@ -414,6 +433,7 @@
 				7ABA42F22809CF0B0034319D /* String+Extension.swift in Sources */,
 				7A8560AF280312480016CEF8 /* UserAsset.swift in Sources */,
 				7AC8ABB128022E16004E5132 /* TabView.swift in Sources */,
+				7A10C807280A190F0011EBE4 /* NetworkError.swift in Sources */,
 				7AC8ABB528022E40004E5132 /* AssetsTabView.swift in Sources */,
 				7AC8ABB728022E4C004E5132 /* ProfileTabView.swift in Sources */,
 				7AE2B2EF27FE05A200898A1B /* Constants.swift in Sources */,
@@ -582,6 +602,7 @@
 				DEVELOPMENT_TEAM = UG4UDFGQLX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HowMoneyApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -611,6 +632,7 @@
 				DEVELOPMENT_TEAM = UG4UDFGQLX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HowMoneyApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
