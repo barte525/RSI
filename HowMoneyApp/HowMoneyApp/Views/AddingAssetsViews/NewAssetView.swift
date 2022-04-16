@@ -35,8 +35,8 @@ struct NewAssetView: View {
                     .onChange(of: amountTextField, perform: { amount in
                         amountTextField = AmountFormatter.formatByType(value: amount, of: chosenAsset?.type)
                 })
-                    .disabled(chosenAsset == nil)
-                .keyboardType(.numberPad)
+                .disabled(chosenAsset == nil)
+                .keyboardType(.decimalPad)
                 .padding([.leading, .trailing], 10)
             }
             .frame(maxHeight: 150)

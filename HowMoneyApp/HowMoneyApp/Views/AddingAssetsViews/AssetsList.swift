@@ -14,15 +14,14 @@ struct AssetsList: View {
     @Binding var isShowingAssetChoice: Bool
     @Binding var chosenAsset: Asset?
     @State var searchText: String = ""
-    @State var assetsByType: [String: [Asset]] = [:]
     
     var body: some View {
         NavigationView {
             VStack {
                 List {
-                    ForEach(Array(assetsByType.keys), id: \.self) {
+                    ForEach(Array(assetViewModel.assetsByType.keys), id: \.self) {
                         assetType in
-                        if let assets = assetsByType[assetType] {
+                        if let assets = assetViewModel.assetsByType[assetType] {
                             Section(header: Text(assetType)) {
                                 ForEach(assets.filter { searchText.isEmpty || $0.name.lowercased().contains(searchText.lowercased())}, id: \.self) { asset in
                                     Button {
@@ -37,11 +36,10 @@ struct AssetsList: View {
                         }
                     }
                 }
-                .task {
+                .onAppear(perform: {
                     assetViewModel.getAllAssets()
-                    let assets = assetViewModel.assets//TODO: Fetch data from API
-                    assetsByType = .init(grouping: assets, by: { $0.type })
-                }
+                })
+                .overlay(loadingView)
                 .navigationTitle("Assets")
                 .navigationBarItems(leading:
                     Button("Cancel") {
@@ -49,6 +47,14 @@ struct AssetsList: View {
                     })
                 .searchable(text: $searchText)
             }
+        }
+    }
+    
+    
+    @ViewBuilder
+    private var loadingView: some View {
+        if assetViewModel.isLoading {
+            Spinner()
         }
     }
 }
