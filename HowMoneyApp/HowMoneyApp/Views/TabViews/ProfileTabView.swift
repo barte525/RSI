@@ -48,6 +48,20 @@ struct ProfileTabView: View {
                     }
                 }
             }
+            
+            Button {
+                //TODO: Sign out the user
+            } label: {
+                Text("Sign out")
+                    .frame(minWidth: 150, maxWidth: .infinity)
+                    .frame(height: 55)
+                    .background(Color("DarkPurple"))
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundColor(Color.white)
+                    .cornerRadius(10)
+                    .padding([.leading, .trailing], 10)
+            }
+            .padding(.bottom, 30)
         }
         .sheet(isPresented: $isShowingPasswordChangingAlert) {
             PasswordChangeView(isShown: $isShowingPasswordChangingAlert)
