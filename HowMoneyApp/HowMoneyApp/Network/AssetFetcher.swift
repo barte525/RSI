@@ -12,7 +12,7 @@ protocol AssetFetcherProtocol {
     func getAll() async throws -> [Asset]
 }
 
-class AssetFetcher: AssetFetcherProtocol {
+class AssetFetcher: AssetFetcherProtocol, RequestProtocol {
     private let session = URLSession.shared
     private let urlString = "\(K.baseUrl)/api/Asset"
     
@@ -22,11 +22,5 @@ class AssetFetcher: AssetFetcherProtocol {
         let (data, _) = try await session.data(for: request)
         guard let assets = try? JSONDecoder().decode([Asset].self, from: data) else { throw NetworkError.invalidData }
         return assets
-    }
-    
-    private func createRequest(url: URL, method: String?) -> URLRequest {
-        var request = URLRequest(url: url)
-        request.httpMethod = method
-        return request
     }
 }

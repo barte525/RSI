@@ -20,6 +20,7 @@
 		7A78425E27FCE57100F3D05C /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A78425D27FCE57100F3D05C /* RegisterView.swift */; };
 		7A8560AF280312480016CEF8 /* UserAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8560AE280312480016CEF8 /* UserAsset.swift */; };
 		7A8560B1280312A20016CEF8 /* UserAsset+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8560B0280312A20016CEF8 /* UserAsset+Mock.swift */; };
+		7A876F66280DFC20008CB565 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A876F65280DFC20008CB565 /* UserManager.swift */; };
 		7A8E7C1D2808C79A009C477F /* PasswordChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E7C1C2808C79A009C477F /* PasswordChangeView.swift */; };
 		7A8E7C1F2808CB23009C477F /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E7C1E2808CB23009C477F /* EditProfileView.swift */; };
 		7AB0367A27F5066400599837 /* HowMoneyAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB0367927F5066400599837 /* HowMoneyAppApp.swift */; };
@@ -40,6 +41,8 @@
 		7AD706BE28078A2000CBD66B /* AssetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD706BD28078A2000CBD66B /* AssetType.swift */; };
 		7AE2B2ED27FDFB1500898A1B /* RegisterDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE2B2EC27FDFB1500898A1B /* RegisterDetailsView.swift */; };
 		7AE2B2EF27FE05A200898A1B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE2B2EE27FE05A200898A1B /* Constants.swift */; };
+		7AEF736F280DFF6B004ED2F5 /* UserCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEF736E280DFF6B004ED2F5 /* UserCredentials.swift */; };
+		7AEF7371280E01CC004ED2F5 /* RequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEF7370280E01CC004ED2F5 /* RequestProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +76,7 @@
 		7A78425D27FCE57100F3D05C /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		7A8560AE280312480016CEF8 /* UserAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAsset.swift; sourceTree = "<group>"; };
 		7A8560B0280312A20016CEF8 /* UserAsset+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserAsset+Mock.swift"; sourceTree = "<group>"; };
+		7A876F65280DFC20008CB565 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		7A8E7C1C2808C79A009C477F /* PasswordChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChangeView.swift; sourceTree = "<group>"; };
 		7A8E7C1E2808CB23009C477F /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		7AB0367627F5066400599837 /* HowMoneyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HowMoneyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +100,8 @@
 		7AD706BD28078A2000CBD66B /* AssetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetType.swift; sourceTree = "<group>"; };
 		7AE2B2EC27FDFB1500898A1B /* RegisterDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterDetailsView.swift; sourceTree = "<group>"; };
 		7AE2B2EE27FE05A200898A1B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7AEF736E280DFF6B004ED2F5 /* UserCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCredentials.swift; sourceTree = "<group>"; };
+		7AEF7370280E01CC004ED2F5 /* RequestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +134,8 @@
 			children = (
 				7A10C806280A190F0011EBE4 /* NetworkError.swift */,
 				7A10C808280A19510011EBE4 /* AssetFetcher.swift */,
+				7A876F65280DFC20008CB565 /* UserManager.swift */,
+				7AEF7370280E01CC004ED2F5 /* RequestProtocol.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -181,6 +189,7 @@
 				7AD706B928077D6800CBD66B /* Asset.swift */,
 				7AD706BB2807822900CBD66B /* Asset+Mock.swift */,
 				7AD706BD28078A2000CBD66B /* AssetType.swift */,
+				7AEF736E280DFF6B004ED2F5 /* UserCredentials.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -422,8 +431,10 @@
 				7A10C80B280A1BC10011EBE4 /* AssetViewModel.swift in Sources */,
 				7AE2B2ED27FDFB1500898A1B /* RegisterDetailsView.swift in Sources */,
 				7A48DCF72805C6F900304750 /* TabBarSelection.swift in Sources */,
+				7A876F66280DFC20008CB565 /* UserManager.swift in Sources */,
 				7A78425C27FCE2F300F3D05C /* ButtonText.swift in Sources */,
 				7AB0367C27F5066400599837 /* ContentView.swift in Sources */,
+				7AEF7371280E01CC004ED2F5 /* RequestProtocol.swift in Sources */,
 				7A78425E27FCE57100F3D05C /* RegisterView.swift in Sources */,
 				7A8560B1280312A20016CEF8 /* UserAsset+Mock.swift in Sources */,
 				7A78425A27FCE07E00F3D05C /* UnderlineTextField.swift in Sources */,
@@ -443,6 +454,7 @@
 				7AE2B2EF27FE05A200898A1B /* Constants.swift in Sources */,
 				7AD706BC2807822900CBD66B /* Asset+Mock.swift in Sources */,
 				7A8E7C1D2808C79A009C477F /* PasswordChangeView.swift in Sources */,
+				7AEF736F280DFF6B004ED2F5 /* UserCredentials.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
