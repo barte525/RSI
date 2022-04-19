@@ -54,10 +54,22 @@ namespace howMoney.Controllers
                 PasswordSalt = passwordSalt
             };
 
+            string token = CreateToken(user);
+
             try
             {
                 await _userRepository.Create(user);
-                return Ok(user);
+                UserResponse registeredUser = new UserResponse
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    Name = user.Name,
+                    Surname = user.Surname,
+                    CurrencyPreference = user.CurrencyPreference,
+                    sum = user.Sum,
+                    Token = token
+                };
+                return Ok(registeredUser);
             }
             catch (Exception ex)
             {
@@ -81,7 +93,18 @@ namespace howMoney.Controllers
             }
 
             string token = CreateToken(user);
-            return Ok(token);
+
+            UserResponse loggedUser = new UserResponse
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Name = user.Name,
+                Surname = user.Surname,
+                CurrencyPreference = user.CurrencyPreference,
+                sum = user.Sum,
+                Token = token
+            };
+            return Ok(loggedUser);
         }
 
         private string CreateToken(User user)
