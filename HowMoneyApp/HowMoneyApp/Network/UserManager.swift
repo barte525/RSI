@@ -27,12 +27,14 @@ class UserManager: RequestProtocol {
     }
     
     func register(email: String, name: String, surname: String, password: String, currencyPreference: String) async throws {
-        //TODO: Sent request for register an user
-        guard let url = URL(string: urlString) else { throw NetworkError.invalidURL }
-        let postBody = "email=\(email)&name=\(name)&surname=\(surname)&password=\(password)&currencyPreference=\(currencyPreference)"
+        let registerUrl = "\(urlString)/register"
+        guard let url = URL(string: registerUrl) else { throw NetworkError.invalidURL }
+        let postBody = ["email": email, "name": name, "surname": surname, "password": password, "currencyPreference": currencyPreference]
         let request = createRequest(url: url, method: "POST", postBody: postBody)
-        let (_, response) = try await session.data(for: request)
+        let (data, response) = try await session.data(for: request)
         //TODO: Decode response data
+        print(data)
+        print(response)
     }
     
 }

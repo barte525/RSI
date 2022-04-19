@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct RegisterView: View {
-    @State var emailTextField: String = ""
-    @State var passwordTextField: String = ""
-    @State var repeatedPasswordTextField: String = ""
+    
+    @StateObject var registerViewModel: RegisterViewModel = .sharedInstance
+    
     @State private var isShowingRegisterDetails: Bool = false
     @State private var isRegistered: Bool = false
     @State private var isNotValidEmail: Bool = false
@@ -33,16 +33,17 @@ struct RegisterView: View {
                     .font(.title2)
                     .padding(.top, 40)
                     .frame(minWidth: 150, maxWidth: .infinity)
-                UnderlineTextField(textFieldTitle: "Email", isSecured: false, textField: $emailTextField)
-                UnderlineTextField(textFieldTitle: "Password", isSecured: true, textField: $passwordTextField)
-                UnderlineTextField(textFieldTitle: "Repeated password", isSecured: true, textField: $repeatedPasswordTextField)
+                UnderlineTextField(textFieldTitle: "Email", isSecured: false, textField: $registerViewModel.email)
+                UnderlineTextField(textFieldTitle: "Password", isSecured: true, textField: $registerViewModel.password)
+                UnderlineTextField(textFieldTitle: "Repeated password", isSecured: true, textField: $registerViewModel.repeatedPassword)
                 Spacer()
                 Button {
                     //TODO: register()
                     //2. Incorrect passwords or email - Show alert
-                    isNotValidEmail = !emailTextField.isValidEmail
+                    isNotValidEmail = !registerViewModel.email.isValidEmail
+                    registerViewModel.checkPasswords()
                     //1. Passwords are the same - go to next register view
-                    if !isNotValidEmail {
+                    if !isNotValidEmail || !registerViewModel.arePasswordsCorrect {
                         isShowingRegisterDetails.toggle()
                     }
                 } label: {
@@ -51,7 +52,7 @@ struct RegisterView: View {
                 .sheet(isPresented: $isShowingRegisterDetails) {
                     NavigationView {
                         VStack {
-                            RegisterDetailsView(isShowingRegisterDetails: $isShowingRegisterDetails, emailTextField: $emailTextField, passwordTextField: $passwordTextField, repeatedPasswordTextField: $repeatedPasswordTextField)
+                            RegisterDetailsView(isShowingRegisterDetails: $isShowingRegisterDetails)
                         }
                         .navigationTitle("Create account")
                         .navigationBarItems(leading: Button("Cancel") {

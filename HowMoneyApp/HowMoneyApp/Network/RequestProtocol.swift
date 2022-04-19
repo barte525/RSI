@@ -8,16 +8,21 @@
 import Foundation
 
 protocol RequestProtocol {
-    func createRequest(url: URL, method: String?, postBody: String?) -> URLRequest
+    func createRequest(url: URL, method: String?, postBody: [String: String]?) -> URLRequest
 }
 
 extension RequestProtocol {
     
-    func createRequest(url: URL, method: String?, postBody: String? = nil) -> URLRequest {
+    func createRequest(url: URL, method: String?, postBody: [String: String]? = nil) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = method
         if let definedBody = postBody {
-            request.httpBody = definedBody.data(using: String.Encoding.utf8)
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            let bodyData = try? JSONSerialization.data(
+                withJSONObject: definedBody,
+                options: []
+            )
+            request.httpBody = bodyData
         }
         return request
     }
