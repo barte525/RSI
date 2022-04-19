@@ -6,7 +6,9 @@
 //
 
 import Foundation
+import UIKit
 
+@MainActor
 class RegisterViewModel: ObservableObject {
     
     private var userManager: UserManager
@@ -19,25 +21,29 @@ class RegisterViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var repeatedPassword: String = ""
     @Published var currencyPreference: String = "EUR"
-    @Published var arePasswordsCorrect: Bool = false
+    
+    @Published var arePasswordsIncorrect: Bool = false
+    @Published var isRegistered: Bool = false
+    @Published var newUser: User? = nil
     
     init(userManager: UserManager) {
         self.userManager = userManager
     }
     
     func checkPasswords() {
-        if password == repeatedPassword {
-            arePasswordsCorrect = true
+        if password == repeatedPassword && !password.isEmpty{
+            arePasswordsIncorrect = false
         } else {
-            arePasswordsCorrect = false
+            arePasswordsIncorrect = true
         }
     }
     
     func register() {
-        if arePasswordsCorrect == true {
+        if !arePasswordsIncorrect {
             task = Task {
                 do {
-                    try await userManager.register(email: email, name: name, surname: surname, password: password, currencyPreference: currencyPreference)
+                    newUser = try await userManager.register(email: email, name: name, surname: surname, password: password, currencyPreference: currencyPreference)
+                    isRegistered = true
                 } catch {
                     print("Error during user registration: \(error)")
                 }

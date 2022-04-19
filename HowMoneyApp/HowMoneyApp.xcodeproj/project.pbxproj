@@ -24,6 +24,8 @@
 		7A8E7C1D2808C79A009C477F /* PasswordChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E7C1C2808C79A009C477F /* PasswordChangeView.swift */; };
 		7A8E7C1F2808CB23009C477F /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E7C1E2808CB23009C477F /* EditProfileView.swift */; };
 		7AAA83C3280F2AF400DF552B /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAA83C2280F2AF400DF552B /* RegisterViewModel.swift */; };
+		7AAA83C5280F452900DF552B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAA83C4280F452900DF552B /* User.swift */; };
+		7AAA83C8280F48C200DF552B /* User+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAA83C7280F48C200DF552B /* User+Mock.swift */; };
 		7AB0367A27F5066400599837 /* HowMoneyAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB0367927F5066400599837 /* HowMoneyAppApp.swift */; };
 		7AB0367C27F5066400599837 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB0367B27F5066400599837 /* ContentView.swift */; };
 		7AB0367E27F5066600599837 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AB0367D27F5066600599837 /* Assets.xcassets */; };
@@ -81,6 +83,8 @@
 		7A8E7C1C2808C79A009C477F /* PasswordChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChangeView.swift; sourceTree = "<group>"; };
 		7A8E7C1E2808CB23009C477F /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		7AAA83C2280F2AF400DF552B /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		7AAA83C4280F452900DF552B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		7AAA83C7280F48C200DF552B /* User+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Mock.swift"; sourceTree = "<group>"; };
 		7AB0367627F5066400599837 /* HowMoneyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HowMoneyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB0367927F5066400599837 /* HowMoneyAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowMoneyAppApp.swift; sourceTree = "<group>"; };
 		7AB0367B27F5066400599837 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -186,12 +190,12 @@
 		7A89872227FC593800CBF696 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7AAA83C6280F466800DF552B /* Mocks */,
 				7A8560AE280312480016CEF8 /* UserAsset.swift */,
-				7A8560B0280312A20016CEF8 /* UserAsset+Mock.swift */,
 				7AD706B928077D6800CBD66B /* Asset.swift */,
-				7AD706BB2807822900CBD66B /* Asset+Mock.swift */,
 				7AD706BD28078A2000CBD66B /* AssetType.swift */,
 				7AEF736E280DFF6B004ED2F5 /* UserCredentials.swift */,
+				7AAA83C4280F452900DF552B /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -212,6 +216,16 @@
 				7A8E7C1E2808CB23009C477F /* EditProfileView.swift */,
 			);
 			path = ProfileEditingViews;
+			sourceTree = "<group>";
+		};
+		7AAA83C6280F466800DF552B /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				7AD706BB2807822900CBD66B /* Asset+Mock.swift */,
+				7A8560B0280312A20016CEF8 /* UserAsset+Mock.swift */,
+				7AAA83C7280F48C200DF552B /* User+Mock.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		7AB0366D27F5066300599837 = {
@@ -441,6 +455,7 @@
 				7AEF7371280E01CC004ED2F5 /* RequestProtocol.swift in Sources */,
 				7A78425E27FCE57100F3D05C /* RegisterView.swift in Sources */,
 				7A8560B1280312A20016CEF8 /* UserAsset+Mock.swift in Sources */,
+				7AAA83C8280F48C200DF552B /* User+Mock.swift in Sources */,
 				7A78425A27FCE07E00F3D05C /* UnderlineTextField.swift in Sources */,
 				7ABA42F02809C9360034319D /* AmountFormatter.swift in Sources */,
 				7AB0367A27F5066400599837 /* HowMoneyAppApp.swift in Sources */,
@@ -459,6 +474,7 @@
 				7AD706BC2807822900CBD66B /* Asset+Mock.swift in Sources */,
 				7A8E7C1D2808C79A009C477F /* PasswordChangeView.swift in Sources */,
 				7AEF736F280DFF6B004ED2F5 /* UserCredentials.swift in Sources */,
+				7AAA83C5280F452900DF552B /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,9 +11,11 @@ struct Tab: View {
     @State private var selection: String = "Home"
     @State var isEditingProfile: Bool = false
     
+    var user: User
+    
     var body: some View {
         TabView(selection: $selection) {
-            HomeTabView()
+            HomeTabView(currencyPreferenceChoice: user.currencyPreference, totalBudget: user.sum)
                 .tag(TabBarSelection.home.rawValue)
                 .tabItem {
                     Image(systemName: "house.fill")
@@ -27,7 +29,7 @@ struct Tab: View {
                     Text("Assets")
                 }
             
-            ProfileTabView()
+            ProfileTabView(user: user)
                 .tag(TabBarSelection.profile.rawValue)
                 .tabItem {
                     Image(systemName: "person.fill")
@@ -60,6 +62,6 @@ struct Tab: View {
 
 struct TabView_Previews: PreviewProvider {
     static var previews: some View {
-        Tab()
+        Tab(user: User(id: "1234567", email: "john.smith@gmail.com", name: "John", surname: "SMith", sum: 0, currencyPreference: "EUR"))
     }
 }

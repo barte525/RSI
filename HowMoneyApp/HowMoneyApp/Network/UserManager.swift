@@ -7,6 +7,11 @@
 
 import Foundation
 
+enum UserRegistrationError: Error {
+    case success
+    case failure
+}
+
 protocol UserManagerProtocol {
     func signIn()
     func signOut()
@@ -26,15 +31,23 @@ class UserManager: RequestProtocol {
         //TODO: Sign out the user
     }
     
-    func register(email: String, name: String, surname: String, password: String, currencyPreference: String) async throws {
+    func register(email: String, name: String, surname: String, password: String, currencyPreference: String) async throws -> User? {
         let registerUrl = "\(urlString)/register"
         guard let url = URL(string: registerUrl) else { throw NetworkError.invalidURL }
         let postBody = ["email": email, "name": name, "surname": surname, "password": password, "currencyPreference": currencyPreference]
         let request = createRequest(url: url, method: "POST", postBody: postBody)
         let (data, response) = try await session.data(for: request)
-        //TODO: Decode response data
-        print(data)
-        print(response)
+        
+        if let httpResponse = response as? HTTPURLResponse {
+            switch httpResponse.statusCode {
+            case 200:
+                guard let user = try? JSONDecoder().decode(User.self, from: data) else { throw UserRegistrationError.failure }
+                return user
+            default:
+                throw UserRegistrationError.failure
+            }
+        }
+        return nil
     }
     
 }

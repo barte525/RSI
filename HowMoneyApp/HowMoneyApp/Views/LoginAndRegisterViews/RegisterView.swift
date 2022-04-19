@@ -12,12 +12,11 @@ struct RegisterView: View {
     @StateObject var registerViewModel: RegisterViewModel = .sharedInstance
     
     @State private var isShowingRegisterDetails: Bool = false
-    @State private var isRegistered: Bool = false
     @State private var isNotValidEmail: Bool = false
     
     var body: some View {
         VStack {
-            NavigationLink(destination: Tab(), isActive: $isRegistered) {
+            NavigationLink(destination: Tab(user: registerViewModel.newUser ?? UserMock.user1), isActive: $registerViewModel.isRegistered) {
                 EmptyView()
             }.hidden()
             
@@ -38,12 +37,9 @@ struct RegisterView: View {
                 UnderlineTextField(textFieldTitle: "Repeated password", isSecured: true, textField: $registerViewModel.repeatedPassword)
                 Spacer()
                 Button {
-                    //TODO: register()
-                    //2. Incorrect passwords or email - Show alert
-                    isNotValidEmail = !registerViewModel.email.isValidEmail
+                    isNotValidEmail = !registerViewModel.email.isValidEmail || registerViewModel.email.isEmpty
                     registerViewModel.checkPasswords()
-                    //1. Passwords are the same - go to next register view
-                    if !isNotValidEmail || !registerViewModel.arePasswordsCorrect {
+                    if !isNotValidEmail && !registerViewModel.arePasswordsIncorrect {
                         isShowingRegisterDetails.toggle()
                     }
                 } label: {
@@ -71,9 +67,7 @@ struct RegisterView: View {
                     .foregroundColor(.primary)
                     .opacity(0.7)
                 NavigationLink {
-                    //TODO: Navigate to LogIn Account View
                     LogInView()
-                    
                 } label: {
                     Text("Sign In")
                         .foregroundColor(.primary)
@@ -87,6 +81,7 @@ struct RegisterView: View {
             Alert(title: Text("Invalid email"),
                   message: Text("Please enter valid email"), dismissButton: .cancel(Text("OK")))
         }
+        //TODO: - Show next alert when passwords are not the same
         .background(Color("Background"))
         .navigationBarTitle("")
         .navigationBarHidden(true)

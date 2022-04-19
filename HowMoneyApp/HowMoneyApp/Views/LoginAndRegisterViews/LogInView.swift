@@ -43,7 +43,7 @@ struct LogInView: View {
                 NavigationLink {
                     //TODO: signIn()
                     //1. Correct email and password - navigate to home tab
-                    Tab()
+                    Tab(user: UserMock.user1)
                     //2. Incorrect fields - show alert
                 } label: {
                     ButtonText(text: "Sign In")

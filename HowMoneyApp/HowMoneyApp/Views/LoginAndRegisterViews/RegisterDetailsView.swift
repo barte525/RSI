@@ -38,9 +38,9 @@ struct RegisterDetailsView: View {
                 Spacer()
                 Button {
                     registerViewModel.register()
-                    isShowingRegisterDetails.toggle()
                     //TODO: register()
                     //1. Fields are correct - navigate to home view
+                    isShowingRegisterDetails.toggle()
                     //2. Incorrect fields - Show alert
                 } label: {
                     ButtonText(text: "Register")
