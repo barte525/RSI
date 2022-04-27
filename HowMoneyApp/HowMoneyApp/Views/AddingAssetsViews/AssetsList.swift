@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AssetsList: View {
     
-    @StateObject var assetViewModel: AssetViewModel = .init(fetcher: AssetFetcher())
+    @StateObject var assetViewModel: AssetsListViewModel = .init(fetcher: AssetFetcher())
     
     @Binding var isShowingAssetChoice: Bool
     @Binding var chosenAsset: Asset?

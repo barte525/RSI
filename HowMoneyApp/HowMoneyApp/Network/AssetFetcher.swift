@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 protocol AssetFetcherProtocol {
     func getAll() async throws -> [Asset]
 }

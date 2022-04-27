@@ -42,7 +42,7 @@ class UserManager: RequestProtocol {
             switch httpResponse.statusCode {
             case 200:
                 guard let userDto = try? JSONDecoder().decode(UserDto.self, from: data) else { throw UserRegistrationError.failure }
-                //TODO: Save token with KeyChain - userDto.token
+                try KeychainManager.save(account: userDto.email, service: K.keychainServiceName, token: userDto.token)
                 let user = User(id: userDto.id, email: userDto.email, name: userDto.name, surname: userDto.surname, sum: userDto.sum, currencyPreference: userDto.currencyPreference)
                 return user
             default:

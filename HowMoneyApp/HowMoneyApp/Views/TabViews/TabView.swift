@@ -22,7 +22,7 @@ struct Tab: View {
                     Text("Home")
                 }
             
-            AssetsTabView()
+            AssetsTabView(userMail: user.email)
                 .tag(TabBarSelection.assets.rawValue)
                 .tabItem {
                     Image(systemName: "dollarsign.circle.fill")

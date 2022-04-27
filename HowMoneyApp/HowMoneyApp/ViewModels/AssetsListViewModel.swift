@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor
-class AssetViewModel: ObservableObject {
+class AssetsListViewModel: ObservableObject {
     
     private let assetFetcher: AssetFetcher
     private var task: Task<(), Never>?

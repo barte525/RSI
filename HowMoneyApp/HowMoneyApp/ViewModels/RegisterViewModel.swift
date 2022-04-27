@@ -25,6 +25,7 @@ class RegisterViewModel: ObservableObject {
     @Published var arePasswordsIncorrect: Bool = false
     @Published var isRegistered: Bool = false
     @Published var newUser: User? = nil
+    @Published var errorMessage: String = ""
     
     init(userManager: UserManager) {
         self.userManager = userManager
@@ -45,6 +46,8 @@ class RegisterViewModel: ObservableObject {
                     newUser = try await userManager.register(email: email, name: name, surname: surname, password: password, currencyPreference: currencyPreference)
                     isRegistered = true
                 } catch {
+                    isRegistered = false
+                    errorMessage = error.localizedDescription
                     print("Error during user registration: \(error)")
                 }
             }
