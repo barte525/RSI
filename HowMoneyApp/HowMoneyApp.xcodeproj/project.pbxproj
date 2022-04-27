@@ -26,6 +26,7 @@
 		7AAA83C3280F2AF400DF552B /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAA83C2280F2AF400DF552B /* RegisterViewModel.swift */; };
 		7AAA83C5280F452900DF552B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAA83C4280F452900DF552B /* User.swift */; };
 		7AAA83C8280F48C200DF552B /* User+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAA83C7280F48C200DF552B /* User+Mock.swift */; };
+		7AAD00A528199BF50072A2C8 /* UserDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAD00A428199BF50072A2C8 /* UserDto.swift */; };
 		7AB0367A27F5066400599837 /* HowMoneyAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB0367927F5066400599837 /* HowMoneyAppApp.swift */; };
 		7AB0367C27F5066400599837 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB0367B27F5066400599837 /* ContentView.swift */; };
 		7AB0367E27F5066600599837 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AB0367D27F5066600599837 /* Assets.xcassets */; };
@@ -85,6 +86,7 @@
 		7AAA83C2280F2AF400DF552B /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		7AAA83C4280F452900DF552B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7AAA83C7280F48C200DF552B /* User+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Mock.swift"; sourceTree = "<group>"; };
+		7AAD00A428199BF50072A2C8 /* UserDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDto.swift; sourceTree = "<group>"; };
 		7AB0367627F5066400599837 /* HowMoneyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HowMoneyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB0367927F5066400599837 /* HowMoneyAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowMoneyAppApp.swift; sourceTree = "<group>"; };
 		7AB0367B27F5066400599837 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 		7A89872227FC593800CBF696 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7AAD00A328199BD80072A2C8 /* Dto */,
 				7AAA83C6280F466800DF552B /* Mocks */,
 				7A8560AE280312480016CEF8 /* UserAsset.swift */,
 				7AD706B928077D6800CBD66B /* Asset.swift */,
@@ -226,6 +229,14 @@
 				7AAA83C7280F48C200DF552B /* User+Mock.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		7AAD00A328199BD80072A2C8 /* Dto */ = {
+			isa = PBXGroup;
+			children = (
+				7AAD00A428199BF50072A2C8 /* UserDto.swift */,
+			);
+			path = Dto;
 			sourceTree = "<group>";
 		};
 		7AB0366D27F5066300599837 = {
@@ -468,6 +479,7 @@
 				7A8560AF280312480016CEF8 /* UserAsset.swift in Sources */,
 				7AC8ABB128022E16004E5132 /* TabView.swift in Sources */,
 				7A10C807280A190F0011EBE4 /* NetworkError.swift in Sources */,
+				7AAD00A528199BF50072A2C8 /* UserDto.swift in Sources */,
 				7AC8ABB528022E40004E5132 /* AssetsTabView.swift in Sources */,
 				7AC8ABB728022E4C004E5132 /* ProfileTabView.swift in Sources */,
 				7AE2B2EF27FE05A200898A1B /* Constants.swift in Sources */,
