@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct LogInView: View {
-    @State var emailTextfield: String = ""
-    @State var passwordTextfield: String = ""
+    @StateObject var loginViewModel: LoginViewModel = .init(userManager: UserManager())
     
     var body: some View {
         VStack {
+            NavigationLink(destination: Tab(user: loginViewModel.loggedUser ?? UserMock.user1), isActive: $loginViewModel.isLogged) {
+                EmptyView()
+            }.hidden()
+            
             Image("logo")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
@@ -25,8 +28,8 @@ struct LogInView: View {
                     .font(.title2)
                     .padding(.top, 40)
                     .frame(minWidth: 150, maxWidth: .infinity)
-                UnderlineTextField(textFieldTitle: "Email", isSecured: false, textField: $emailTextfield)
-                UnderlineTextField(textFieldTitle: "Password", isSecured: true, textField: $passwordTextfield)
+                UnderlineTextField(textFieldTitle: "Email", isSecured: false, textField: $loginViewModel.emailTextField)
+                UnderlineTextField(textFieldTitle: "Password", isSecured: true, textField: $loginViewModel.passwordTextField)
                 HStack {
                     Spacer()
                     Button {
@@ -40,10 +43,10 @@ struct LogInView: View {
                 }.padding([.leading, .trailing], 30)
                 
                 Spacer()
-                NavigationLink {
+                Button {
                     //TODO: signIn()
                     //1. Correct email and password - navigate to home tab
-                    Tab(user: UserMock.user1)
+                    loginViewModel.signIn()
                     //2. Incorrect fields - show alert
                 } label: {
                     ButtonText(text: "Sign In")
@@ -69,6 +72,10 @@ struct LogInView: View {
             }
             .font(.system(size: 16))
             .padding(.bottom, 30)
+        }
+        .alert(isPresented: $loginViewModel.areIncorrectData) {
+            Alert(title: Text("Invalid data"),
+                  message: Text("Please enter valid data"), dismissButton: .cancel(Text("OK")))
         }
         .background(Color("Background"))
         .navigationBarTitle("")

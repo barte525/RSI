@@ -7,9 +7,9 @@
 
 import Foundation
 
-enum UserRegistrationError: Error {
-    case success
-    case failure
+enum UserManagerError: Error {
+    case loginFailure
+    case registrationFailure
 }
 
 protocol UserManagerProtocol {
@@ -23,8 +23,25 @@ class UserManager: RequestProtocol {
     private let session = URLSession.shared
     private let urlString = "\(K.baseUrl)/api/Auth"
     
-    func signIn(email: String, password: String) {
-        //TODO: Sent request to API to sign in
+    func signIn(email: String, password: String)async throws -> User? {
+        let loginUrl = "\(urlString)/login"
+        guard let url = URL(string: loginUrl) else { throw NetworkError.invalidURL }
+        let postBody = ["email": email, "password": password]
+        let request = createRequest(url: url, method: "POST", postBody: postBody)
+        let (data, response) = try await session.data(for: request)
+        
+        if let httpResponse = response as? HTTPURLResponse {
+            switch httpResponse.statusCode {
+            case 200:
+                guard let userDto = try? JSONDecoder().decode(UserDto.self, from: data) else { throw UserManagerError.loginFailure }
+                try KeychainManager.save(account: userDto.email, service: K.keychainServiceName, token: userDto.token)
+                let user = User(id: userDto.id, email: userDto.email, name: userDto.name, surname: userDto.surname, sum: userDto.sum, currencyPreference: userDto.currencyPreference)
+                return user
+            default:
+                throw UserManagerError.loginFailure
+            }
+        }
+        return nil
     }
     
     func signOut() {
@@ -41,12 +58,12 @@ class UserManager: RequestProtocol {
         if let httpResponse = response as? HTTPURLResponse {
             switch httpResponse.statusCode {
             case 200:
-                guard let userDto = try? JSONDecoder().decode(UserDto.self, from: data) else { throw UserRegistrationError.failure }
+                guard let userDto = try? JSONDecoder().decode(UserDto.self, from: data) else { throw UserManagerError.registrationFailure }
                 try KeychainManager.save(account: userDto.email, service: K.keychainServiceName, token: userDto.token)
                 let user = User(id: userDto.id, email: userDto.email, name: userDto.name, surname: userDto.surname, sum: userDto.sum, currencyPreference: userDto.currencyPreference)
                 return user
             default:
-                throw UserRegistrationError.failure
+                throw UserManagerError.registrationFailure
             }
         }
         return nil

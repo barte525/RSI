@@ -10,7 +10,6 @@ import SwiftUI
 struct RegisterView: View {
     
     @StateObject var registerViewModel: RegisterViewModel = .sharedInstance
-    
     @State private var isShowingRegisterDetails: Bool = false
     @State private var isNotValidEmail: Bool = false
     
