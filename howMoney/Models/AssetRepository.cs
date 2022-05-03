@@ -29,7 +29,7 @@ namespace howMoney.Models
             _context.SaveChanges();
         }
 
-        public IEnumerable<Asset> GetAll()
+        public IEnumerable<Asset> GetAll(Guid? Id = null)
         {
             return _context.Assets.ToList();
         }
