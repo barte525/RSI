@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using howMoney.Models;
 using howMoney.Data;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace howMoney.Controllers
 {
@@ -66,6 +67,28 @@ namespace howMoney.Controllers
                 return true;
             }
             catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        [HttpPatch("{id:Guid}")]
+        public bool PatchUser(Guid id, [FromBody] JsonPatchDocument<User> patchUser)
+        {
+            if (patchUser != null)
+            {
+                var userToUpdate = _userRepository.GetById(id);
+                if (userToUpdate == null || !ModelState.IsValid)
+                {
+                    return false;
+                }
+
+                patchUser.ApplyTo(userToUpdate, ModelState);
+                _userRepository.Update(userToUpdate);
+
+                return true;
+            }
+            else
             {
                 return false;
             }

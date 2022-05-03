@@ -53,7 +53,8 @@ namespace howMoney
             services.AddTransient<IRepository<UserAsset>, UserAssetRepository>();
             services.AddTransient<IUserService, UserService>();
             services.AddHttpContextAccessor();
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "howMoney", Version = "v1" });
