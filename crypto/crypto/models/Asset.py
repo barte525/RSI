@@ -56,6 +56,7 @@ class Asset(models.Model):
             return
 
     def update_asset_price(self, name, currency_code):
+        from crypto.models.Alert import Alert
         try:
             asset = Asset.objects.get(name=name)
         except Asset.DoesNotExist:
@@ -63,6 +64,7 @@ class Asset(models.Model):
         price = self.get_new_crypto_price(asset, currency_code=currency_code)
         if price != EXTERNAL_API_ERROR and price != NOT_EXIST_ERROR:
             self.set_asset_price(asset, currency_code, price)
+            Alert().check_alert(asset, currency_code)
 
     @staticmethod
     def set_asset_price(asset, currency_code, price):
