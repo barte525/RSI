@@ -7,6 +7,8 @@ using Microsoft.Extensions.Logging;
 using howMoney.Models;
 using howMoney.Data;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace howMoney.Controllers
 {
@@ -58,18 +60,25 @@ namespace howMoney.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}"), Authorize]
         public bool Put([FromBody] User user)
         {
-            try
+            string loggedUsersEmail = User.FindFirstValue(ClaimTypes.Email);
+            if (loggedUsersEmail.Equals(user.Email))
             {
-                _userRepository.Update(user);
-                return true;
+                ;
+                try
+                {
+                    _userRepository.Update(user);
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
-            catch (Exception)
-            {
-                return false;
-            }
+            HttpContext.Response.StatusCode = 401;
+            return false;
         }
 
         [HttpPatch("{id:Guid}")]

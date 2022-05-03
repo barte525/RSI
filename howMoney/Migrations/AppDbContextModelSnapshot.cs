@@ -241,8 +241,6 @@ namespace howMoney.Migrations
 
                     b.HasKey("UserId", "AssetId");
 
-                    b.HasIndex("AssetId");
-
                     b.ToTable("UserAssets");
 
                     b.HasData(
@@ -306,35 +304,6 @@ namespace howMoney.Migrations
                             AssetId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa9"),
                             Amount = 100.0
                         });
-                });
-
-            modelBuilder.Entity("howMoney.Models.UserAsset", b =>
-                {
-                    b.HasOne("howMoney.Models.Asset", "Asset")
-                        .WithMany("UserAssets")
-                        .HasForeignKey("AssetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("howMoney.Models.User", "User")
-                        .WithMany("UserAssets")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Asset");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("howMoney.Models.Asset", b =>
-                {
-                    b.Navigation("UserAssets");
-                });
-
-            modelBuilder.Entity("howMoney.Models.User", b =>
-                {
-                    b.Navigation("UserAssets");
                 });
 #pragma warning restore 612, 618
         }

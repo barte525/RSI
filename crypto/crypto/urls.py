@@ -16,8 +16,10 @@ Including another URLconf
 from django.urls import path
 from crypto.views.CryptoView import CryptoView
 from crypto.views.HelloWorld import hello
+from crypto.views.AlertView import AlertView
 
 urlpatterns = [
-    path('api/get/cryptocurrency/value/', CryptoView.as_view()),
+    path('api/cryptocurrency/value/', CryptoView.as_view()),
+    path('api/alert/', AlertView.as_view()),
     path('', hello)
 ]

@@ -10,7 +10,7 @@ namespace howMoney.Models
 
         public void Update(T _object);
 
-        public IEnumerable<T> GetAll();
+        public IEnumerable<T> GetAll(Guid? Id = null);
 
         public T GetById(Guid Id, Guid? Id2 = null);
 
