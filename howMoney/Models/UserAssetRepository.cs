@@ -29,9 +29,9 @@ namespace howMoney.Models
             _context.SaveChanges();
         }
 
-        public IEnumerable<UserAsset> GetAll()
+        public IEnumerable<UserAsset> GetAll(Guid? Id)
         {
-            return _context.UserAssets.ToList();
+            return _context.UserAssets.Where(a => a.UserId == Id).ToList();
         }
 
         public UserAsset GetById(Guid UserId, Guid? AssetId)

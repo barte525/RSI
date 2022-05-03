@@ -26,7 +26,5 @@ namespace howMoney.Models
 
        [Required]
        public double ConverterUSD { get; set; }
-
-       public ICollection<UserAsset> UserAssets { get; set; }
     }
 }

@@ -24,14 +24,6 @@ namespace howMoney.Data
 
             modelBuilder.Entity<UserAsset>()
                 .HasKey(ua => new { ua.UserId, ua.AssetId });
-            modelBuilder.Entity<UserAsset>()
-                .HasOne(ua => ua.User)
-                .WithMany(u => u.UserAssets)
-                .HasForeignKey(ua => ua.UserId);
-            modelBuilder.Entity<UserAsset>()
-                .HasOne(ua => ua.Asset)
-                .WithMany(u => u.UserAssets)
-                .HasForeignKey(ua => ua.AssetId);
 
             modelBuilder.Entity<User>().HasData(
                 new User

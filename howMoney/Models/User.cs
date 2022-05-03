@@ -38,8 +38,6 @@ namespace howMoney.Models
         [MaxLength(30, ErrorMessage = "Currency preference is too long.")]
         public string CurrencyPreference { get; set; }
 
-        public ICollection<UserAsset> UserAssets { get; set; }
-
         public User()
         {
 
