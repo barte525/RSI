@@ -9,9 +9,7 @@ import SwiftUI
 
 struct ProfileTabView: View {
     
-    @State var nameTextField: String = ""
-    @State var surnameTextField: String = ""
-    @State var emailTextField: String = ""
+    var user: User
     @State var currencyPreferenceSelection: String = "EUR"
     @State var isShowingPasswordChangingAlert: Bool = false
     
@@ -20,9 +18,9 @@ struct ProfileTabView: View {
         VStack {
             Form {
                 Section(header: Text("General")) {
-                    Text("Name")
-                    Text("Surname")
-                    Text("Email")
+                    Text(user.name)
+                    Text(user.surname)
+                    Text(user.email)
                 }
                 .foregroundColor(Color.secondary)
                 
@@ -48,6 +46,20 @@ struct ProfileTabView: View {
                     }
                 }
             }
+            
+            Button {
+                //TODO: Sign out the user
+            } label: {
+                Text("Sign out")
+                    .frame(minWidth: 150, maxWidth: .infinity)
+                    .frame(height: 55)
+                    .background(Color("DarkPurple"))
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundColor(Color.white)
+                    .cornerRadius(10)
+                    .padding([.leading, .trailing], 10)
+            }
+            .padding(.bottom, 30)
         }
         .sheet(isPresented: $isShowingPasswordChangingAlert) {
             PasswordChangeView(isShown: $isShowingPasswordChangingAlert)
@@ -58,6 +70,6 @@ struct ProfileTabView: View {
 
 struct ProfileTabView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileTabView()
+        ProfileTabView(user: UserMock.user1)
     }
 }

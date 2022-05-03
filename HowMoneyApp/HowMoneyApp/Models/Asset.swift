@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Asset: Hashable {
+struct Asset: Hashable, Decodable {
     let name: String
     let type: String
 }

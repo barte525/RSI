@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserAsset: Identifiable {
+struct UserAsset: Identifiable, Decodable {
     let id: Int
     let asset: Asset
     let assetAmount: Double

@@ -8,16 +8,14 @@
 import SwiftUI
 
 struct RegisterView: View {
-    @State var emailTextField: String = ""
-    @State var passwordTextField: String = ""
-    @State var repeatedPasswordTextField: String = ""
+    
+    @StateObject var registerViewModel: RegisterViewModel = .sharedInstance
     @State private var isShowingRegisterDetails: Bool = false
-    @State private var isRegistered: Bool = false
     @State private var isNotValidEmail: Bool = false
     
     var body: some View {
         VStack {
-            NavigationLink(destination: Tab(), isActive: $isRegistered) {
+            NavigationLink(destination: Tab(user: registerViewModel.newUser ?? UserMock.user1), isActive: $registerViewModel.isRegistered) {
                 EmptyView()
             }.hidden()
             
@@ -33,16 +31,14 @@ struct RegisterView: View {
                     .font(.title2)
                     .padding(.top, 40)
                     .frame(minWidth: 150, maxWidth: .infinity)
-                UnderlineTextField(textFieldTitle: "Email", isSecured: false, textField: $emailTextField)
-                UnderlineTextField(textFieldTitle: "Password", isSecured: true, textField: $passwordTextField)
-                UnderlineTextField(textFieldTitle: "Repeated password", isSecured: true, textField: $repeatedPasswordTextField)
+                UnderlineTextField(textFieldTitle: "Email", isSecured: false, textField: $registerViewModel.email)
+                UnderlineTextField(textFieldTitle: "Password", isSecured: true, textField: $registerViewModel.password)
+                UnderlineTextField(textFieldTitle: "Repeated password", isSecured: true, textField: $registerViewModel.repeatedPassword)
                 Spacer()
                 Button {
-                    //TODO: register()
-                    //2. Incorrect passwords or email - Show alert
-                    isNotValidEmail = !emailTextField.isValidEmail
-                    //1. Passwords are the same - go to next register view
-                    if !isNotValidEmail {
+                    isNotValidEmail = !registerViewModel.email.isValidEmail || registerViewModel.email.isEmpty
+                    registerViewModel.checkPasswords()
+                    if !isNotValidEmail && !registerViewModel.arePasswordsIncorrect {
                         isShowingRegisterDetails.toggle()
                     }
                 } label: {
@@ -51,7 +47,7 @@ struct RegisterView: View {
                 .sheet(isPresented: $isShowingRegisterDetails) {
                     NavigationView {
                         VStack {
-                            RegisterDetailsView(isShowingRegisterDetails: $isShowingRegisterDetails, emailTextField: $emailTextField, passwordTextField: $passwordTextField, repeatedPasswordTextField: $repeatedPasswordTextField)
+                            RegisterDetailsView(isShowingRegisterDetails: $isShowingRegisterDetails)
                         }
                         .navigationTitle("Create account")
                         .navigationBarItems(leading: Button("Cancel") {
@@ -70,9 +66,7 @@ struct RegisterView: View {
                     .foregroundColor(.primary)
                     .opacity(0.7)
                 NavigationLink {
-                    //TODO: Navigate to LogIn Account View
                     LogInView()
-                    
                 } label: {
                     Text("Sign In")
                         .foregroundColor(.primary)
@@ -86,6 +80,7 @@ struct RegisterView: View {
             Alert(title: Text("Invalid email"),
                   message: Text("Please enter valid email"), dismissButton: .cancel(Text("OK")))
         }
+        //TODO: - Show next alert when passwords are not the same
         .background(Color("Background"))
         .navigationBarTitle("")
         .navigationBarHidden(true)

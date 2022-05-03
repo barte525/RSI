@@ -9,9 +9,10 @@ import SwiftUI
 
 struct AssetsTabView: View {
     
+    @StateObject var userAssetViewModel: UserAssetViewModel = .init(fetcher: UserAssetFetcher())
     @State var searchText: String = ""
-    @State var userAssets: [UserAsset] = UserAsset.mock
     @State var isShowingAlert: Bool = false
+    var userMail: String
     var assetToDelete: IndexSet? = nil
     
     var body: some View {
@@ -24,9 +25,9 @@ struct AssetsTabView: View {
                     .frame(height: 60)
             }.padding([.leading, .trailing], 15)
             
-            if userAssets.count > 0 {
+            if userAssetViewModel.userAssets.count > 0 {
                 List {
-                    ForEach(UserAsset.mock.filter{ searchText.isEmpty || $0.asset.name.lowercased().contains(searchText.lowercased())}) { userAsset in
+                    ForEach(userAssetViewModel.userAssets.filter{ searchText.isEmpty || $0.asset.name.lowercased().contains(searchText.lowercased())}) { userAsset in
                         HStack {
                             Text(userAsset.asset.name)
                             Spacer()
@@ -52,6 +53,9 @@ struct AssetsTabView: View {
                 .padding(.top, 20)
             }
         }
+        .onAppear {
+            userAssetViewModel.getAssets(for: userMail)
+        }
         .background(Color("Background"))
         .alert(isPresented: $isShowingAlert) {
             Alert(title: Text("Delete asset"),
@@ -70,6 +74,6 @@ struct AssetsTabView: View {
 
 struct AssetsTabView_Previews: PreviewProvider {
     static var previews: some View {
-        AssetsTabView()
+        AssetsTabView(userMail: "michael.smith@gmail.com")
     }
 }

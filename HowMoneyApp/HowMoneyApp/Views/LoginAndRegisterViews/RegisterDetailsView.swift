@@ -8,27 +8,23 @@
 import SwiftUI
 
 struct RegisterDetailsView: View {
+    
+    @StateObject var registerViewModel: RegisterViewModel = .sharedInstance
     @Binding var isShowingRegisterDetails: Bool
-    @Binding var emailTextField: String
-    @Binding var passwordTextField: String
-    @Binding var repeatedPasswordTextField: String
-    @State var nameTextField: String = ""
-    @State var surnameTextField: String = ""
-    @State var chosenCurrencyPreference: String = "EUR"
     
     var body: some View {
         ZStack {
             VStack {
-                UnderlineTextField(textFieldTitle: "Email", isSecured: false, textField: $emailTextField)
+                UnderlineTextField(textFieldTitle: "Email", isSecured: false, textField: $registerViewModel.email)
                     .padding(.top, 20)
-                UnderlineTextField(textFieldTitle: "Password", isSecured: true, textField: $passwordTextField)
-                UnderlineTextField(textFieldTitle: "Repeated password", isSecured: true, textField: $repeatedPasswordTextField)
-                UnderlineTextField(textFieldTitle: "Name", isSecured: true, textField: $nameTextField)
-                UnderlineTextField(textFieldTitle: "Surname", isSecured: true, textField: $surnameTextField)
+                UnderlineTextField(textFieldTitle: "Password", isSecured: true, textField: $registerViewModel.password)
+                UnderlineTextField(textFieldTitle: "Repeated password", isSecured: true, textField: $registerViewModel.repeatedPassword)
+                UnderlineTextField(textFieldTitle: "Name", isSecured: false, textField: $registerViewModel.name)
+                UnderlineTextField(textFieldTitle: "Surname", isSecured: false, textField: $registerViewModel.surname)
                 VStack {
                     Text("Total sum currency preference")
                         .foregroundColor(Color.white)
-                    Picker("fasfasf", selection: $chosenCurrencyPreference) {
+                    Picker("", selection: $registerViewModel.currencyPreference) {
                         ForEach(K.preferenceCurrencies, id: \.self) {
                             Text($0)
                         }
@@ -41,9 +37,10 @@ struct RegisterDetailsView: View {
                 .padding(.top, 15)
                 Spacer()
                 Button {
-                    isShowingRegisterDetails.toggle()
+                    registerViewModel.register()
                     //TODO: register()
                     //1. Fields are correct - navigate to home view
+                    isShowingRegisterDetails.toggle()
                     //2. Incorrect fields - Show alert
                 } label: {
                     ButtonText(text: "Register")
@@ -61,6 +58,6 @@ struct RegisterDetailsView: View {
 
 struct RegisterDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterDetailsView(isShowingRegisterDetails: .constant(true), emailTextField: .constant("john.smith@gmail.com"), passwordTextField: .constant("p@ssw0rd"), repeatedPasswordTextField: .constant("p@ssw0rd"))
+        RegisterDetailsView(isShowingRegisterDetails: .constant(true))
     }
 }

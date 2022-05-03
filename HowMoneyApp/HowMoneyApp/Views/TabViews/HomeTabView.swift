@@ -9,8 +9,8 @@ import SwiftUI
 
 struct HomeTabView: View {
     
-    @State var currencyPreferenceChoice: String = K.preferenceCurrencies[0]
-    @State var totalBudget: Double = 0.0
+    var currencyPreferenceChoice: String
+    var totalBudget: Double
     
     var body: some View {
         VStack {
@@ -38,6 +38,6 @@ struct HomeTabView: View {
 
 struct HomeTabView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeTabView()
+        HomeTabView(currencyPreferenceChoice: "EUR", totalBudget: 0.0)
     }
 }
