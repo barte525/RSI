@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using howMoney.Models;
 using howMoney.Data;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
@@ -14,6 +15,7 @@ namespace howMoney.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [EnableCors("frontend_cors")]
     public class UserAssetController : ControllerBase
     {
         private readonly ILogger<UserAssetController> _logger;

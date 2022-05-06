@@ -9,11 +9,13 @@ using howMoney.Data;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Cors;
 
 namespace howMoney.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [EnableCors("frontend_cors")]
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;

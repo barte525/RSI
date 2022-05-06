@@ -11,11 +11,13 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 
 namespace howMoney.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("frontend_cors")]
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration _configuration;
