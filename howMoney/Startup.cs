@@ -24,6 +24,10 @@ namespace howMoney
 {
     public class Startup
     {
+
+        public const string FRONTEND_CORS = "cors_for_frontend";
+
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -58,6 +62,28 @@ namespace howMoney
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "howMoney", Version = "v1" });
             });
+
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: MyAllowSpecificOrigins,
+            //                      policy =>
+            //                      {
+            //                          policy.WithOrigins("*");
+            //                      });
+            //});
+
+            services.AddCors(options =>
+               options.AddPolicy(
+                   FRONTEND_CORS,
+                   builder =>
+                   {
+                       builder.WithOrigins("https://localhost:4200", "http://localhost:4200")
+                                   .AllowAnyHeader()
+                                   .AllowAnyMethod();
+                   }
+                   //builder.WithOrigins("*")
+               )
+           ); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,6 +103,9 @@ namespace howMoney
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            //app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors(FRONTEND_CORS);
 
             app.UseEndpoints(endpoints =>
             {

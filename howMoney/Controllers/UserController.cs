@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using howMoney.Models;
 using howMoney.Data;
+using Microsoft.AspNetCore.Cors;
 
 namespace howMoney.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [EnableCors("cors_for_frontend")]
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
