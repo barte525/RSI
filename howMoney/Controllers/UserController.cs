@@ -84,24 +84,24 @@ namespace howMoney.Controllers
         }
 
         [HttpPatch("{id:Guid}")]
-        public bool PatchUser(Guid id, [FromBody] JsonPatchDocument<User> patchUser)
+        public User PatchUser(Guid id, [FromBody] JsonPatchDocument<User> patchUser)
         {
             if (patchUser != null)
             {
                 var userToUpdate = _userRepository.GetById(id);
                 if (userToUpdate == null || !ModelState.IsValid)
                 {
-                    return false;
+                    return null;
                 }
 
                 patchUser.ApplyTo(userToUpdate, ModelState);
                 _userRepository.Update(userToUpdate);
 
-                return true;
+                return userToUpdate;
             }
             else
             {
-                return false;
+                return null;
             }
         }
     }
