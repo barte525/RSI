@@ -36,11 +36,11 @@ namespace howMoney.Controllers
             return null;
         }
 
-        [HttpGet("{userId, assetId}"), Authorize]
+        [HttpGet("{userId}/{assetId}"), Authorize]
         public UserAsset Get(Guid userId, Guid assetId)
         {
             if (Authenticate_user(User.FindFirstValue(ClaimTypes.Email), userId))
-                _userAssetRepository.GetById(userId, assetId);
+                return _userAssetRepository.GetById(userId, assetId);
             HttpContext.Response.StatusCode = 401;
             return null;
         }
