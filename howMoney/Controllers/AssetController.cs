@@ -28,6 +28,7 @@ namespace howMoney.Controllers
         [HttpGet("{id}")]
         public Asset Get(Guid id) => _assetRepository.GetById(id);
 
+        //dev
         [HttpPost]
         public async Task<Object> Post([FromBody] Asset asset)
         {
@@ -38,11 +39,12 @@ namespace howMoney.Controllers
             }
             catch (Exception ex)
             {
-
+                HttpContext.Response.StatusCode = 400;
                 return ex;
             }
         }
 
+        //dev
         [HttpDelete("{id}")]
         public bool DeleteAsset(Guid id)
         {
@@ -53,10 +55,12 @@ namespace howMoney.Controllers
             }
             catch (Exception)
             {
+                HttpContext.Response.StatusCode = 400;
                 return false;
             }
         }
 
+        //dev
         [HttpPut("{id}")]
         public bool Put([FromBody] Asset asset)
         {
@@ -67,6 +71,7 @@ namespace howMoney.Controllers
             }
             catch (Exception)
             {
+                HttpContext.Response.StatusCode = 400;
                 return false;
             }
         }
