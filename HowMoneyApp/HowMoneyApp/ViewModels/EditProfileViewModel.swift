@@ -14,7 +14,6 @@ class EditProfileViewModel: ObservableObject {
     @Published var emailTextField: String = ""
     @Published var nameTextField: String = ""
     @Published var surnameTextField: String = ""
-    @Published var isUpdated: Bool = false
     @Published var loggedUser: User? = nil
     @Published var areIncorrectData: Bool = false
     @Published var errorMessage: String = ""
@@ -38,9 +37,7 @@ class EditProfileViewModel: ObservableObject {
             task = Task {
                 do {
                     loggedUser = try await userManager.update(user: user, name: nameTextField, surname: surnameTextField, email: emailTextField)
-                    isUpdated = true
                 } catch {
-                    isUpdated = false
                     areIncorrectData = true
                     errorMessage = error.localizedDescription
                     print("Error during user update: \(error)")

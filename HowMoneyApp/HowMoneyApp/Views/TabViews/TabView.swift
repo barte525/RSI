@@ -61,6 +61,6 @@ struct Tab: View {
 
 struct TabView_Previews: PreviewProvider {
     static var previews: some View {
-        Tab(user: User(id: "1234567", email: "john.smith@gmail.com", name: "John", surname: "Smith", sum: 0, currencyPreference: "EUR"))
+        Tab(user: UserMock.user1)
     }
 }

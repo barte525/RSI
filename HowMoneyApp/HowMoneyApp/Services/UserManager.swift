@@ -48,6 +48,7 @@ class UserManager: RequestProtocol, UserManagerProtocol {
     
     func signOut() {
         //TODO: Sign out the user
+        KeychainManager.logout()
     }
     
     func register(email: String, name: String, surname: String, password: String, currencyPreference: String) async throws -> User? {
@@ -83,12 +84,10 @@ class UserManager: RequestProtocol, UserManagerProtocol {
         let (data, response) = try await session.data(for: request)
         
         if let httpResponse = response as? HTTPURLResponse {
-            print(httpResponse)
             switch httpResponse.statusCode {
             case 200:
                 guard let userDto = try? JSONDecoder().decode(UpdateUserDto.self, from: data) else { throw UserManagerError.updateFailure }
                 let user = User(id: userDto.id, email: userDto.email, name: userDto.name, surname: userDto.surname, sum: user.sum, currencyPreference: userDto.currencyPreference)
-                print(user)
                 return user
             default:
                 throw UserManagerError.updateFailure

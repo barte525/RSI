@@ -26,7 +26,7 @@ struct EditProfileView: View {
         .navigationTitle("Edit profile")
         .navigationBarItems(trailing: Button("Save") {
             editProfileViewModel.updateUser(user: user)
-            if editProfileViewModel.isUpdated {
+            if !editProfileViewModel.areIncorrectData {
                 self.presentationMode.wrappedValue.dismiss()
             }
         })
