@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RegisterDetailsView: View {
     
-    @StateObject var registerViewModel: RegisterViewModel = .sharedInstance
+    @StateObject var registerViewModel: UserStateViewModel = .sharedInstance
     @Binding var isShowingRegisterDetails: Bool
     
     var body: some View {

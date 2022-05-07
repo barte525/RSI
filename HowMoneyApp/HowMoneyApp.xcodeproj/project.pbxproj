@@ -41,6 +41,8 @@
 		7AB0369727F5066700599837 /* HowMoneyAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB0369627F5066700599837 /* HowMoneyAppUITestsLaunchTests.swift */; };
 		7ABA42F02809C9360034319D /* AmountFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABA42EF2809C9360034319D /* AmountFormatter.swift */; };
 		7ABA42F22809CF0B0034319D /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABA42F12809CF0B0034319D /* String+Extension.swift */; };
+		7AC2D1782826D7B400365800 /* ApplicationSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC2D1772826D7B400365800 /* ApplicationSwitcher.swift */; };
+		7AC2D17A2826D7F400365800 /* UserStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC2D1792826D7F400365800 /* UserStateViewModel.swift */; };
 		7AC8ABB128022E16004E5132 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC8ABB028022E16004E5132 /* TabView.swift */; };
 		7AC8ABB328022E2F004E5132 /* HomeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC8ABB228022E2F004E5132 /* HomeTabView.swift */; };
 		7AC8ABB528022E40004E5132 /* AssetsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC8ABB428022E40004E5132 /* AssetsTabView.swift */; };
@@ -110,6 +112,8 @@
 		7AB0369627F5066700599837 /* HowMoneyAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowMoneyAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		7ABA42EF2809C9360034319D /* AmountFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountFormatter.swift; sourceTree = "<group>"; };
 		7ABA42F12809CF0B0034319D /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		7AC2D1772826D7B400365800 /* ApplicationSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSwitcher.swift; sourceTree = "<group>"; };
+		7AC2D1792826D7F400365800 /* UserStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStateViewModel.swift; sourceTree = "<group>"; };
 		7AC8ABB028022E16004E5132 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		7AC8ABB228022E2F004E5132 /* HomeTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabView.swift; sourceTree = "<group>"; };
 		7AC8ABB428022E40004E5132 /* AssetsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsTabView.swift; sourceTree = "<group>"; };
@@ -197,6 +201,7 @@
 				7AC8ABB928022E6F004E5132 /* LoginAndRegisterViews */,
 				7A78425F27FCE88300F3D05C /* CustomControls */,
 				7AC8ABB828022E56004E5132 /* TabViews */,
+				7AC2D1772826D7B400365800 /* ApplicationSwitcher.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -223,6 +228,7 @@
 				7AAD00A92819AE5E0072A2C8 /* UserAssetViewModel.swift */,
 				7A44976A281A8F81003C53CC /* LoginViewModel.swift */,
 				7AF4F51328266EE3003A3715 /* EditProfileViewModel.swift */,
+				7AC2D1792826D7F400365800 /* UserStateViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -490,9 +496,11 @@
 				7A44976B281A8F81003C53CC /* LoginViewModel.swift in Sources */,
 				7A876F66280DFC20008CB565 /* UserManager.swift in Sources */,
 				7A78425C27FCE2F300F3D05C /* ButtonText.swift in Sources */,
+				7AC2D17A2826D7F400365800 /* UserStateViewModel.swift in Sources */,
 				7AB0367C27F5066400599837 /* ContentView.swift in Sources */,
 				7AEF7371280E01CC004ED2F5 /* RequestProtocol.swift in Sources */,
 				7A78425E27FCE57100F3D05C /* RegisterView.swift in Sources */,
+				7AC2D1782826D7B400365800 /* ApplicationSwitcher.swift in Sources */,
 				7A8560B1280312A20016CEF8 /* UserAsset+Mock.swift in Sources */,
 				7AAA83C8280F48C200DF552B /* User+Mock.swift in Sources */,
 				7A78425A27FCE07E00F3D05C /* UnderlineTextField.swift in Sources */,

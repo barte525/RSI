@@ -10,27 +10,26 @@ import SwiftUI
 struct EditProfileView: View {
     
     @Environment(\.presentationMode) var presentationMode
-    @StateObject var editProfileViewModel: EditProfileViewModel = .init(userManager: UserManager())
-    var user: User
+    @EnvironmentObject var userStateViewModel: UserStateViewModel
     
     var body: some View {
         Form {
             Section(header: Text("General")) {
-                TextField("Name", text: $editProfileViewModel.nameTextField)
-                TextField("Surname", text: $editProfileViewModel.surnameTextField)
-                TextField("Email", text: $editProfileViewModel.emailTextField)
+                TextField("Name", text: $userStateViewModel.name)
+                TextField("Surname", text: $userStateViewModel.surname)
+                TextField("Email", text: $userStateViewModel.email)
             }
         }
         .padding(.top, 10)
         .background(Color("Background"))
         .navigationTitle("Edit profile")
         .navigationBarItems(trailing: Button("Save") {
-            editProfileViewModel.updateUser(user: user)
-            if !editProfileViewModel.areIncorrectData {
+            userStateViewModel.updateUser()
+            if !userStateViewModel.areIncorrectData {
                 self.presentationMode.wrappedValue.dismiss()
             }
         })
-        .alert(isPresented: $editProfileViewModel.areIncorrectData) {
+        .alert(isPresented: $userStateViewModel.areIncorrectData) {
             Alert(title: Text("Invalid data"),
                   message: Text("Please enter valid data"), dismissButton: .cancel(Text("OK")))
         }
@@ -39,6 +38,6 @@ struct EditProfileView: View {
 
 struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        EditProfileView(user: UserMock.user1)
+        EditProfileView()
     }
 }

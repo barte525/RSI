@@ -8,22 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
-    @AppStorage("neverLogged") var neverLogged = true
+    @StateObject var userStateViewModel = UserStateViewModel(userManager: UserManager())
     
     init() {
-//            UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.black]
         KeychainManager.logout()
     }
     
     var body: some View {
-        NavigationView {
-            if neverLogged {
-                RegisterView()
-            } else {
-                LogInView()
-            }
-            
+        NavigationView{
+            ApplicationSwitcher()
         }
+        .environmentObject(userStateViewModel)
     }
 }
 
