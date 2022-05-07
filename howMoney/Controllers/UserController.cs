@@ -9,13 +9,11 @@ using howMoney.Data;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Cors;
 
 namespace howMoney.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [EnableCors("frontend_cors")]
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
@@ -34,6 +32,7 @@ namespace howMoney.Controllers
         public User Get(Guid id) => _userRepository.GetById(id);
 
 
+        //just in case, normaly use register
         [HttpPost]
         public async Task<Object> Post([FromBody] User user)
         {
@@ -48,12 +47,13 @@ namespace howMoney.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
-        public bool DeleteUser(Guid id)
+        [HttpDelete, Authorize]
+        public bool DeleteUser()
         {
+            Guid userId = _userRepository.GetByEmail(User.FindFirstValue(ClaimTypes.Email)).Id;
             try
             {
-                _userRepository.Delete(id);
+                _userRepository.Delete(userId);
                 return true;
             }
             catch (Exception)
@@ -62,7 +62,7 @@ namespace howMoney.Controllers
             }
         }
 
-        [HttpPut("{id}"), Authorize]
+        [HttpPut, Authorize]
         public bool Put([FromBody] User user)
         {
             string loggedUsersEmail = User.FindFirstValue(ClaimTypes.Email);
@@ -77,18 +77,18 @@ namespace howMoney.Controllers
                 catch (Exception)
                 {
                     return false;
-                }
+                }   
             }
             HttpContext.Response.StatusCode = 401;
             return false;
         }
 
-        [HttpPatch("{id:Guid}")]
-        public bool PatchUser(Guid id, [FromBody] JsonPatchDocument<User> patchUser)
+        [HttpPatch, Authorize]
+        public bool PatchUser([FromBody] JsonPatchDocument<User> patchUser)
         {
             if (patchUser != null)
             {
-                var userToUpdate = _userRepository.GetById(id);
+                var userToUpdate = _userRepository.GetByEmail(User.FindFirstValue(ClaimTypes.Email));
                 if (userToUpdate == null || !ModelState.IsValid)
                 {
                     return false;

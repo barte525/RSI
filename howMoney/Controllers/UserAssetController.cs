@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using howMoney.Models;
 using howMoney.Data;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
@@ -15,7 +14,6 @@ namespace howMoney.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [EnableCors("frontend_cors")]
     public class UserAssetController : ControllerBase
     {
         private readonly ILogger<UserAssetController> _logger;
@@ -44,49 +42,36 @@ namespace howMoney.Controllers
         public UserAsset Get(Guid userId, Guid assetId)
         {
             if (Authenticate_user(User.FindFirstValue(ClaimTypes.Email), userId))
-                return _userAssetRepository.GetById(userId, assetId);
+                _userAssetRepository.GetById(userId, assetId);
             HttpContext.Response.StatusCode = 401;
             return null;
         }
-
-        [HttpGet("sum/{userId}"), Authorize]
-        public double? GetSum(Guid userId)
+            
+        [HttpGet("sum/{currencyPref}/{userId}"), Authorize]
+        public double? GetSum(String currencyPref, Guid userId)
         {
             if (Authenticate_user(User.FindFirstValue(ClaimTypes.Email), userId))
             {
-                try
+                double sum = 0;
+                double converter;
+                string chosenCurrencyName = "Converter" + currencyPref;
+
+                IEnumerable<UserAsset> userAssets = _userAssetRepository.GetAll(userId);
+
+                foreach (var userAsset in userAssets)
                 {
-                    double sum = 0;
-                    double converter;
-                    User user = _userRepository.GetById(userId);
-                    string chosenCurrencyName = "Converter" + user.CurrencyPreference;
-
-                    IEnumerable<UserAsset> userAssets = _userAssetRepository.GetAll(userId);
-                    IEnumerable<Asset> assets = _assetRepository.GetAll();
-
-                    var allUserAssets = from u in userAssets
-                                        join a in assets
-                                        on u.AssetId equals a.Id
-                                        select new
-                                        {
-                                            Amount = u.Amount,
-                                            ConverterPLN = a.ConverterPLN,
-                                            ConverterUSD = a.ConverterUSD,
-                                            ConverterEUR = a.ConverterEUR
-                                        };
-
-                    foreach (var asset in allUserAssets)
+                    try
                     {
+                        Asset asset = _assetRepository.GetById(userAsset.AssetId);
                         var value = asset.GetType().GetProperty(chosenCurrencyName).GetValue(asset, null);
                         converter = (double)value;
-                        sum += asset.Amount * converter;
+                        sum += userAsset.Amount * converter;
+                    } catch {
+                        HttpContext.Response.StatusCode = 401;
+                        return null;
                     }
-                    return sum;
-                } catch
-                {
-                    HttpContext.Response.StatusCode = 400;
-                    return null;
                 }
+                return sum;
             }
 
             HttpContext.Response.StatusCode = 401;
