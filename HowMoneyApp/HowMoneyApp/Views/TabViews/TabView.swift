@@ -10,7 +10,6 @@ import SwiftUI
 struct Tab: View {
     @State private var selection: String = "Home"
     @State var isEditingProfile: Bool = false
-    
     var user: User
     
     var body: some View {
@@ -49,7 +48,7 @@ struct Tab: View {
             case TabBarSelection.assets.rawValue:
                 NewAssetView()
             case TabBarSelection.profile.rawValue:
-                EditProfileView()
+                EditProfileView(user: user)
             default:
                 EmptyView()
             }

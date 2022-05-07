@@ -17,7 +17,7 @@ protocol UserManagerProtocol {
     func signIn(email: String, password: String) async throws -> User?
     func signOut()
     func register(email: String, name: String, surname: String, password: String, currencyPreference: String) async throws -> User?
-    func update(user: User, name: String) async throws -> User?
+    func update(user: User, name: String, surname: String, email: String) async throws -> User?
 }
 
 class UserManager: RequestProtocol, UserManagerProtocol {
@@ -29,7 +29,7 @@ class UserManager: RequestProtocol, UserManagerProtocol {
         let loginUrl = "\(urlString)/Auth/login"
         guard let url = URL(string: loginUrl) else { throw NetworkError.invalidURL }
         let postBody = ["email": email, "password": password]
-        let request = createRequest(url: url, method: "POST", postBody: postBody)
+        let request = createRequest(url: url, method: "POST", body: postBody)
         let (data, response) = try await session.data(for: request)
         
         if let httpResponse = response as? HTTPURLResponse {
@@ -54,7 +54,7 @@ class UserManager: RequestProtocol, UserManagerProtocol {
         let registerUrl = "\(urlString)/Auth/register"
         guard let url = URL(string: registerUrl) else { throw NetworkError.invalidURL }
         let postBody = ["email": email, "name": name, "surname": surname, "password": password, "currencyPreference": currencyPreference]
-        let request = createRequest(url: url, method: "POST", postBody: postBody)
+        let request = createRequest(url: url, method: "POST", body: postBody)
         let (data, response) = try await session.data(for: request)
         
         if let httpResponse = response as? HTTPURLResponse {
@@ -71,21 +71,27 @@ class UserManager: RequestProtocol, UserManagerProtocol {
         return nil
     }
     
-    func update(user: User, name: String) async throws -> User? {
-        let updateUrl = "\(urlString)/\(user.id)"
+    func update(user: User, name: String, surname: String, email: String) async throws -> User? {
+        let updateUrl = "\(urlString)/User/\(user.id)"
         guard let url = URL(string: updateUrl) else { throw NetworkError.invalidURL }
-        let patchBody = ["value": name, "path": "/Name", "op": "replace"]
-        let request = createRequest(url: url, method: "PATCH", postBody: patchBody)
+        let patchBody = [
+            ["value": name, "path": "/Name", "op": "replace"],
+            ["value": surname, "path": "/Surname", "op": "replace"],
+            ["value": email, "path": "/Email", "op": "replace"]
+        ]
+        let request = createPatchRequest(url: url, patchBody: patchBody)
         let (data, response) = try await session.data(for: request)
         
         if let httpResponse = response as? HTTPURLResponse {
+            print(httpResponse)
             switch httpResponse.statusCode {
             case 200:
                 guard let userDto = try? JSONDecoder().decode(UpdateUserDto.self, from: data) else { throw UserManagerError.updateFailure }
                 let user = User(id: userDto.id, email: userDto.email, name: userDto.name, surname: userDto.surname, sum: user.sum, currencyPreference: userDto.currencyPreference)
+                print(user)
                 return user
             default:
-                throw UserManagerError.registrationFailure
+                throw UserManagerError.updateFailure
             }
         }
         return nil

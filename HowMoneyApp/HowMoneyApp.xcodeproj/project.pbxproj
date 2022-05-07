@@ -52,6 +52,7 @@
 		7AE2B2EF27FE05A200898A1B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE2B2EE27FE05A200898A1B /* Constants.swift */; };
 		7AEF736F280DFF6B004ED2F5 /* UserCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEF736E280DFF6B004ED2F5 /* UserCredentials.swift */; };
 		7AEF7371280E01CC004ED2F5 /* RequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEF7370280E01CC004ED2F5 /* RequestProtocol.swift */; };
+		7AF4F51428266EE3003A3715 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF4F51328266EE3003A3715 /* EditProfileViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +121,7 @@
 		7AE2B2EE27FE05A200898A1B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7AEF736E280DFF6B004ED2F5 /* UserCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCredentials.swift; sourceTree = "<group>"; };
 		7AEF7370280E01CC004ED2F5 /* RequestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestProtocol.swift; sourceTree = "<group>"; };
+		7AF4F51328266EE3003A3715 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +222,7 @@
 				7AAA83C2280F2AF400DF552B /* RegisterViewModel.swift */,
 				7AAD00A92819AE5E0072A2C8 /* UserAssetViewModel.swift */,
 				7A44976A281A8F81003C53CC /* LoginViewModel.swift */,
+				7AF4F51328266EE3003A3715 /* EditProfileViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -504,6 +507,7 @@
 				7ABA42F22809CF0B0034319D /* String+Extension.swift in Sources */,
 				7A8560AF280312480016CEF8 /* UserAsset.swift in Sources */,
 				7AC8ABB128022E16004E5132 /* TabView.swift in Sources */,
+				7AF4F51428266EE3003A3715 /* EditProfileViewModel.swift in Sources */,
 				7A10C807280A190F0011EBE4 /* NetworkError.swift in Sources */,
 				7AAD00A528199BF50072A2C8 /* UserDto.swift in Sources */,
 				7AC8ABB528022E40004E5132 /* AssetsTabView.swift in Sources */,

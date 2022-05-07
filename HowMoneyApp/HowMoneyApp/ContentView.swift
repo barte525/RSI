@@ -12,6 +12,7 @@ struct ContentView: View {
     
     init() {
 //            UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+        KeychainManager.logout()
         }
     
     var body: some View {
