@@ -46,7 +46,7 @@ struct ProfileTabView: View {
             }
             
             Button {
-                //TODO: Sign out the user
+                userStateViewModel.signOut()
             } label: {
                 Text("Sign out")
                     .frame(minWidth: 150, maxWidth: .infinity)

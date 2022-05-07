@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 @MainActor
 class UserStateViewModel: ObservableObject {
@@ -74,6 +75,12 @@ class UserStateViewModel: ObservableObject {
         }
     }
     
+    func signOut() {
+        userManager.signOut()
+        eraseAllFields()
+        isLogged = false
+    }
+    
     func updateUser() {
 //        if areFieldsFullfilled() {
 //            areIncorrectData = false
@@ -102,6 +109,12 @@ class UserStateViewModel: ObservableObject {
         surname = userSurname
         currencyPreference = userCurrencyPreference
         sum = userSum
+    }
+    
+    func eraseAllFields() {
+        updateAllFields(userEmail: "", userName: "", userSurname: "", userCurrencyPreference: "", userSum: 0.0)
+        password = ""
+        repeatedPassword = ""
     }
     
     func checkPasswords() {
