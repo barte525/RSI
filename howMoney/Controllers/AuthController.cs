@@ -31,14 +31,6 @@ namespace howMoney.Controllers
             _userRepository = userRepository;
         }
 
-        [HttpGet, Authorize]
-        public ActionResult<string> GetMe()
-        {
-            var userName2 = User.FindFirstValue(ClaimTypes.Email);
-            var role = User.FindFirstValue(ClaimTypes.Role);
-            return Ok(new { userName2, role });
-        }
-
 
         [HttpPost("register")]
         public async Task<Object> Register(UserRegisterDto request)
@@ -75,6 +67,7 @@ namespace howMoney.Controllers
             }
             catch (Exception ex)
             {
+                HttpContext.Response.StatusCode = 400;
                 return ex;
             }
         }
@@ -138,8 +131,6 @@ namespace howMoney.Controllers
             {
                 passwordSalt = Convert.ToBase64String(hmac.Key);
                 passwordHash = Convert.ToBase64String(hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password)));
-                Console.WriteLine(passwordSalt);
-                Console.WriteLine(passwordHash);
             }
         }
 
