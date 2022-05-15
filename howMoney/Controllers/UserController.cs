@@ -93,17 +93,17 @@ namespace howMoney.Controllers
                 var userToUpdate = _userRepository.GetByEmail(User.FindFirstValue(ClaimTypes.Email));
                 if (userToUpdate == null || !ModelState.IsValid)
                 {
-                    return null;
+                    return false;
                 }
 
                 patchUser.ApplyTo(userToUpdate, ModelState);
                 _userRepository.Update(userToUpdate);
 
-                return userToUpdate;
+                return true;
             }
             else
             {
-                return null;
+                return false;
             }
         }
     }
