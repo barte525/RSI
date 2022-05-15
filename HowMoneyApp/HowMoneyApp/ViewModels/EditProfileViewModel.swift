@@ -1,23 +1,19 @@
 //
-//  LoginViewModel.swift
+//  EditProfileViewModel.swift
 //  HowMoneyApp
 //
-//  Created by Aleksandra Generowicz on 28/04/2022.
+//  Created by Aleksandra Generowicz on 07/05/2022.
 //
 
 import Foundation
-import UIKit
-import SwiftUI
 
-@MainActor
-class LoginViewModel: ObservableObject {
-    
+class EditProfileViewModel: ObservableObject {
     private var userManager: UserManager
     private var task: Task<(), Never>?
     
     @Published var emailTextField: String = ""
-    @Published var passwordTextField: String = ""
-    @Published var isLogged: Bool = false
+    @Published var nameTextField: String = ""
+    @Published var surnameTextField: String = ""
     @Published var loggedUser: User? = nil
     @Published var areIncorrectData: Bool = false
     @Published var errorMessage: String = ""
@@ -27,10 +23,11 @@ class LoginViewModel: ObservableObject {
     }
     
     func areFieldsFullfilled() -> Bool {
-        return emailTextField.isValidEmail && !passwordTextField.isEmpty
+        return emailTextField.isValidEmail && !nameTextField.isEmpty && !surnameTextField.isEmpty
     }
     
-    func signIn() {
+    @MainActor
+    func updateUser(user: User) {
         if areFieldsFullfilled() {
             areIncorrectData = false
         } else {
@@ -39,17 +36,13 @@ class LoginViewModel: ObservableObject {
         if !areIncorrectData {
             task = Task {
                 do {
-                    loggedUser = try await userManager.signIn(email: emailTextField, password: passwordTextField)
-                    isLogged = true
+                    loggedUser = try await userManager.update(user: user, name: nameTextField, surname: surnameTextField, email: emailTextField)
                 } catch {
-                    isLogged = false
                     areIncorrectData = true
                     errorMessage = error.localizedDescription
-                    print("Error during signing in: \(error)")
+                    print("Error during user update: \(error)")
                 }
             }
         }
     }
-    
-    
 }

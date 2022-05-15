@@ -9,16 +9,12 @@ import SwiftUI
 
 struct RegisterView: View {
     
-    @StateObject var registerViewModel: RegisterViewModel = .sharedInstance
+    @StateObject var registerViewModel: UserStateViewModel = .sharedInstance
     @State private var isShowingRegisterDetails: Bool = false
     @State private var isNotValidEmail: Bool = false
     
     var body: some View {
         VStack {
-            NavigationLink(destination: Tab(user: registerViewModel.newUser ?? UserMock.user1), isActive: $registerViewModel.isRegistered) {
-                EmptyView()
-            }.hidden()
-            
             Image("logo")
                 .resizable()
                 .aspectRatio(contentMode: .fit)

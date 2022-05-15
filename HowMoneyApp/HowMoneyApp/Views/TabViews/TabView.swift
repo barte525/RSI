@@ -8,28 +8,27 @@
 import SwiftUI
 
 struct Tab: View {
+    @EnvironmentObject var userStateViewModel: UserStateViewModel
     @State private var selection: String = "Home"
     @State var isEditingProfile: Bool = false
     
-    var user: User
-    
     var body: some View {
         TabView(selection: $selection) {
-            HomeTabView(currencyPreferenceChoice: user.currencyPreference, totalBudget: user.sum)
+            HomeTabView(currencyPreferenceChoice: userStateViewModel.currencyPreference, totalBudget: userStateViewModel.sum)
                 .tag(TabBarSelection.home.rawValue)
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("Home")
                 }
             
-            AssetsTabView(userMail: user.email)
+            AssetsTabView(userMail: userStateViewModel.email)
                 .tag(TabBarSelection.assets.rawValue)
                 .tabItem {
                     Image(systemName: "dollarsign.circle.fill")
                     Text("Assets")
                 }
             
-            ProfileTabView(user: user)
+            ProfileTabView()
                 .tag(TabBarSelection.profile.rawValue)
                 .tabItem {
                     Image(systemName: "person.fill")
@@ -62,6 +61,6 @@ struct Tab: View {
 
 struct TabView_Previews: PreviewProvider {
     static var previews: some View {
-        Tab(user: User(id: "1234567", email: "john.smith@gmail.com", name: "John", surname: "Smith", sum: 0, currencyPreference: "EUR"))
+        Tab()
     }
 }

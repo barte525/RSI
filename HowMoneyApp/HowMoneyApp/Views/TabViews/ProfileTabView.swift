@@ -8,19 +8,17 @@
 import SwiftUI
 
 struct ProfileTabView: View {
-    
-    var user: User
+    @EnvironmentObject var userStateViewModel: UserStateViewModel
     @State var currencyPreferenceSelection: String = "EUR"
     @State var isShowingPasswordChangingAlert: Bool = false
-    
     
     var body: some View {
         VStack {
             Form {
                 Section(header: Text("General")) {
-                    Text(user.name)
-                    Text(user.surname)
-                    Text(user.email)
+                    Text(userStateViewModel.name)
+                    Text(userStateViewModel.surname)
+                    Text(userStateViewModel.email)
                 }
                 .foregroundColor(Color.secondary)
                 
@@ -48,7 +46,7 @@ struct ProfileTabView: View {
             }
             
             Button {
-                //TODO: Sign out the user
+                userStateViewModel.signOut()
             } label: {
                 Text("Sign out")
                     .frame(minWidth: 150, maxWidth: .infinity)
@@ -70,6 +68,6 @@ struct ProfileTabView: View {
 
 struct ProfileTabView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileTabView(user: UserMock.user1)
+        ProfileTabView()
     }
 }

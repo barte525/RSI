@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -84,7 +84,7 @@ namespace howMoney.Controllers
             HttpContext.Response.StatusCode = 401;
             return false;
         }
-
+        
         [HttpPatch, Authorize]
         public bool PatchUser([FromBody] JsonPatchDocument<User> patchUser)
         {

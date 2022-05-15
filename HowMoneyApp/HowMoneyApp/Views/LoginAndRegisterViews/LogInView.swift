@@ -8,14 +8,10 @@
 import SwiftUI
 
 struct LogInView: View {
-    @StateObject var loginViewModel: LoginViewModel = .init(userManager: UserManager())
+    @EnvironmentObject var userStateViewModel: UserStateViewModel
     
     var body: some View {
         VStack {
-            NavigationLink(destination: Tab(user: loginViewModel.loggedUser ?? UserMock.user1), isActive: $loginViewModel.isLogged) {
-                EmptyView()
-            }.hidden()
-            
             Image("logo")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
@@ -28,8 +24,8 @@ struct LogInView: View {
                     .font(.title2)
                     .padding(.top, 40)
                     .frame(minWidth: 150, maxWidth: .infinity)
-                UnderlineTextField(textFieldTitle: "Email", isSecured: false, textField: $loginViewModel.emailTextField)
-                UnderlineTextField(textFieldTitle: "Password", isSecured: true, textField: $loginViewModel.passwordTextField)
+                UnderlineTextField(textFieldTitle: "Email", isSecured: false, textField: $userStateViewModel.email)
+                UnderlineTextField(textFieldTitle: "Password", isSecured: true, textField: $userStateViewModel.password)
                 HStack {
                     Spacer()
                     Button {
@@ -46,7 +42,7 @@ struct LogInView: View {
                 Button {
                     //TODO: signIn()
                     //1. Correct email and password - navigate to home tab
-                    loginViewModel.signIn()
+                    userStateViewModel.signIn()
                     //2. Incorrect fields - show alert
                 } label: {
                     ButtonText(text: "Sign In")
@@ -73,7 +69,7 @@ struct LogInView: View {
             .font(.system(size: 16))
             .padding(.bottom, 30)
         }
-        .alert(isPresented: $loginViewModel.areIncorrectData) {
+        .alert(isPresented: $userStateViewModel.areIncorrectData) {
             Alert(title: Text("Invalid data"),
                   message: Text("Please enter valid data"), dismissButton: .cancel(Text("OK")))
         }
