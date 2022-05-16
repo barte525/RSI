@@ -23,4 +23,25 @@ class UserAssetFetcher: UserAssetFetcherProtocol, RequestProtocol {
         guard let assets = try? JSONDecoder().decode([UserAsset].self, from: data) else { throw NetworkError.invalidData }
         return assets
     }
+    
+    func getSum(for userMail: String) async throws -> Double? {
+        let sumUrlString = urlString + "/sum"
+        guard let url = URL(string: sumUrlString) else { throw NetworkError.invalidURL }
+        let token = try KeychainManager.get(account: userMail, service: K.keychainServiceName)
+        let request = createRequest(url: url, token: token, method: "GET")
+        let (data, response) = try await session.data(for: request)
+        
+        if let httpResponse = response as? HTTPURLResponse {
+            switch httpResponse.statusCode {
+            case 200:
+                guard let sum = try? JSONDecoder().decode(Double.self, from: data) else { throw NetworkError.invalidData }
+                return sum
+            case 401:
+                throw UserManagerError.unauthorized
+            default:
+                throw UserManagerError.updateFailure
+            }
+        }
+        return nil
+    }
 }

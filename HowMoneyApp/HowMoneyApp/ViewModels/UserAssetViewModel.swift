@@ -25,11 +25,14 @@ class UserAssetViewModel: ObservableObject {
             isLoading = true
             do {
                 userAssets = try await userAssetFetcher.getAssets(for: userMail)
+//                userAssets = UserAsset.mock
             } catch let error {
                 print("Error during assets for user fetching: \(error.localizedDescription)")
             }
             isLoading = false
         }
     }
+    
+    
     
 }

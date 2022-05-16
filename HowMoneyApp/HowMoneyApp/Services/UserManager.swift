@@ -11,6 +11,7 @@ enum UserManagerError: Error {
     case loginFailure
     case registrationFailure
     case updateFailure
+    case unauthorized
 }
 
 protocol UserManagerProtocol {
@@ -90,6 +91,8 @@ class UserManager: RequestProtocol, UserManagerProtocol {
                 guard let userDto = try? JSONDecoder().decode(UpdateUserDto.self, from: data) else { throw UserManagerError.updateFailure }
                 let user = User(id: userDto.id, email: userDto.email, name: userDto.name, surname: userDto.surname, sum: user.sum, currencyPreference: userDto.currencyPreference)
                 return user
+            case 401:
+                throw UserManagerError.unauthorized
             default:
                 throw UserManagerError.updateFailure
             }

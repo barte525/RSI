@@ -24,12 +24,11 @@ extension RequestProtocol {
                 options: []
             )
             request.httpBody = bodyData
-            if let safeToken = token, let stringToken = String(data: safeToken, encoding: .utf8) {
-                request.httpBody = bodyData
-                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.addValue("application/json", forHTTPHeaderField: "Accept")
-                request.setValue( "Bearer \(stringToken)", forHTTPHeaderField: "Authorization")
-            }
+        }
+        if let safeToken = token, let stringToken = String(data: safeToken, encoding: .utf8) {
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.setValue( "Bearer \(stringToken)", forHTTPHeaderField: "Authorization")
         }
         return request
     }

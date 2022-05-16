@@ -15,6 +15,9 @@ struct Tab: View {
     var body: some View {
         TabView(selection: $selection) {
             HomeTabView(currencyPreferenceChoice: userStateViewModel.currencyPreference, totalBudget: userStateViewModel.sum)
+                .onAppear {
+                    userStateViewModel.fetchSum()
+                }
                 .tag(TabBarSelection.home.rawValue)
                 .tabItem {
                     Image(systemName: "house.fill")

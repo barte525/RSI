@@ -12,8 +12,9 @@ import SwiftUI
 class UserStateViewModel: ObservableObject {
     
     private var userManager: UserManager
+    private var userAssetFetcher: UserAssetFetcher
     private var task: Task<(), Never>?
-    static let sharedInstance = UserStateViewModel(userManager: UserManager())
+    static let sharedInstance = UserStateViewModel(userManager: UserManager(), fetcher: UserAssetFetcher())
     
     @Published var email: String = ""
     @Published var name: String = ""
@@ -29,8 +30,9 @@ class UserStateViewModel: ObservableObject {
     @Published var loggedUser: User? = nil
     @Published var areIncorrectData: Bool = false
     
-    init(userManager: UserManager) {
+    init(userManager: UserManager, fetcher: UserAssetFetcher) {
         self.userManager = userManager
+        self.userAssetFetcher = fetcher
     }
     
     func register() {
@@ -126,5 +128,18 @@ class UserStateViewModel: ObservableObject {
     
     func areFieldsFullfilled() -> Bool {
         return email.isValidEmail && !password.isEmpty
+    }
+    
+    func fetchSum() {
+        task = Task {
+            do {
+                if let user = loggedUser {
+                    sum = try await userAssetFetcher.getSum(for: user.email)!
+                }
+            } catch {
+                errorMessage = error.localizedDescription
+                print("Error during getting sum for user: \(error)")
+            }
+        }
     }
 }
