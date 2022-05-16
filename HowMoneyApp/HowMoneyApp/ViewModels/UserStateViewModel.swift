@@ -39,6 +39,7 @@ class UserStateViewModel: ObservableObject {
                 do {
                     loggedUser = try await userManager.register(email: email, name: name, surname: surname, password: password, currencyPreference: currencyPreference)
                     if let user = loggedUser {
+                        print(user)
                         updateAllFields(userEmail: user.email, userName: user.name, userSurname: user.surname, userCurrencyPreference: user.currencyPreference, userSum: user.sum)
                     }
                     isLogged = true
@@ -82,11 +83,6 @@ class UserStateViewModel: ObservableObject {
     }
     
     func updateUser() {
-//        if areFieldsFullfilled() {
-//            areIncorrectData = false
-//        } else {
-//            areIncorrectData = true
-//        }
         if !areIncorrectData {
             task = Task {
                 do {
@@ -95,6 +91,9 @@ class UserStateViewModel: ObservableObject {
                         updateAllFields(userEmail: user.email, userName: user.name, userSurname: user.surname, userCurrencyPreference: user.currencyPreference, userSum: user.sum)
                     }
                 } catch {
+                    name = loggedUser?.name ?? ""
+                    surname = loggedUser?.surname ?? ""
+                    email = loggedUser?.email ?? ""
                     areIncorrectData = true
                     errorMessage = error.localizedDescription
                     print("Error during user update: \(error)")

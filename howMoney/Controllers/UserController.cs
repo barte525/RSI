@@ -86,24 +86,24 @@ namespace howMoney.Controllers
         }
         
         [HttpPatch, Authorize]
-        public bool PatchUser([FromBody] JsonPatchDocument<User> patchUser)
+        public User PatchUser([FromBody] JsonPatchDocument<User> patchUser)
         {
             if (patchUser != null)
             {
                 var userToUpdate = _userRepository.GetByEmail(User.FindFirstValue(ClaimTypes.Email));
                 if (userToUpdate == null || !ModelState.IsValid)
                 {
-                    return false;
+                    return null;
                 }
 
                 patchUser.ApplyTo(userToUpdate, ModelState);
                 _userRepository.Update(userToUpdate);
 
-                return true;
+                return userToUpdate;
             }
             else
             {
-                return false;
+                return null;
             }
         }
     }

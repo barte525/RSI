@@ -26,7 +26,7 @@ class UserAssetViewModel: ObservableObject {
             do {
                 userAssets = try await userAssetFetcher.getAssets(for: userMail)
             } catch let error {
-                print("Error during assets fetching: \(error.localizedDescription)")
+                print("Error during assets for user fetching: \(error.localizedDescription)")
             }
             isLoading = false
         }

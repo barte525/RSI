@@ -73,14 +73,15 @@ class UserManager: RequestProtocol, UserManagerProtocol {
     }
     
     func update(user: User, name: String, surname: String, email: String) async throws -> User? {
-        let updateUrl = "\(urlString)/User/\(user.id)"
+        let updateUrl = "\(urlString)/User"
         guard let url = URL(string: updateUrl) else { throw NetworkError.invalidURL }
         let patchBody = [
             ["value": name, "path": "/Name", "op": "replace"],
             ["value": surname, "path": "/Surname", "op": "replace"],
             ["value": email, "path": "/Email", "op": "replace"]
         ]
-        let request = createPatchRequest(url: url, patchBody: patchBody)
+        let token = try KeychainManager.get(account: user.email, service: K.keychainServiceName)
+        let request = createPatchRequest(url: url, token: token, patchBody: patchBody)
         let (data, response) = try await session.data(for: request)
         
         if let httpResponse = response as? HTTPURLResponse {
