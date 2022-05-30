@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using howMoney.Models;
 using howMoney.Data;
+using Microsoft.AspNetCore.Cors;
 
 namespace howMoney.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [EnableCors("frontend_cors")]
     public class AssetController : ControllerBase
     {
         private readonly ILogger<AssetController> _logger;

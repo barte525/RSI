@@ -146,35 +146,35 @@ CELERY_RESULT_BACKEND = 'django-db'
 CELERY_BEAT_SCHEDULE = {
     "btc_usd": {
         "task": "crypto.tasks.update_bitcoin_price_usd",
-        "schedule": crontab(minute=43, hour='*'),
+        "schedule": crontab(minute='1,10,20,30,40,50', hour='*'),
     },
     "btc_pln": {
         "task": "crypto.tasks.update_bitcoin_price_pln",
-        "schedule": crontab(minute=45, hour='*'),
+        "schedule": crontab(minute='2,11,21,31,41,51', hour='*'),
     },
     "btc_eur": {
         "task": "crypto.tasks.update_bitcoin_price_eur",
-        "schedule": crontab(minute=46, hour='*'),
+        "schedule": crontab(minute='3,12,22,32,42,52', hour='*'),
     },
     "btc": {
         "task": "crypto.tasks.update_bitcoin_price_on_server",
-        "schedule": crontab(minute=31, hour='*'),
+        "schedule": crontab(minute='4,13,23,33,43,53', hour='*'),
     },
     "eth_usd": {
         "task": "crypto.tasks.update_eth_price_usd",
-        "schedule": crontab(minute=32, hour='*'),
+        "schedule": crontab(minute='5,14,24,34,44,54', hour='*'),
     },
     "eth_pln": {
         "task": "crypto.tasks.update_eth_price_pln",
-        "schedule": crontab(minute=33, hour='*'),
+        "schedule": crontab(minute='6,15,25,35,45,55', hour='*'),
     },
     "eth_eur": {
         "task": "crypto.tasks.update_eth_price_eur",
-        "schedule": crontab(minute=34, hour='*'),
+        "schedule": crontab(minute='7,16,26,36,46,56', hour='*'),
     },
     "eth": {
         "task": "crypto.tasks.update_eth_price_on_server",
-        "schedule": crontab(minute=35, hour='*'),
+        "schedule": crontab(minute='8,17,27,37,47,57', hour='*'),
     },
 }
 
