@@ -36,7 +36,7 @@ class UserStateViewModel: ObservableObject {
     }
     
     func register() {
-        checkFields()
+        checkFieldsForRegister()
         
         if !areIncorrectData {
             task = Task {
@@ -57,7 +57,7 @@ class UserStateViewModel: ObservableObject {
     }
     
     func signIn() {
-        checkFields()
+        checkFieldsForLogin()
         
         if !areIncorrectData {
             task = Task {
@@ -134,7 +134,20 @@ class UserStateViewModel: ObservableObject {
         return !password.isEmpty && !arePasswordsIncorrect
     }
     
-    func checkFields() {
+    func checkFieldsForLogin() {
+        if !isEmailValid() {
+            areIncorrectData = true
+            errorMessage = "Please enter valid email."
+        } else if password.isEmpty {
+            areIncorrectData = true
+            errorMessage = "Please enter passwords."
+        } else {
+            areIncorrectData = false
+            errorMessage = ""
+        }
+    }
+    
+    func checkFieldsForRegister() {
         if !isEmailValid() {
             areIncorrectData = true
             errorMessage = "Please enter valid email."

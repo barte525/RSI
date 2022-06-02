@@ -37,7 +37,7 @@ struct RegisterDetailsView: View {
                 .padding(.top, 15)
                 Spacer()
                 Button {
-                    userStateViewModel.checkFields()
+                    userStateViewModel.checkFieldsForRegister()
                     if !userStateViewModel.areIncorrectData {
                         userStateViewModel.register()
                         isShowingRegisterDetails.toggle()

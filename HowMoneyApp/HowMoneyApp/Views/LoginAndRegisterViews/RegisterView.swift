@@ -32,7 +32,7 @@ struct RegisterView: View {
                 UnderlineTextField(textFieldTitle: "Repeated password", isSecured: true, textField: $userStateViewModel.repeatedPassword)
                 Spacer()
                 Button {
-                    userStateViewModel.checkFields()
+                    userStateViewModel.checkFieldsForRegister()
                     if !userStateViewModel.areIncorrectData {
                         isShowingRegisterDetails.toggle()
                     }
