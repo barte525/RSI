@@ -36,7 +36,9 @@ class UserStateViewModel: ObservableObject {
     }
     
     func register() {
-        if !arePasswordsIncorrect {
+        checkFields()
+        
+        if !areIncorrectData {
             task = Task {
                 do {
                     loggedUser = try await userManager.register(email: email, name: name, surname: surname, password: password, currencyPreference: currencyPreference)
@@ -47,7 +49,7 @@ class UserStateViewModel: ObservableObject {
                     isLogged = true
                 } catch {
                     isLogged = false
-                    errorMessage = error.localizedDescription
+                    errorMessage = "Please enter all fields with valid values."
                     print("Error during user registration: \(error)")
                 }
             }
@@ -55,16 +57,7 @@ class UserStateViewModel: ObservableObject {
     }
     
     func signIn() {
-        if !isEmailValid() {
-            areIncorrectData = true
-            errorMessage = "Please enter valid email."
-        } else if !isPasswordValid() {
-            areIncorrectData = true
-            errorMessage = "Please enter password."
-        } else {
-            areIncorrectData = false
-            errorMessage = ""
-        }
+        checkFields()
         
         if !areIncorrectData {
             task = Task {
@@ -137,7 +130,21 @@ class UserStateViewModel: ObservableObject {
     }
     
     func isPasswordValid() -> Bool {
-        return !password.isEmpty
+        checkPasswords()
+        return !password.isEmpty && !arePasswordsIncorrect
+    }
+    
+    func checkFields() {
+        if !isEmailValid() {
+            areIncorrectData = true
+            errorMessage = "Please enter valid email."
+        } else if !isPasswordValid() {
+            areIncorrectData = true
+            errorMessage = "Please enter passwords."
+        } else {
+            areIncorrectData = false
+            errorMessage = ""
+        }
     }
     
     func fetchSum() {

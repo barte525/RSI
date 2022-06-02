@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RegisterView: View {
     
-    @StateObject var registerViewModel: UserStateViewModel = .sharedInstance
+    @EnvironmentObject var userStateViewModel: UserStateViewModel
     @State private var isShowingRegisterDetails: Bool = false
     @State private var isNotValidEmail: Bool = false
     
@@ -27,14 +27,13 @@ struct RegisterView: View {
                     .font(.title2)
                     .padding(.top, 40)
                     .frame(minWidth: 150, maxWidth: .infinity)
-                UnderlineTextField(textFieldTitle: "Email", isSecured: false, textField: $registerViewModel.email)
-                UnderlineTextField(textFieldTitle: "Password", isSecured: true, textField: $registerViewModel.password)
-                UnderlineTextField(textFieldTitle: "Repeated password", isSecured: true, textField: $registerViewModel.repeatedPassword)
+                UnderlineTextField(textFieldTitle: "Email", isSecured: false, textField: $userStateViewModel.email)
+                UnderlineTextField(textFieldTitle: "Password", isSecured: true, textField: $userStateViewModel.password)
+                UnderlineTextField(textFieldTitle: "Repeated password", isSecured: true, textField: $userStateViewModel.repeatedPassword)
                 Spacer()
                 Button {
-                    isNotValidEmail = !registerViewModel.email.isValidEmail || registerViewModel.email.isEmpty
-                    registerViewModel.checkPasswords()
-                    if !isNotValidEmail && !registerViewModel.arePasswordsIncorrect {
+                    userStateViewModel.checkFields()
+                    if !userStateViewModel.areIncorrectData {
                         isShowingRegisterDetails.toggle()
                     }
                 } label: {
@@ -72,11 +71,10 @@ struct RegisterView: View {
             .font(.system(size: 16))
             .padding(.bottom, 30)
         }
-        .alert(isPresented: $isNotValidEmail) {
-            Alert(title: Text("Invalid email"),
-                  message: Text("Please enter valid email"), dismissButton: .cancel(Text("OK")))
+        .alert(isPresented: $userStateViewModel.areIncorrectData) {
+            Alert(title: Text("Invalid data"),
+                  message: Text(userStateViewModel.errorMessage), dismissButton: .cancel(Text("OK")))
         }
-        //TODO: - Show next alert when passwords are not the same
         .background(Color("Background"))
         .navigationBarTitle("")
         .navigationBarHidden(true)
