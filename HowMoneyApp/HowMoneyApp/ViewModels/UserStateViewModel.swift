@@ -88,7 +88,7 @@ class UserStateViewModel: ObservableObject {
         if !areIncorrectData {
             task = Task {
                 do {
-                    loggedUser = try await userManager.update(user: loggedUser!, name: name, surname: surname, email: email)
+                    loggedUser = try await userManager.update(user: loggedUser!, name: name, surname: surname, email: email, currencyPreference: currencyPreference)
                     if let user = loggedUser {
                         updateAllFields(userEmail: user.email, userName: user.name, userSurname: user.surname, userCurrencyPreference: user.currencyPreference, userSum: user.sum)
                     }
