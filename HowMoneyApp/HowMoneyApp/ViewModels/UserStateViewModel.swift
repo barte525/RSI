@@ -55,11 +55,17 @@ class UserStateViewModel: ObservableObject {
     }
     
     func signIn() {
-        if areFieldsFullfilled() {
-            areIncorrectData = false
-        } else {
+        if !isEmailValid() {
             areIncorrectData = true
+            errorMessage = "Please enter valid email."
+        } else if !isPasswordValid() {
+            areIncorrectData = true
+            errorMessage = "Please enter password."
+        } else {
+            areIncorrectData = false
+            errorMessage = ""
         }
+        
         if !areIncorrectData {
             task = Task {
                 do {
@@ -71,7 +77,7 @@ class UserStateViewModel: ObservableObject {
                 } catch {
                     isLogged = false
                     areIncorrectData = true
-                    errorMessage = error.localizedDescription
+                    errorMessage = "Incorrect email or password."
                     print("Error during signing in: \(error)")
                 }
             }
@@ -97,7 +103,7 @@ class UserStateViewModel: ObservableObject {
                     surname = loggedUser?.surname ?? ""
                     email = loggedUser?.email ?? ""
                     areIncorrectData = true
-                    errorMessage = error.localizedDescription
+                    errorMessage = "Cannot update data. Please try again."
                     print("Error during user update: \(error)")
                 }
             }
@@ -126,8 +132,12 @@ class UserStateViewModel: ObservableObject {
         }
     }
     
-    func areFieldsFullfilled() -> Bool {
-        return email.isValidEmail && !password.isEmpty
+    func isEmailValid() -> Bool {
+        return email.isValidEmail
+    }
+    
+    func isPasswordValid() -> Bool {
+        return !password.isEmpty
     }
     
     func fetchSum() {
@@ -137,7 +147,7 @@ class UserStateViewModel: ObservableObject {
                     sum = try await userAssetFetcher.getSum(for: user.email)!
                 }
             } catch {
-                errorMessage = error.localizedDescription
+                errorMessage = "Cannot fetch data. Please try again."
                 print("Error during getting sum for user: \(error)")
             }
         }
