@@ -61,6 +61,6 @@ struct AssetsList: View {
 
 struct AssetsList_Previews: PreviewProvider {
     static var previews: some View {
-        AssetsList(isShowingAssetChoice: .constant(true), chosenAsset: .constant(Asset(name: "EUR", type: "Currency")))
+        AssetsList(isShowingAssetChoice: .constant(true), chosenAsset: .constant(Asset(id: "1", name: "EUR", type: "Currency")))
     }
 }

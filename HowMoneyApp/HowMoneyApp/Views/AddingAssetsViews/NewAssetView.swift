@@ -9,9 +9,12 @@ import SwiftUI
 
 struct NewAssetView: View {
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var userAssetViewModel: UserAssetViewModel
     @State var chosenAsset: Asset? = nil
     @State var amountTextField: String = ""
     @State var isShowingAssetChoice: Bool = false
+    var userMail: String
+    var userId: String?
     
     var body: some View {
         VStack {
@@ -43,8 +46,10 @@ struct NewAssetView: View {
             .padding(.top, 5)
             
             Button {
-                //TODO: Add new asset
-                self.presentationMode.wrappedValue.dismiss()
+                userAssetViewModel.addAsset(userId: userId, userMail: userMail, for: chosenAsset, amount: amountTextField)
+                if !userAssetViewModel.areIncorrectData {
+                    self.presentationMode.wrappedValue.dismiss()
+                }
             } label: {
                 Text("Add")
                     .frame(minWidth: 150, maxWidth: .infinity)
@@ -62,11 +67,15 @@ struct NewAssetView: View {
         .sheet(isPresented: $isShowingAssetChoice, onDismiss: {  }) {
             AssetsList(isShowingAssetChoice: $isShowingAssetChoice, chosenAsset: $chosenAsset)
         }
+        .alert(isPresented: $userAssetViewModel.areIncorrectData) {
+            Alert(title: Text("Invalid data"),
+                  message: Text(userAssetViewModel.errorMessage), dismissButton: .cancel(Text("OK")))
+        }
     }
 }
 
 struct NewAssetView_Previews: PreviewProvider {
     static var previews: some View {
-        NewAssetView()
+        NewAssetView(userMail: "")
     }
 }

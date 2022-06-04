@@ -8,13 +8,13 @@
 import Foundation
 
 protocol RequestProtocol {
-    func createRequest(url: URL, token: Data?, method: String?, body: [String: String]?) -> URLRequest
+    func createRequest(url: URL, token: Data?, method: String?, body: [String: Any]?) -> URLRequest
     func createPatchRequest(url: URL, token: Data, patchBody: [[String: String]]) -> URLRequest
 }
 
 extension RequestProtocol {
     
-    func createRequest(url: URL, token: Data? = nil, method: String?, body: [String: String]? = nil) -> URLRequest {
+    func createRequest(url: URL, token: Data? = nil, method: String?, body: [String: Any]? = nil) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = method
         if let definedBody = body {

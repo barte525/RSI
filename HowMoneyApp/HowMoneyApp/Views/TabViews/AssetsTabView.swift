@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AssetsTabView: View {
     
-    @StateObject var userAssetViewModel: UserAssetViewModel = .init(fetcher: UserAssetFetcher())
+    @EnvironmentObject var userAssetViewModel: UserAssetViewModel
     @State var searchText: String = ""
     @State var isShowingAlert: Bool = false
     var userMail: String
@@ -27,11 +27,11 @@ struct AssetsTabView: View {
             
             if userAssetViewModel.userAssets.count > 0 {
                 List {
-                    ForEach(userAssetViewModel.userAssets.filter{ searchText.isEmpty || $0.asset.name.lowercased().contains(searchText.lowercased())}) { userAsset in
+                    ForEach(userAssetViewModel.userAssets.filter{ searchText.isEmpty || $0.name.lowercased().contains(searchText.lowercased())}, id: \.self) { userAsset in
                         HStack {
-                            Text(userAsset.asset.name)
+                            Text(userAsset.name)
                             Spacer()
-                            Text("\(AmountFormatter.getRoundedAmountToDecimalPlaces(for: userAsset.assetAmount, assetType: AssetType(rawValue: userAsset.asset.type) ?? .currency))")
+                            Text(AmountFormatter.getRoundedAmount(for: userAsset.amount))
                         }
                         .padding([.leading, .trailing], 10)
                     }.onDelete(perform: deleteAsset)

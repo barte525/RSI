@@ -7,14 +7,14 @@
 
 import Foundation
 
-extension UserAsset {
+struct UserAssetMock {
     
-    static let euro: Self = .init(id: 1, asset: Asset(name: "EUR", type: "Currency"), assetAmount: 12.78)
-    static let bitcoin: Self = .init(id: 2, asset: Asset(name: "BTC", type: "Crypto"), assetAmount: 0.0000011)
-    static let dollar: Self = .init(id: 3, asset: Asset(name: "USD", type: "Currency"), assetAmount: 34.98)
+    static let euro: UserAsset = UserAsset(assetId: "1", name: "EUR", amount: 12.78)
+    static let bitcoin: UserAsset = UserAsset(assetId: "2", name: "BTC", amount: 0.0000011)
+    static let dollar: UserAsset = UserAsset(assetId: "3", name: "USD", amount: 34.98)
     
 }
 
-extension UserAsset {
-    static let mock: [Self] = [.euro, .bitcoin, .dollar]
+extension UserAssetMock {
+    static let mock: [UserAsset] = [euro, bitcoin, dollar]
 }
