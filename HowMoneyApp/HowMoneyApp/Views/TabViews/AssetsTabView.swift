@@ -60,15 +60,18 @@ struct AssetsTabView: View {
         .alert(isPresented: $isShowingAlert) {
             Alert(title: Text("Delete asset"),
                   message: Text("Are you sure you want to permanently delete chosen asset?"), primaryButton: .cancel(), secondaryButton: .destructive(Text("OK")) {
-                //TODO: - Delete asset using view model
-                print("Deleting...")
+                userAssetViewModel.deleteAsset(for: userMail)
             } )
         }
     }
     
     func deleteAsset(indexSet: IndexSet) {
         isShowingAlert.toggle()
-        //TODO: Pass to view model index set to delete asset
+        let assetsToDelete = indexSet.map { userAssetViewModel.userAssets[$0] }
+        guard assetsToDelete.count == 1 else {
+            return
+        }
+        userAssetViewModel.chosenAsset = assetsToDelete[0]
     }
 }
 

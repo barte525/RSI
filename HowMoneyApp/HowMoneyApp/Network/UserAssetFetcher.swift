@@ -44,6 +44,26 @@ class UserAssetFetcher: UserAssetFetcherProtocol, RequestProtocol {
         }
     }
     
+    func deleteAsset(for userMail: String, assetId: String) async throws -> Bool {
+        let deletingUrl = "\(urlString)/\(assetId)"
+        guard let url = URL(string: deletingUrl) else { throw NetworkError.invalidURL }
+        let token = try KeychainManager.get(account: userMail, service: K.keychainServiceName)
+        let request = createRequest(url: url, token: token, method: "DELETE")
+        let (_, response) = try await session.data(for: request)
+        
+        if let httpResponse = response as? HTTPURLResponse {
+            switch httpResponse.statusCode {
+            case 200:
+                return true
+            case 401:
+                throw UserManagerError.unauthorized
+            default:
+                throw NetworkError.unknown
+            }
+        }
+        return false
+    }
+    
     func getSum(for userMail: String) async throws -> Double? {
         let sumUrlString = urlString + "/sum"
         guard let url = URL(string: sumUrlString) else { throw NetworkError.invalidURL }
