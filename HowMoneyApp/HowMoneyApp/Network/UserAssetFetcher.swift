@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum UserAssetError: Error {
+    case duplicateFailure
+}
+
 protocol UserAssetFetcherProtocol {
     func getAssets(for userMail: String) async throws -> [UserAsset]
 }
@@ -36,6 +40,8 @@ class UserAssetFetcher: UserAssetFetcherProtocol, RequestProtocol {
             switch httpResponse.statusCode {
             case 200:
                 guard let _ = try? JSONDecoder().decode(Bool.self, from: data) else { throw NetworkError.invalidData }
+            case 400:
+                throw UserAssetError.duplicateFailure
             case 401:
                 throw UserManagerError.unauthorized
             default:

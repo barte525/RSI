@@ -80,6 +80,9 @@ class UserAssetViewModel: ObservableObject {
                     try await userAssetFetcher.createAsset(userId: loggedUserId, userMail: userMail, asset: safeAsset, amount: Double(amount)!)
                     areIncorrectData = false
                     getAssets(for: userMail)
+                } catch UserAssetError.duplicateFailure {
+                    areIncorrectData = true
+                    errorMessage = "Probably you have this asset in your collection. Please update it."
                 } catch {
                     areIncorrectData = true
                     errorMessage = "Cannot create new asset. Please try again."
