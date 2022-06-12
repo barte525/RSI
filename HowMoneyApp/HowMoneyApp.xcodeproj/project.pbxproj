@@ -12,6 +12,7 @@
 		7A10C809280A19510011EBE4 /* AssetFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A10C808280A19510011EBE4 /* AssetFetcher.swift */; };
 		7A10C80B280A1BC10011EBE4 /* AssetsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A10C80A280A1BC10011EBE4 /* AssetsListViewModel.swift */; };
 		7A20B56F280B7168009B5450 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A20B56E280B7168009B5450 /* Spinner.swift */; };
+		7A2FA5C62856411300722888 /* UpdateExistedAssetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2FA5C52856411300722888 /* UpdateExistedAssetView.swift */; };
 		7A48DCF42805C56200304750 /* NewAssetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A48DCF32805C56200304750 /* NewAssetView.swift */; };
 		7A48DCF72805C6F900304750 /* TabBarSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A48DCF62805C6F900304750 /* TabBarSelection.swift */; };
 		7A48DCF92805D17100304750 /* AssetsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A48DCF82805D17100304750 /* AssetsList.swift */; };
@@ -78,6 +79,7 @@
 		7A10C808280A19510011EBE4 /* AssetFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetFetcher.swift; sourceTree = "<group>"; };
 		7A10C80A280A1BC10011EBE4 /* AssetsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsListViewModel.swift; sourceTree = "<group>"; };
 		7A20B56E280B7168009B5450 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
+		7A2FA5C52856411300722888 /* UpdateExistedAssetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateExistedAssetView.swift; sourceTree = "<group>"; };
 		7A48DCF32805C56200304750 /* NewAssetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAssetView.swift; sourceTree = "<group>"; };
 		7A48DCF62805C6F900304750 /* TabBarSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarSelection.swift; sourceTree = "<group>"; };
 		7A48DCF82805D17100304750 /* AssetsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsList.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			children = (
 				7A48DCF32805C56200304750 /* NewAssetView.swift */,
 				7A48DCF82805D17100304750 /* AssetsList.swift */,
+				7A2FA5C52856411300722888 /* UpdateExistedAssetView.swift */,
 			);
 			path = AddingAssetsViews;
 			sourceTree = "<group>";
@@ -497,6 +500,7 @@
 				7A8560B1280312A20016CEF8 /* UserAsset+Mock.swift in Sources */,
 				7AAA83C8280F48C200DF552B /* User+Mock.swift in Sources */,
 				7A78425A27FCE07E00F3D05C /* UnderlineTextField.swift in Sources */,
+				7A2FA5C62856411300722888 /* UpdateExistedAssetView.swift in Sources */,
 				7ABA42F02809C9360034319D /* AmountFormatter.swift in Sources */,
 				7AAD00AC2819AEAB0072A2C8 /* UserAssetFetcher.swift in Sources */,
 				7AB0367A27F5066400599837 /* HowMoneyAppApp.swift in Sources */,

@@ -12,6 +12,8 @@ struct AssetsTabView: View {
     @EnvironmentObject var userAssetViewModel: UserAssetViewModel
     @State var searchText: String = ""
     @State var isShowingAlert: Bool = false
+    @State var isShowingUpdateAssetView: Bool = false
+    @State var chosenAsset: UserAsset? = nil
     var userMail: String
     var assetToDelete: IndexSet? = nil
     
@@ -31,14 +33,16 @@ struct AssetsTabView: View {
                         HStack {
                             HStack {
                                 Text(userAsset.name)
+                                
                                 Spacer()
                                 Text(AmountFormatter.getRoundedAmount(for: userAsset.amount))
                             }
                             .padding([.leading, .trailing], 10)
+                            
                             Image(systemName: "plus.circle")
                                 .foregroundColor(Color.accentColor)
                                 .onTapGesture {
-                                    print("Updating...")
+                                    isShowingUpdateAssetView.toggle()
                                 }
                         }
                     }.onDelete(perform: deleteAsset)
