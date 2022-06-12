@@ -29,11 +29,18 @@ struct AssetsTabView: View {
                 List {
                     ForEach(userAssetViewModel.userAssets.filter{ searchText.isEmpty || $0.name.lowercased().contains(searchText.lowercased())}, id: \.self) { userAsset in
                         HStack {
-                            Text(userAsset.name)
-                            Spacer()
-                            Text(AmountFormatter.getRoundedAmount(for: userAsset.amount))
+                            HStack {
+                                Text(userAsset.name)
+                                Spacer()
+                                Text(AmountFormatter.getRoundedAmount(for: userAsset.amount))
+                            }
+                            .padding([.leading, .trailing], 10)
+                            Image(systemName: "plus.circle")
+                                .foregroundColor(Color.accentColor)
+                                .onTapGesture {
+                                    print("Updating...")
+                                }
                         }
-                        .padding([.leading, .trailing], 10)
                     }.onDelete(perform: deleteAsset)
                 }
                 .padding(.top, -15)
