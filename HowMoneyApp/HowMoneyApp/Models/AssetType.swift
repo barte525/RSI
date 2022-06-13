@@ -8,7 +8,7 @@
 import Foundation
 
 enum AssetType: String {
-    case currency = "Currency"
-    case crypto = "Crypto"
-    case metal = "Metal"
+    case currency = "currency"
+    case crypto = "crypto"
+    case metal = "metal"
 }

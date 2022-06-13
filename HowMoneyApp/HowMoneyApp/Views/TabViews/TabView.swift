@@ -49,7 +49,7 @@ struct Tab: View {
                                 NavigationLink {
             switch selection {
             case TabBarSelection.home.rawValue:
-                EmptyView()
+                AlertsListView()
             case TabBarSelection.assets.rawValue:
                 NewAssetView(userMail: userStateViewModel.email, userId: userStateViewModel.loggedUser?.id)
                     .environmentObject(userAssetViewModel)
