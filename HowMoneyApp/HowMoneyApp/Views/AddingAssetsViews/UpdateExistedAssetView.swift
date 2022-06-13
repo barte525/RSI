@@ -9,18 +9,39 @@ import SwiftUI
 
 struct UpdateExistedAssetView: View {
     var chosenAssetName: String
-    @State var amountText: String = ""
+    @State var amountTextField: String = ""
     
     var body: some View {
-        List {
-            HStack {
-                Text("Asset")
-                Spacer()
-                Text(chosenAssetName)
+        VStack {
+            List {
+                HStack {
+                    Text("Asset")
+                    Spacer()
+                    Text(chosenAssetName)
+                }
+                .foregroundColor(Color.secondary)
+                .padding(.trailing, 5)
+                
+                TextField("Amount", text: $amountTextField)
+                    .keyboardType(.decimalPad)
             }
-            .foregroundColor(Color.secondary)
+            .frame(maxHeight: 130)
             
-            TextField("Amount", text: $amountText)
+            Button {
+                print("Adding...")
+            } label: {
+                Text("Add")
+                    .frame(minWidth: 150, maxWidth: .infinity)
+                    .frame(height: 55)
+                    .background(Color("DarkPurple"))
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundColor(Color.white)
+                    .cornerRadius(10)
+                    .padding([.leading, .trailing], 10)
+            }
+            .disabled(amountTextField.isEmpty || !amountTextField.isNumber)
+            
+            Spacer()
         }
         .padding(.top, 20)
         .padding([.leading, .trailing], 10)

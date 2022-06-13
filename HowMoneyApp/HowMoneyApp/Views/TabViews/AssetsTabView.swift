@@ -30,20 +30,25 @@ struct AssetsTabView: View {
             if userAssetViewModel.userAssets.count > 0 {
                 List {
                     ForEach(userAssetViewModel.userAssets.filter{ searchText.isEmpty || $0.name.lowercased().contains(searchText.lowercased())}, id: \.self) { userAsset in
-                        HStack {
-                            HStack {
-                                Text(userAsset.name)
-                                
-                                Spacer()
-                                Text(AmountFormatter.getRoundedAmount(for: userAsset.amount))
-                            }
-                            .padding([.leading, .trailing], 10)
+                        ZStack {
+                            NavigationLink("", destination: UpdateExistedAssetView(chosenAssetName: chosenAsset?.name ?? ""), isActive: $isShowingUpdateAssetView).hidden()
                             
-                            Image(systemName: "plus.circle")
-                                .foregroundColor(Color.accentColor)
-                                .onTapGesture {
-                                    isShowingUpdateAssetView.toggle()
+                            HStack {
+                                HStack {
+                                    Text(userAsset.name)
+                                    Spacer()
+                                    Text(AmountFormatter.getRoundedAmount(for: userAsset.amount))
                                 }
+                                .padding([.leading, .trailing], 10)
+                                
+                                
+                                Image(systemName: "plus.circle")
+                                    .foregroundColor(Color.accentColor)
+                                    .onTapGesture {
+                                        chosenAsset = userAsset
+                                        isShowingUpdateAssetView = true
+                                    }
+                            }
                         }
                     }.onDelete(perform: deleteAsset)
                 }
