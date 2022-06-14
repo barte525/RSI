@@ -8,7 +8,6 @@ namespace howMoney.Models
         public string Name { get; set; }
         public string Surname { get; set; }
         public string CurrencyPreference { get; set; }
-        public double sum { get; set; }
         public string Token { get; set; }
     }
 }

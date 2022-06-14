@@ -32,9 +32,6 @@ namespace howMoney.Models
         public string PasswordSalt { get; set; }
 
         [Required]
-        public double Sum { get; set; }
-
-        [Required]
         [MaxLength(30, ErrorMessage = "Currency preference is too long.")]
         public string CurrencyPreference { get; set; }
 

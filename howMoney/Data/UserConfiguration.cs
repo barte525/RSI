@@ -50,10 +50,6 @@ namespace howMoney.Data
                .HasColumnType("varchar(255)")
                .HasMaxLength(255);
 
-            builder.Property(x => x.Sum)
-                .HasColumnName("Sum")
-                .HasColumnType("double precision");
-
             builder.Property(x => x.CurrencyPreference)
                 .HasColumnName("CurrencyPreferences")
                 .HasColumnType("varchar(30)")
