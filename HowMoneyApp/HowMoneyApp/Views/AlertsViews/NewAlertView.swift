@@ -1,20 +1,20 @@
 //
-//  NewAssetView.swift
+//  NewAlertView.swift
 //  HowMoneyApp
 //
-//  Created by Aleksandra Generowicz on 12/04/2022.
+//  Created by Aleksandra Generowicz on 13/06/2022.
 //
 
 import SwiftUI
 
-struct NewAssetView: View {
+struct NewAlertView: View {
     @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var userAssetViewModel: UserAssetViewModel
     @State var chosenAsset: Asset? = nil
-    @State var amountTextField: String = ""
+    @State var targetValueTextField: String = ""
+    @State var emailTextField: String = ""
     @State var isShowingAssetChoice: Bool = false
-    var userMail: String
-    var userId: String?
+    @State var areIncorrectData: Bool = false
+    @Binding var isAlertSet: Bool
     
     var body: some View {
         VStack {
@@ -34,24 +34,35 @@ struct NewAssetView: View {
                     .foregroundColor(Color.primary)
                 }
                 
-                TextField("Amount", text: $amountTextField)
-                    .onChange(of: amountTextField, perform: { amount in
-                        amountTextField = AmountFormatter.formatByType(value: amount, of: chosenAsset?.type)
+                TextField("Target value", text: $targetValueTextField)
+                    .onChange(of: targetValueTextField, perform: { amount in
+                        targetValueTextField = AmountFormatter.formatByType(value: amount, of: chosenAsset?.type)
                 })
                 .disabled(chosenAsset == nil)
                 .keyboardType(.decimalPad)
                 .padding([.leading, .trailing], 10)
+                
+                TextField("Email", text: $emailTextField)
+                    .padding([.leading, .trailing], 10)
             }
-            .frame(maxHeight: 150)
+            .frame(maxHeight: 200)
             .padding(.top, 5)
             
             Button {
-                userAssetViewModel.addAsset(userId: userId, userMail: userMail, for: chosenAsset, amount: amountTextField)
-                if !userAssetViewModel.areIncorrectData {
+                //TODO: Move validation to ViewModel
+                if (!emailTextField.isValidEmail) {
+                    areIncorrectData = true
+                }
+                if (!targetValueTextField.isNumber) {
+                    areIncorrectData = true
+                }
+                
+                if !areIncorrectData {
+                    isAlertSet.toggle()
                     self.presentationMode.wrappedValue.dismiss()
                 }
             } label: {
-                Text("Add")
+                Text("Set")
                     .frame(minWidth: 150, maxWidth: .infinity)
                     .frame(height: 55)
                     .background(Color("DarkPurple"))
@@ -63,19 +74,19 @@ struct NewAssetView: View {
             Spacer()
         }
         .background(Color("Background"))
-        .navigationTitle("New Asset")
+        .navigationTitle("New Alert")
         .sheet(isPresented: $isShowingAssetChoice, onDismiss: {  }) {
             AssetsList(isShowingAssetChoice: $isShowingAssetChoice, chosenAsset: $chosenAsset)
         }
-        .alert(isPresented: $userAssetViewModel.areIncorrectData) {
+        .alert(isPresented: $areIncorrectData) {
             Alert(title: Text("Invalid data"),
-                  message: Text(userAssetViewModel.errorMessage), dismissButton: .cancel(Text("OK")))
+                  message: Text("Check if you chose asset, enter valid target value and email."), dismissButton: .cancel(Text("OK")))
         }
     }
 }
 
-struct NewAssetView_Previews: PreviewProvider {
+struct NewAlertView_Previews: PreviewProvider {
     static var previews: some View {
-        NewAssetView(userMail: "")
+        NewAlertView(isAlertSet: .constant(false))
     }
 }

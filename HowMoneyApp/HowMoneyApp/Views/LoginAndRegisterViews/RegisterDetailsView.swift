@@ -9,22 +9,22 @@ import SwiftUI
 
 struct RegisterDetailsView: View {
     
-    @StateObject var registerViewModel: UserStateViewModel = .sharedInstance
+    @EnvironmentObject var userStateViewModel: UserStateViewModel
     @Binding var isShowingRegisterDetails: Bool
     
     var body: some View {
         ZStack {
             VStack {
-                UnderlineTextField(textFieldTitle: "Email", isSecured: false, textField: $registerViewModel.email)
+                UnderlineTextField(textFieldTitle: "Email", isSecured: false, textField: $userStateViewModel.email)
                     .padding(.top, 20)
-                UnderlineTextField(textFieldTitle: "Password", isSecured: true, textField: $registerViewModel.password)
-                UnderlineTextField(textFieldTitle: "Repeated password", isSecured: true, textField: $registerViewModel.repeatedPassword)
-                UnderlineTextField(textFieldTitle: "Name", isSecured: false, textField: $registerViewModel.name)
-                UnderlineTextField(textFieldTitle: "Surname", isSecured: false, textField: $registerViewModel.surname)
+                UnderlineTextField(textFieldTitle: "Password", isSecured: true, textField: $userStateViewModel.password)
+                UnderlineTextField(textFieldTitle: "Repeated password", isSecured: true, textField: $userStateViewModel.repeatedPassword)
+                UnderlineTextField(textFieldTitle: "Name", isSecured: false, textField: $userStateViewModel.name)
+                UnderlineTextField(textFieldTitle: "Surname", isSecured: false, textField: $userStateViewModel.surname)
                 VStack {
                     Text("Total sum currency preference")
                         .foregroundColor(Color.white)
-                    Picker("", selection: $registerViewModel.currencyPreference) {
+                    Picker("", selection: $userStateViewModel.currencyPreference) {
                         ForEach(K.preferenceCurrencies, id: \.self) {
                             Text($0)
                         }
@@ -37,11 +37,11 @@ struct RegisterDetailsView: View {
                 .padding(.top, 15)
                 Spacer()
                 Button {
-                    registerViewModel.register()
-                    //TODO: register()
-                    //1. Fields are correct - navigate to home view
-                    isShowingRegisterDetails.toggle()
-                    //2. Incorrect fields - Show alert
+                    userStateViewModel.checkFieldsForRegister()
+                    if !userStateViewModel.areIncorrectData {
+                        userStateViewModel.register()
+                        isShowingRegisterDetails.toggle()
+                    }
                 } label: {
                     ButtonText(text: "Register")
                 }
@@ -53,6 +53,10 @@ struct RegisterDetailsView: View {
             .padding([.top, .bottom], 20)
         }
         .background(Color("Background"))
+        .alert(isPresented: $userStateViewModel.areIncorrectData) {
+            Alert(title: Text("Invalid data"),
+                  message: Text(userStateViewModel.errorMessage), dismissButton: .cancel(Text("OK")))
+        }
     }
 }
 

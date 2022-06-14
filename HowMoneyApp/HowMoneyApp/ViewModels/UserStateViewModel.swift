@@ -12,8 +12,9 @@ import SwiftUI
 class UserStateViewModel: ObservableObject {
     
     private var userManager: UserManager
+    private var userAssetFetcher: UserAssetFetcher
     private var task: Task<(), Never>?
-    static let sharedInstance = UserStateViewModel(userManager: UserManager())
+    static let sharedInstance = UserStateViewModel(userManager: UserManager(), fetcher: UserAssetFetcher())
     
     @Published var email: String = ""
     @Published var name: String = ""
@@ -29,22 +30,26 @@ class UserStateViewModel: ObservableObject {
     @Published var loggedUser: User? = nil
     @Published var areIncorrectData: Bool = false
     
-    init(userManager: UserManager) {
+    init(userManager: UserManager, fetcher: UserAssetFetcher) {
         self.userManager = userManager
+        self.userAssetFetcher = fetcher
     }
     
     func register() {
-        if !arePasswordsIncorrect {
+        checkFieldsForRegister()
+        
+        if !areIncorrectData {
             task = Task {
                 do {
                     loggedUser = try await userManager.register(email: email, name: name, surname: surname, password: password, currencyPreference: currencyPreference)
                     if let user = loggedUser {
+                        print(user)
                         updateAllFields(userEmail: user.email, userName: user.name, userSurname: user.surname, userCurrencyPreference: user.currencyPreference, userSum: user.sum)
                     }
                     isLogged = true
                 } catch {
                     isLogged = false
-                    errorMessage = error.localizedDescription
+                    errorMessage = "Please enter all fields with valid values."
                     print("Error during user registration: \(error)")
                 }
             }
@@ -52,11 +57,8 @@ class UserStateViewModel: ObservableObject {
     }
     
     func signIn() {
-        if areFieldsFullfilled() {
-            areIncorrectData = false
-        } else {
-            areIncorrectData = true
-        }
+        checkFieldsForLogin()
+        
         if !areIncorrectData {
             task = Task {
                 do {
@@ -68,7 +70,7 @@ class UserStateViewModel: ObservableObject {
                 } catch {
                     isLogged = false
                     areIncorrectData = true
-                    errorMessage = error.localizedDescription
+                    errorMessage = "Incorrect email or password."
                     print("Error during signing in: \(error)")
                 }
             }
@@ -82,21 +84,19 @@ class UserStateViewModel: ObservableObject {
     }
     
     func updateUser() {
-//        if areFieldsFullfilled() {
-//            areIncorrectData = false
-//        } else {
-//            areIncorrectData = true
-//        }
         if !areIncorrectData {
             task = Task {
                 do {
-                    loggedUser = try await userManager.update(user: loggedUser!, name: name, surname: surname, email: email)
+                    loggedUser = try await userManager.update(user: loggedUser!, name: name, surname: surname, email: email, currencyPreference: currencyPreference)
                     if let user = loggedUser {
                         updateAllFields(userEmail: user.email, userName: user.name, userSurname: user.surname, userCurrencyPreference: user.currencyPreference, userSum: user.sum)
                     }
                 } catch {
+                    name = loggedUser?.name ?? ""
+                    surname = loggedUser?.surname ?? ""
+                    email = loggedUser?.email ?? ""
                     areIncorrectData = true
-                    errorMessage = error.localizedDescription
+                    errorMessage = "Cannot update data. Please try again."
                     print("Error during user update: \(error)")
                 }
             }
@@ -125,7 +125,51 @@ class UserStateViewModel: ObservableObject {
         }
     }
     
-    func areFieldsFullfilled() -> Bool {
-        return email.isValidEmail && !password.isEmpty
+    func isEmailValid() -> Bool {
+        return email.isValidEmail
+    }
+    
+    func isPasswordValid() -> Bool {
+        checkPasswords()
+        return !password.isEmpty && !arePasswordsIncorrect
+    }
+    
+    func checkFieldsForLogin() {
+        if !isEmailValid() {
+            areIncorrectData = true
+            errorMessage = "Please enter valid email."
+        } else if password.isEmpty {
+            areIncorrectData = true
+            errorMessage = "Please enter passwords."
+        } else {
+            areIncorrectData = false
+            errorMessage = ""
+        }
+    }
+    
+    func checkFieldsForRegister() {
+        if !isEmailValid() {
+            areIncorrectData = true
+            errorMessage = "Please enter valid email."
+        } else if !isPasswordValid() {
+            areIncorrectData = true
+            errorMessage = "Please enter passwords."
+        } else {
+            areIncorrectData = false
+            errorMessage = ""
+        }
+    }
+    
+    func fetchSum() {
+        task = Task {
+            do {
+                if let user = loggedUser {
+                    sum = try await userAssetFetcher.getSum(for: user.email)!
+                }
+            } catch {
+                errorMessage = "Cannot fetch data. Please try again."
+                print("Error during getting sum for user: \(error)")
+            }
+        }
     }
 }

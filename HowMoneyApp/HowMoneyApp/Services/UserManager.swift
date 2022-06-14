@@ -11,13 +11,14 @@ enum UserManagerError: Error {
     case loginFailure
     case registrationFailure
     case updateFailure
+    case unauthorized
 }
 
 protocol UserManagerProtocol {
     func signIn(email: String, password: String) async throws -> User?
     func signOut()
     func register(email: String, name: String, surname: String, password: String, currencyPreference: String) async throws -> User?
-    func update(user: User, name: String, surname: String, email: String) async throws -> User?
+    func update(user: User, name: String, surname: String, email: String, currencyPreference: String) async throws -> User?
 }
 
 class UserManager: RequestProtocol, UserManagerProtocol {
@@ -72,15 +73,17 @@ class UserManager: RequestProtocol, UserManagerProtocol {
         return nil
     }
     
-    func update(user: User, name: String, surname: String, email: String) async throws -> User? {
-        let updateUrl = "\(urlString)/User/\(user.id)"
+    func update(user: User, name: String, surname: String, email: String, currencyPreference: String) async throws -> User? {
+        let updateUrl = "\(urlString)/User"
         guard let url = URL(string: updateUrl) else { throw NetworkError.invalidURL }
         let patchBody = [
             ["value": name, "path": "/Name", "op": "replace"],
             ["value": surname, "path": "/Surname", "op": "replace"],
-            ["value": email, "path": "/Email", "op": "replace"]
+            ["value": email, "path": "/Email", "op": "replace"],
+            ["value": currencyPreference, "path": "/CurrencyPreference", "op": "replace"]
         ]
-        let request = createPatchRequest(url: url, patchBody: patchBody)
+        let token = try KeychainManager.get(account: user.email, service: K.keychainServiceName)
+        let request = createPatchRequest(url: url, token: token, patchBody: patchBody)
         let (data, response) = try await session.data(for: request)
         
         if let httpResponse = response as? HTTPURLResponse {
@@ -89,6 +92,8 @@ class UserManager: RequestProtocol, UserManagerProtocol {
                 guard let userDto = try? JSONDecoder().decode(UpdateUserDto.self, from: data) else { throw UserManagerError.updateFailure }
                 let user = User(id: userDto.id, email: userDto.email, name: userDto.name, surname: userDto.surname, sum: user.sum, currencyPreference: userDto.currencyPreference)
                 return user
+            case 401:
+                throw UserManagerError.unauthorized
             default:
                 throw UserManagerError.updateFailure
             }

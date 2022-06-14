@@ -75,4 +75,18 @@ struct AmountFormatter {
         }
         return String(format: "%.\(numberPlaces)f", value)
     }
+    
+    static func getRoundedAmount(for value: Double) -> String {
+        let valueString = "\(value)"
+        let valuesParts = valueString.components(separatedBy: ".")
+        
+        var decimalResults = ""
+        for decimalChar in valuesParts[1] {
+            if decimalResults.count > 2 && decimalResults != "00" {
+                return valuesParts[0] + "." + decimalResults
+            }
+            decimalResults += "\(decimalChar)"
+        }
+        return valuesParts[0] + "." + decimalResults
+    }
 }

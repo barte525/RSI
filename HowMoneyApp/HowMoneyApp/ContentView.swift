@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var userStateViewModel = UserStateViewModel(userManager: UserManager())
+    @StateObject var userStateViewModel = UserStateViewModel(userManager: UserManager(), fetcher: UserAssetFetcher())
     
     init() {
         KeychainManager.logout()

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ProfileTabView: View {
     @EnvironmentObject var userStateViewModel: UserStateViewModel
-    @State var currencyPreferenceSelection: String = "EUR"
     @State var isShowingPasswordChangingAlert: Bool = false
     
     var body: some View {
@@ -23,7 +22,7 @@ struct ProfileTabView: View {
                 .foregroundColor(Color.secondary)
                 
                 Section(header: Text("Preferences")) {
-                    Picker("Currency", selection: $currencyPreferenceSelection) {
+                    Picker("Currency", selection: $userStateViewModel.currencyPreference) {
                         ForEach(K.preferenceCurrencies, id: \.self) { asset in
                             Text(asset)
                         }
@@ -63,6 +62,9 @@ struct ProfileTabView: View {
             PasswordChangeView(isShown: $isShowingPasswordChangingAlert)
         }
         .background(Color("Background"))
+        .onChange(of: userStateViewModel.currencyPreference) { _ in
+            userStateViewModel.updateUser()
+        }
     }
 }
 

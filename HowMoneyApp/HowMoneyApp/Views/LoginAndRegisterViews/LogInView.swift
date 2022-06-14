@@ -40,10 +40,9 @@ struct LogInView: View {
                 
                 Spacer()
                 Button {
-                    //TODO: signIn()
-                    //1. Correct email and password - navigate to home tab
-                    userStateViewModel.signIn()
-                    //2. Incorrect fields - show alert
+                    if !userStateViewModel.areIncorrectData {
+                        userStateViewModel.signIn()
+                    }
                 } label: {
                     ButtonText(text: "Sign In")
                 }
@@ -71,7 +70,7 @@ struct LogInView: View {
         }
         .alert(isPresented: $userStateViewModel.areIncorrectData) {
             Alert(title: Text("Invalid data"),
-                  message: Text("Please enter valid data"), dismissButton: .cancel(Text("OK")))
+                  message: Text(userStateViewModel.errorMessage), dismissButton: .cancel(Text("OK")))
         }
         .background(Color("Background"))
         .navigationBarTitle("")

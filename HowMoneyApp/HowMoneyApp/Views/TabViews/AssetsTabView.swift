@@ -9,9 +9,11 @@ import SwiftUI
 
 struct AssetsTabView: View {
     
-    @StateObject var userAssetViewModel: UserAssetViewModel = .init(fetcher: UserAssetFetcher())
+    @EnvironmentObject var userAssetViewModel: UserAssetViewModel
     @State var searchText: String = ""
     @State var isShowingAlert: Bool = false
+    @State var isShowingUpdateAssetView: Bool = false
+    @State var chosenAsset: UserAsset? = nil
     var userMail: String
     var assetToDelete: IndexSet? = nil
     
@@ -27,13 +29,27 @@ struct AssetsTabView: View {
             
             if userAssetViewModel.userAssets.count > 0 {
                 List {
-                    ForEach(userAssetViewModel.userAssets.filter{ searchText.isEmpty || $0.asset.name.lowercased().contains(searchText.lowercased())}) { userAsset in
-                        HStack {
-                            Text(userAsset.asset.name)
-                            Spacer()
-                            Text("\(AmountFormatter.getRoundedAmountToDecimalPlaces(for: userAsset.assetAmount, assetType: AssetType(rawValue: userAsset.asset.type) ?? .currency))")
+                    ForEach(userAssetViewModel.userAssets.filter{ searchText.isEmpty || $0.name.lowercased().contains(searchText.lowercased())}, id: \.self) { userAsset in
+                        ZStack {
+                            NavigationLink("", destination: UpdateExistedAssetView(chosenAssetName: chosenAsset?.name ?? ""), isActive: $isShowingUpdateAssetView).hidden()
+                            
+                            HStack {
+                                HStack {
+                                    Text(userAsset.name)
+                                    Spacer()
+                                    Text(AmountFormatter.getRoundedAmount(for: userAsset.amount))
+                                }
+                                .padding([.leading, .trailing], 10)
+                                
+                                
+                                Image(systemName: "plus.circle")
+                                    .foregroundColor(Color.accentColor)
+                                    .onTapGesture {
+                                        chosenAsset = userAsset
+                                        isShowingUpdateAssetView = true
+                                    }
+                            }
                         }
-                        .padding([.leading, .trailing], 10)
                     }.onDelete(perform: deleteAsset)
                 }
                 .padding(.top, -15)
@@ -60,15 +76,18 @@ struct AssetsTabView: View {
         .alert(isPresented: $isShowingAlert) {
             Alert(title: Text("Delete asset"),
                   message: Text("Are you sure you want to permanently delete chosen asset?"), primaryButton: .cancel(), secondaryButton: .destructive(Text("OK")) {
-                //TODO: - Delete asset using view model
-                print("Deleting...")
+                userAssetViewModel.deleteAsset(for: userMail)
             } )
         }
     }
     
     func deleteAsset(indexSet: IndexSet) {
         isShowingAlert.toggle()
-        //TODO: Pass to view model index set to delete asset
+        let assetsToDelete = indexSet.map { userAssetViewModel.userAssets[$0] }
+        guard assetsToDelete.count == 1 else {
+            return
+        }
+        userAssetViewModel.chosenAsset = assetsToDelete[0]
     }
 }
 

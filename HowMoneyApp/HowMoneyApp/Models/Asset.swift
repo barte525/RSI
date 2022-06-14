@@ -8,6 +8,7 @@
 import Foundation
 
 struct Asset: Hashable, Decodable {
+    let id: String
     let name: String
     let type: String
 }

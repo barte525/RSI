@@ -12,11 +12,16 @@ struct ApplicationSwitcher: View {
     
     var body: some View {
         if userStateViewModel.isLogged {
-            Tab()
+            withAnimation {
+                Tab()
+            }
         } else {
-            LogInView()
+            withAnimation {
+                LogInView()
+            }
         }
     }
+    
 }
 
 struct ApplicationSwitcher_Previews: PreviewProvider {

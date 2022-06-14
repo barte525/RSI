@@ -9,12 +9,16 @@ import SwiftUI
 
 struct Tab: View {
     @EnvironmentObject var userStateViewModel: UserStateViewModel
+    @StateObject var userAssetViewModel: UserAssetViewModel = .init(fetcher: UserAssetFetcher())
     @State private var selection: String = "Home"
     @State var isEditingProfile: Bool = false
     
     var body: some View {
         TabView(selection: $selection) {
             HomeTabView(currencyPreferenceChoice: userStateViewModel.currencyPreference, totalBudget: userStateViewModel.sum)
+                .onAppear {
+                    userStateViewModel.fetchSum()
+                }
                 .tag(TabBarSelection.home.rawValue)
                 .tabItem {
                     Image(systemName: "house.fill")
@@ -27,6 +31,7 @@ struct Tab: View {
                     Image(systemName: "dollarsign.circle.fill")
                     Text("Assets")
                 }
+                .environmentObject(userAssetViewModel)
             
             ProfileTabView()
                 .tag(TabBarSelection.profile.rawValue)
@@ -44,9 +49,10 @@ struct Tab: View {
                                 NavigationLink {
             switch selection {
             case TabBarSelection.home.rawValue:
-                EmptyView()
+                AlertsListView()
             case TabBarSelection.assets.rawValue:
-                NewAssetView()
+                NewAssetView(userMail: userStateViewModel.email, userId: userStateViewModel.loggedUser?.id)
+                    .environmentObject(userAssetViewModel)
             case TabBarSelection.profile.rawValue:
                 EditProfileView()
             default:
