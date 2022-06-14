@@ -48,7 +48,6 @@ class UserManager: RequestProtocol, UserManagerProtocol {
     }
     
     func signOut() {
-        //TODO: Sign out the user
         KeychainManager.logout()
     }
     

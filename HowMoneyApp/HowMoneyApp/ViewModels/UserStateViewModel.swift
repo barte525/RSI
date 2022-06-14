@@ -112,7 +112,7 @@ class UserStateViewModel: ObservableObject {
     }
     
     func eraseAllFields() {
-        updateAllFields(userEmail: "", userName: "", userSurname: "", userCurrencyPreference: "", userSum: 0.0)
+        updateAllFields(userEmail: "", userName: "", userSurname: "", userCurrencyPreference: "EUR", userSum: 0.0)
         password = ""
         repeatedPassword = ""
     }
