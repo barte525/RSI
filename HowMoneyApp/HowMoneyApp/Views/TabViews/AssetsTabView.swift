@@ -10,6 +10,7 @@ import SwiftUI
 struct AssetsTabView: View {
     
     @EnvironmentObject var userAssetViewModel: UserAssetViewModel
+    @EnvironmentObject var userStateViewModel: UserStateViewModel
     @State var searchText: String = ""
     @State var isShowingAlert: Bool = false
     @State var isShowingUpdateAssetView: Bool = false
@@ -31,7 +32,7 @@ struct AssetsTabView: View {
                 List {
                     ForEach(userAssetViewModel.userAssets.filter{ searchText.isEmpty || $0.name.lowercased().contains(searchText.lowercased())}, id: \.self) { userAsset in
                         ZStack {
-                            NavigationLink("", destination: UpdateExistedAssetView(chosenAssetName: chosenAsset?.name ?? ""), isActive: $isShowingUpdateAssetView).hidden()
+                            NavigationLink("", destination: UpdateExistedAssetView(chosenAsset: chosenAsset, userMail: userMail, userId: userStateViewModel.loggedUser?.id).environmentObject(userAssetViewModel), isActive: $isShowingUpdateAssetView).hidden()
                             
                             HStack {
                                 HStack {

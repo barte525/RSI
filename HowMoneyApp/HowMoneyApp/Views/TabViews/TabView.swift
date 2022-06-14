@@ -32,6 +32,7 @@ struct Tab: View {
                     Text("Assets")
                 }
                 .environmentObject(userAssetViewModel)
+                .environmentObject(userStateViewModel)
             
             ProfileTabView()
                 .tag(TabBarSelection.profile.rawValue)
