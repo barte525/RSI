@@ -44,7 +44,7 @@ class UserStateViewModel: ObservableObject {
                     loggedUser = try await userManager.register(email: email, name: name, surname: surname, password: password, currencyPreference: currencyPreference)
                     if let user = loggedUser {
                         print(user)
-                        updateAllFields(userEmail: user.email, userName: user.name, userSurname: user.surname, userCurrencyPreference: user.currencyPreference, userSum: user.sum)
+                        updateAllFields(userEmail: user.email, userName: user.name, userSurname: user.surname, userCurrencyPreference: user.currencyPreference)
                     }
                     isLogged = true
                 } catch {
@@ -64,7 +64,7 @@ class UserStateViewModel: ObservableObject {
                 do {
                     loggedUser = try await userManager.signIn(email: email, password: password)
                     if let user = loggedUser {
-                        updateAllFields(userEmail: user.email, userName: user.name, userSurname: user.surname, userCurrencyPreference: user.currencyPreference, userSum: user.sum)
+                        updateAllFields(userEmail: user.email, userName: user.name, userSurname: user.surname, userCurrencyPreference: user.currencyPreference)
                     }
                     isLogged = true
                 } catch {
@@ -89,7 +89,7 @@ class UserStateViewModel: ObservableObject {
                 do {
                     loggedUser = try await userManager.update(user: loggedUser!, name: name, surname: surname, email: email, currencyPreference: currencyPreference)
                     if let user = loggedUser {
-                        updateAllFields(userEmail: user.email, userName: user.name, userSurname: user.surname, userCurrencyPreference: user.currencyPreference, userSum: user.sum)
+                        updateAllFields(userEmail: user.email, userName: user.name, userSurname: user.surname, userCurrencyPreference: user.currencyPreference)
                     }
                 } catch {
                     name = loggedUser?.name ?? ""
@@ -103,16 +103,15 @@ class UserStateViewModel: ObservableObject {
         }
     }
     
-    func updateAllFields(userEmail: String, userName: String, userSurname: String, userCurrencyPreference: String, userSum: Double) {
+    func updateAllFields(userEmail: String, userName: String, userSurname: String, userCurrencyPreference: String) {
         email = userEmail
         name = userName
         surname = userSurname
         currencyPreference = userCurrencyPreference
-        sum = userSum
     }
     
     func eraseAllFields() {
-        updateAllFields(userEmail: "", userName: "", userSurname: "", userCurrencyPreference: "", userSum: 0.0)
+        updateAllFields(userEmail: "", userName: "", userSurname: "", userCurrencyPreference: "EUR")
         password = ""
         repeatedPassword = ""
     }

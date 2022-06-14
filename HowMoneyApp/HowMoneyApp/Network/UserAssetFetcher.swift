@@ -50,6 +50,27 @@ class UserAssetFetcher: UserAssetFetcherProtocol, RequestProtocol {
         }
     }
     
+    func putAsset(userId: String, userMail: String, assetId: String, oldAmount: Double, additionalAmount: Double) async throws {
+        guard let url = URL(string: urlString) else { throw NetworkError.invalidURL }
+        let token = try KeychainManager.get(account: userMail, service: K.keychainServiceName)
+        let updatedAmount = oldAmount + additionalAmount
+        let putBody = ["userId": userId, "assetId": assetId, "amount": updatedAmount] as [String : Any]
+        let request = createRequest(url: url, token: token, method: "PUT", body: putBody)
+        let (data, response) = try await session.data(for: request)
+        
+        if let httpResponse = response as? HTTPURLResponse {
+            print(httpResponse.statusCode)
+            switch httpResponse.statusCode {
+            case 200:
+                guard let _ = try? JSONDecoder().decode(Bool.self, from: data) else { throw NetworkError.invalidData }
+            case 401:
+                throw UserManagerError.unauthorized
+            default:
+                throw NetworkError.unknown
+            }
+        }
+    }
+    
     func deleteAsset(for userMail: String, assetId: String) async throws -> Bool {
         let deletingUrl = "\(urlString)/\(assetId)"
         guard let url = URL(string: deletingUrl) else { throw NetworkError.invalidURL }

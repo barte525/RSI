@@ -34,7 +34,6 @@ namespace howMoney.Data
                     Surname = "Nowak",
                     PasswordHash = "UbN/VoI/974MZ9iTx0gV+TVUbZHK745jzU51suahhOIXFA/OKK2+/Nwfeno/SbJGjAkyZAZnG7nOW5GV99aR+A==",
                     PasswordSalt = "9eII7vkhEcnJwaFRAkv6Wvq1h0uIol+pMwgNQkE5ooLL9eBK+vf8GinvN0LVxfy8dOkem2Z76yl/DtcGd94vZGQ8lJFAy1z+Xt9jWP/amZQbhU3t1SnUrwQGtTd5LZ0bCQcKqtMBbWoGOb7lnJiJLZ+oXtK9SgMMgFJICgWiAZo=",
-                    Sum = 0,
                     CurrencyPreference = "EUR"
                 },
                 new User
@@ -45,7 +44,6 @@ namespace howMoney.Data
                     Surname = "Generowicz",
                     PasswordHash = "UbN/VoI/974MZ9iTx0gV+TVUbZHK745jzU51suahhOIXFA/OKK2+/Nwfeno/SbJGjAkyZAZnG7nOW5GV99aR+A==",
                     PasswordSalt = "9eII7vkhEcnJwaFRAkv6Wvq1h0uIol+pMwgNQkE5ooLL9eBK+vf8GinvN0LVxfy8dOkem2Z76yl/DtcGd94vZGQ8lJFAy1z+Xt9jWP/amZQbhU3t1SnUrwQGtTd5LZ0bCQcKqtMBbWoGOb7lnJiJLZ+oXtK9SgMMgFJICgWiAZo=",
-                    Sum = 0,
                     CurrencyPreference = "USD"
                 },
                 new User
@@ -56,7 +54,6 @@ namespace howMoney.Data
                     Surname = "Grzegorczyk",
                     PasswordHash = "UbN/VoI/974MZ9iTx0gV+TVUbZHK745jzU51suahhOIXFA/OKK2+/Nwfeno/SbJGjAkyZAZnG7nOW5GV99aR+A==",
                     PasswordSalt = "9eII7vkhEcnJwaFRAkv6Wvq1h0uIol+pMwgNQkE5ooLL9eBK+vf8GinvN0LVxfy8dOkem2Z76yl/DtcGd94vZGQ8lJFAy1z+Xt9jWP/amZQbhU3t1SnUrwQGtTd5LZ0bCQcKqtMBbWoGOb7lnJiJLZ+oXtK9SgMMgFJICgWiAZo=",
-                    Sum = 0,
                     CurrencyPreference = "PLN"
                 }
             );

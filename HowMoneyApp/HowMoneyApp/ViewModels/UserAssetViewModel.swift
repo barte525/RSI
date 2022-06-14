@@ -90,6 +90,42 @@ class UserAssetViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    func putAsset(userId: String?, userMail: String, assetId: String?, oldAmount: Double?, additionalAmount: String) {
+        guard let loggedUserId = userId else {
+            areIncorrectData = true
+            errorMessage = "You cannot do this operation."
+            return
+        }
+        guard let chosenAssetId = assetId else {
+            areIncorrectData = true
+            errorMessage = "You have to choose asset to add."
+            return
+        }
+        guard let previousAmount = oldAmount else {
+            areIncorrectData = true
+            errorMessage = "Cannot fetch previous amount for chosen asset."
+            return
+        }
+        guard let safeAmount = Double(additionalAmount) else {
+            areIncorrectData = true
+            errorMessage = "You've entered incorrect amount. Please fix it."
+            return
+        }
         
+        if !areIncorrectData {
+            task = Task {
+                do {
+                    try await userAssetFetcher.putAsset(userId: loggedUserId, userMail: userMail, assetId: chosenAssetId, oldAmount: previousAmount, additionalAmount: safeAmount)
+                    areIncorrectData = false
+                    getAssets(for: userMail)
+                } catch {
+                    areIncorrectData = true
+                    errorMessage = "Cannot add new value to existed asset."
+                    print("Error during putting asset: \(error.localizedDescription)")
+                }
+            }
+        }
     }
 }

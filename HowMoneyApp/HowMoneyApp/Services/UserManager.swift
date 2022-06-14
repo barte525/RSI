@@ -38,7 +38,7 @@ class UserManager: RequestProtocol, UserManagerProtocol {
             case 200:
                 guard let userDto = try? JSONDecoder().decode(UserDto.self, from: data) else { throw UserManagerError.loginFailure }
                 try KeychainManager.save(account: userDto.email, service: K.keychainServiceName, token: userDto.token)
-                let user = User(id: userDto.id, email: userDto.email, name: userDto.name, surname: userDto.surname, sum: userDto.sum, currencyPreference: userDto.currencyPreference)
+                let user = User(id: userDto.id, email: userDto.email, name: userDto.name, surname: userDto.surname, currencyPreference: userDto.currencyPreference)
                 return user
             default:
                 throw UserManagerError.loginFailure
@@ -48,7 +48,6 @@ class UserManager: RequestProtocol, UserManagerProtocol {
     }
     
     func signOut() {
-        //TODO: Sign out the user
         KeychainManager.logout()
     }
     
@@ -64,7 +63,7 @@ class UserManager: RequestProtocol, UserManagerProtocol {
             case 200:
                 guard let userDto = try? JSONDecoder().decode(UserDto.self, from: data) else { throw UserManagerError.registrationFailure }
                 try KeychainManager.save(account: userDto.email, service: K.keychainServiceName, token: userDto.token)
-                let user = User(id: userDto.id, email: userDto.email, name: userDto.name, surname: userDto.surname, sum: userDto.sum, currencyPreference: userDto.currencyPreference)
+                let user = User(id: userDto.id, email: userDto.email, name: userDto.name, surname: userDto.surname, currencyPreference: userDto.currencyPreference)
                 return user
             default:
                 throw UserManagerError.registrationFailure
@@ -90,7 +89,7 @@ class UserManager: RequestProtocol, UserManagerProtocol {
             switch httpResponse.statusCode {
             case 200:
                 guard let userDto = try? JSONDecoder().decode(UpdateUserDto.self, from: data) else { throw UserManagerError.updateFailure }
-                let user = User(id: userDto.id, email: userDto.email, name: userDto.name, surname: userDto.surname, sum: user.sum, currencyPreference: userDto.currencyPreference)
+                let user = User(id: userDto.id, email: userDto.email, name: userDto.name, surname: userDto.surname, currencyPreference: userDto.currencyPreference)
                 return user
             case 401:
                 throw UserManagerError.unauthorized

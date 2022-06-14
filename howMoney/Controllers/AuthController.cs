@@ -43,7 +43,6 @@ namespace howMoney.Controllers
                 Name = request.Name,
                 Surname = request.Surname,
                 CurrencyPreference = request.CurrencyPreference,
-                Sum = 0,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt
             };
@@ -60,7 +59,6 @@ namespace howMoney.Controllers
                     Name = user.Name,
                     Surname = user.Surname,
                     CurrencyPreference = user.CurrencyPreference,
-                    sum = user.Sum,
                     Token = token
                 };
                 return Ok(registeredUser);
@@ -96,7 +94,6 @@ namespace howMoney.Controllers
                 Name = user.Name,
                 Surname = user.Surname,
                 CurrencyPreference = user.CurrencyPreference,
-                sum = user.Sum,
                 Token = token
             };
             return Ok(loggedUser);

@@ -12,7 +12,6 @@ struct UserDto: Decodable {
     let email: String
     let name: String
     let surname: String
-    let sum: Double
     let currencyPreference: String
     let token: String
 }
