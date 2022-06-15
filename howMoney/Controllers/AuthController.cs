@@ -97,6 +97,7 @@ namespace howMoney.Controllers
             return Ok(loggedUser);
         }
 
+
         private string CreateToken(User user)
         {
             List<Claim> claims = new List<Claim>
