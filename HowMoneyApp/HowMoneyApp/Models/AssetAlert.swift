@@ -12,4 +12,5 @@ struct AssetAlert: Decodable {
     let value: Double
     let currency: String
     let asset_name: String
+    let asset_type: String
 }

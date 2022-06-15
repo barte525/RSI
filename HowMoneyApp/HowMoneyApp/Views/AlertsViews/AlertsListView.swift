@@ -13,7 +13,6 @@ struct AlertsListView: View {
     @EnvironmentObject var alertViewModel: AlertViewModel
     @State var isAlertSet: Bool = false
     @State private var isEditing: Bool = false
-    @State var isShowingAlert: Bool = false
     
     var body: some View {
         ZStack {
@@ -23,6 +22,7 @@ struct AlertsListView: View {
                         if !isEditing {
                             Image(systemName: "magnifyingglass")
                                 .padding(.leading, 5)
+                                .padding([.top, .bottom], 10)
                         }
                         
                         TextField("Search", text: $alertViewModel.searchText)
@@ -43,7 +43,7 @@ struct AlertsListView: View {
                             HStack {
                                 Text(alert.asset_name)
                                 Spacer()
-                                Text("\(alert.value)")
+                                Text(AmountFormatter.formatByType(value: "\(alert.value)", of: alert.asset_type))
                                 Text(alert.currency)
                             }
                         }
@@ -95,15 +95,18 @@ struct AlertsListView: View {
             Alert(title: Text("You've set alert"),
                   message: Text("You'll get an email when the target value will be achieved."), dismissButton: .cancel(Text("OK")))
         }
+        .onAppear {
+            alertViewModel.getAlerts(for: userMail)
+        }
     }
     
     private func deleteAlert(indexSet: IndexSet) {
-        isShowingAlert.toggle()
         let alertsToDelete = indexSet.map { alertViewModel.alerts[$0] }
         guard alertsToDelete.count == 1 else {
             return
         }
         alertViewModel.chosenAlertToDelete = alertsToDelete[0]
+        alertViewModel.deleteAlert(for: userMail)
     }
 }
 

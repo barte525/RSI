@@ -53,6 +53,7 @@ class AlertViewModel: ObservableObject {
             errorMessage = "Please choose alert."
             return
         }
+        
         if !areIncorrectData {
             task = Task {
                 isLoading = true
@@ -62,6 +63,7 @@ class AlertViewModel: ObservableObject {
                     if !areIncorrectData {
                         errorMessage = "Cannot delete chosen alert. Please try again."
                     }
+                    getAlerts(for: userMail)
                 } catch let error {
                     areIncorrectData = true
                     errorMessage = "Cannot delete chosen alert. Please try again."
@@ -90,6 +92,7 @@ class AlertViewModel: ObservableObject {
                     isAlertSet = try await alertFetcher.postAlert(userMail: userMail, targetValue: Double(targetValueTextField)!, targetValueCurrency: targetValueCurrency, alertAssetName: safeAsset.name)
                     if isAlertSet {
                         areIncorrectData = false
+                        eraseFields()
                         getAlerts(for: userMail)
                     }
                 } catch {
@@ -99,5 +102,10 @@ class AlertViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    private func eraseFields() {
+        targetValueTextField = ""
+        chosenAsset = nil
     }
 }

@@ -81,11 +81,15 @@ struct AmountFormatter {
         let valuesParts = valueString.components(separatedBy: ".")
         
         var decimalResults = ""
-        for decimalChar in valuesParts[1] {
-            if decimalResults.count > 2 && decimalResults != "00" {
-                return valuesParts[0] + "." + decimalResults
+        if valuesParts.count == 2 {
+            for decimalChar in valuesParts[1] {
+                if decimalResults.count > 2 && decimalResults != "00" {
+                    return valuesParts[0] + "." + decimalResults
+                }
+                decimalResults += "\(decimalChar)"
             }
-            decimalResults += "\(decimalChar)"
+        } else {
+            decimalResults = "00"
         }
         return valuesParts[0] + "." + decimalResults
     }

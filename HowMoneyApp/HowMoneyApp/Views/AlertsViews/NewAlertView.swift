@@ -61,9 +61,6 @@ struct NewAlertView: View {
             
             Button {
                 alertViewModel.addAlert(userMail: userMail)
-                if alertViewModel.isAlertSet {
-                    self.presentationMode.wrappedValue.dismiss()
-                }
             } label: {
                 Text("Set")
                     .frame(minWidth: 150, maxWidth: .infinity)
@@ -84,6 +81,9 @@ struct NewAlertView: View {
         .alert(isPresented: $alertViewModel.areIncorrectData) {
             Alert(title: Text("Invalid data"),
                   message: Text(alertViewModel.errorMessage), dismissButton: .cancel(Text("OK")))
+        }
+        .onChange(of: alertViewModel.isAlertSet) { _ in
+            self.presentationMode.wrappedValue.dismiss()
         }
     }
 }
