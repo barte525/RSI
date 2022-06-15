@@ -77,14 +77,9 @@ namespace howMoney.Controllers
         {
             User user = _userRepository.GetByEmail(request.Email);
 
-            if (user == null)
+            if (user == null || !VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
             {
-                return BadRequest("User not found.");
-            }
-
-            if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
-            {
-                return BadRequest("Wrong password.");
+                return BadRequest("Invalid login credentials.");
             }
 
             string token = CreateToken(user);
