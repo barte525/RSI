@@ -67,6 +67,10 @@ class UserStateViewModel: ObservableObject {
                         updateAllFields(userEmail: user.email, userName: user.name, userSurname: user.surname, userCurrencyPreference: user.currencyPreference)
                     }
                     isLogged = true
+                } catch NetworkError.noConnection {
+                    isLogged = false
+                    areIncorrectData = true
+                    errorMessage = "No connection. Pleasy try again later."
                 } catch {
                     isLogged = false
                     areIncorrectData = true

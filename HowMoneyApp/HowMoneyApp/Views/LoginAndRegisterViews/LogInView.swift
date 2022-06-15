@@ -57,7 +57,6 @@ struct LogInView: View {
                     .foregroundColor(.primary)
                     .opacity(0.7)
                 NavigationLink {
-                    //TODO: Navigate to Register Account View
                     RegisterView()
                 } label: {
                     Text("Create account")
