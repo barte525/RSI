@@ -9,14 +9,17 @@ import SwiftUI
 
 struct LogInView: View {
     @EnvironmentObject var userStateViewModel: UserStateViewModel
+    @ObservedObject var keyboardManager = KeyboardManager()
+    @State var isEditing: Bool = false
     
     var body: some View {
         VStack {
             Image("logo")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(height: 250)
+                .frame(height: isEditing ? 150 : 250)
                 .scaledToFit()
+            
             VStack {
                 Text("Login Account")
                     .foregroundColor(Color.white)
@@ -75,6 +78,11 @@ struct LogInView: View {
         .navigationBarTitle("")
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
+        .onChange(of: keyboardManager.isVisible) { _ in
+            withAnimation {
+                isEditing.toggle()
+            }
+        }
     }
 }
 

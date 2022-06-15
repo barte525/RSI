@@ -14,7 +14,7 @@ struct RegisterDetailsView: View {
     
     var body: some View {
         ZStack {
-            VStack {
+            ScrollView {
                 UnderlineTextField(textFieldTitle: "Email", isSecured: false, textField: $userStateViewModel.email)
                     .padding(.top, 20)
                 UnderlineTextField(textFieldTitle: "Password", isSecured: true, textField: $userStateViewModel.password)

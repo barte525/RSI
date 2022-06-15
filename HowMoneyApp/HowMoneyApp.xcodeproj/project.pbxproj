@@ -11,6 +11,7 @@
 		7A10C807280A190F0011EBE4 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A10C806280A190F0011EBE4 /* NetworkError.swift */; };
 		7A10C809280A19510011EBE4 /* AssetFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A10C808280A19510011EBE4 /* AssetFetcher.swift */; };
 		7A10C80B280A1BC10011EBE4 /* AssetsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A10C80A280A1BC10011EBE4 /* AssetsListViewModel.swift */; };
+		7A1B7045285A495B00BF3BB6 /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1B7044285A495B00BF3BB6 /* KeyboardManager.swift */; };
 		7A20B56F280B7168009B5450 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A20B56E280B7168009B5450 /* Spinner.swift */; };
 		7A2FA5C62856411300722888 /* UpdateExistedAssetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2FA5C52856411300722888 /* UpdateExistedAssetView.swift */; };
 		7A48DCF42805C56200304750 /* NewAssetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A48DCF32805C56200304750 /* NewAssetView.swift */; };
@@ -83,6 +84,7 @@
 		7A10C806280A190F0011EBE4 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		7A10C808280A19510011EBE4 /* AssetFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetFetcher.swift; sourceTree = "<group>"; };
 		7A10C80A280A1BC10011EBE4 /* AssetsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsListViewModel.swift; sourceTree = "<group>"; };
+		7A1B7044285A495B00BF3BB6 /* KeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
 		7A20B56E280B7168009B5450 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		7A2FA5C52856411300722888 /* UpdateExistedAssetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateExistedAssetView.swift; sourceTree = "<group>"; };
 		7A48DCF32805C56200304750 /* NewAssetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAssetView.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				7A48DCF62805C6F900304750 /* TabBarSelection.swift */,
 				7ABA42EF2809C9360034319D /* AmountFormatter.swift */,
 				7ABA42F12809CF0B0034319D /* String+Extension.swift */,
+				7A1B7044285A495B00BF3BB6 /* KeyboardManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 				7AD706BC2807822900CBD66B /* Asset+Mock.swift in Sources */,
 				7A8E7C1D2808C79A009C477F /* PasswordChangeView.swift in Sources */,
 				7AEF736F280DFF6B004ED2F5 /* UserCredentials.swift in Sources */,
+				7A1B7045285A495B00BF3BB6 /* KeyboardManager.swift in Sources */,
 				7AAD00AA2819AE5E0072A2C8 /* UserAssetViewModel.swift in Sources */,
 				7AAA83C5280F452900DF552B /* User.swift in Sources */,
 				7AD59EE92859C98400D13520 /* AlertViewModel.swift in Sources */,
