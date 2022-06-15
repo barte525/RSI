@@ -91,6 +91,7 @@ class AlertView(APIView):
 def parse_alert(alert):
     return {
             "id": alert.id,
+            "asset_type": Asset.objects.get(id=alert.idA.id).asset_type,
             "value": alert.alert_value,
             "currency": alert.currency,
             "asset_name": Asset.objects.get(id=alert.idA.id).name,
