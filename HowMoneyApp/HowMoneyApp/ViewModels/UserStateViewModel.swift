@@ -30,6 +30,10 @@ class UserStateViewModel: ObservableObject {
     @Published var loggedUser: User? = nil
     @Published var areIncorrectData: Bool = false
     
+    @Published var oldPasswordTextField: String = ""
+    @Published var newPasswordTextField: String = ""
+    @Published var repeatedNewPasswordTextField: String = ""
+    
     init(userManager: UserManager, fetcher: UserAssetFetcher) {
         self.userManager = userManager
         self.userAssetFetcher = fetcher
@@ -104,7 +108,26 @@ class UserStateViewModel: ObservableObject {
                     email = loggedUser?.email ?? ""
                     areIncorrectData = true
                     errorMessage = "Cannot update data. Please try again."
-                    print("Error during user update: \(error)")
+                    print("Error during user update: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    func changePassword() {
+        validateChangedPasswords()
+        if !areIncorrectData {
+            task = Task {
+                do {
+                    let isChanged = try await userManager.changePassword(userMail: loggedUser!.email, oldPassword: oldPasswordTextField, newPassword: newPasswordTextField)
+                    if !isChanged {
+                        areIncorrectData = true
+                        errorMessage = "Cannot change password. Please try again."
+                    }
+                } catch {
+                    areIncorrectData = true
+                    errorMessage = "Cannot change password. Please try again."
+                    print("Error during passwords changing: \(error.localizedDescription)")
                 }
             }
         }
@@ -177,5 +200,19 @@ class UserStateViewModel: ObservableObject {
                 print("Error during getting sum for user: \(error)")
             }
         }
+    }
+    
+    private func validateChangedPasswords() {
+        guard !newPasswordTextField.isEmpty && !oldPasswordTextField.isEmpty else {
+            errorMessage = "Passwords cannot be empty. Please enter valid ones."
+            areIncorrectData = true
+            return
+        }
+        guard newPasswordTextField == repeatedNewPasswordTextField else {
+            errorMessage = "Passwords have to be the same. Please fix it."
+            areIncorrectData = true
+            return
+        }
+        areIncorrectData = false
     }
 }

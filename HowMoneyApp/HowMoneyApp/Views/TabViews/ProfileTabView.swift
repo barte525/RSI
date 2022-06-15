@@ -60,6 +60,7 @@ struct ProfileTabView: View {
         }
         .sheet(isPresented: $isShowingPasswordChangingAlert) {
             PasswordChangeView(isShown: $isShowingPasswordChangingAlert)
+                .environmentObject(userStateViewModel)
         }
         .background(Color("Background"))
         .onChange(of: userStateViewModel.currencyPreference) { _ in
