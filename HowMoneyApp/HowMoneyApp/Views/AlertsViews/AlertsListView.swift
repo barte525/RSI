@@ -26,6 +26,8 @@ struct AlertsListView: View {
                         }
                         
                         TextField("Search", text: $alertViewModel.searchText)
+                            .padding(.leading, 5)
+                            .padding([.top, .bottom], 10)
                     }
                     .background(Color("ControlBackground"))
                     .cornerRadius(10)

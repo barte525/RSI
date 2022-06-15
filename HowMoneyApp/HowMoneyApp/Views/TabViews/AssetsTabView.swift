@@ -15,6 +15,7 @@ struct AssetsTabView: View {
     @State var isShowingAlert: Bool = false
     @State var isShowingUpdateAssetView: Bool = false
     @State var chosenAsset: UserAsset? = nil
+    @State var isMinusTapped: Bool = false
     var userMail: String
     var assetToDelete: IndexSet? = nil
     
@@ -32,12 +33,19 @@ struct AssetsTabView: View {
                 List {
                     ForEach(userAssetViewModel.userAssets.filter{ searchText.isEmpty || $0.name.lowercased().contains(searchText.lowercased())}, id: \.self) { userAsset in
                         ZStack {
-                            NavigationLink("", destination: UpdateExistedAssetView(chosenAsset: chosenAsset, userMail: userMail, userId: userStateViewModel.loggedUser?.id).environmentObject(userAssetViewModel), isActive: $isShowingUpdateAssetView).hidden()
+                            NavigationLink("", destination: UpdateExistedAssetView(chosenAsset: chosenAsset, userMail: userMail, userId: userStateViewModel.loggedUser?.id, isSubstraction: isMinusTapped).environmentObject(userAssetViewModel), isActive: $isShowingUpdateAssetView).hidden()
                             
                             HStack {
                                 HStack {
                                     Text(userAsset.name)
                                     Spacer()
+                                    Image(systemName: "minus.circle")
+                                        .foregroundColor(Color.accentColor)
+                                        .onTapGesture {
+                                            isMinusTapped = true
+                                            chosenAsset = userAsset
+                                            isShowingUpdateAssetView = true
+                                        }
                                     Text(AmountFormatter.getRoundedAmount(for: userAsset.amount))
                                 }
                                 .padding([.leading, .trailing], 10)
@@ -46,6 +54,7 @@ struct AssetsTabView: View {
                                 Image(systemName: "plus.circle")
                                     .foregroundColor(Color.accentColor)
                                     .onTapGesture {
+                                        isMinusTapped = false
                                         chosenAsset = userAsset
                                         isShowingUpdateAssetView = true
                                     }

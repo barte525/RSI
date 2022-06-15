@@ -43,7 +43,6 @@ class UserStateViewModel: ObservableObject {
                 do {
                     loggedUser = try await userManager.register(email: email, name: name, surname: surname, password: password, currencyPreference: currencyPreference)
                     if let user = loggedUser {
-                        print(user)
                         updateAllFields(userEmail: user.email, userName: user.name, userSurname: user.surname, userCurrencyPreference: user.currencyPreference)
                     }
                     isLogged = true

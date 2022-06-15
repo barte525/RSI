@@ -15,6 +15,7 @@ struct UpdateExistedAssetView: View {
     var chosenAsset: UserAsset?
     var userMail: String
     var userId: String?
+    var isSubstraction: Bool
     
     var body: some View {
         VStack {
@@ -33,7 +34,7 @@ struct UpdateExistedAssetView: View {
             .frame(maxHeight: 130)
             
             Button {
-                userAssetViewModel.putAsset(userId: userId, userMail: userMail, assetId: chosenAsset?.assetId, oldAmount: chosenAsset?.amount, additionalAmount: amountTextField)
+                userAssetViewModel.putAsset(userId: userId, userMail: userMail, assetId: chosenAsset?.assetId, oldAmount: chosenAsset?.amount, additionalAmount: amountTextField, isSubstraction: isSubstraction)
                 if !userAssetViewModel.areIncorrectData {
                     presentationMode.wrappedValue.dismiss()
                 }
@@ -62,6 +63,6 @@ struct UpdateExistedAssetView: View {
 
 struct UpdateExistedAssetView_Previews: PreviewProvider {
     static var previews: some View {
-        UpdateExistedAssetView(userMail: "jan.smith@gmail.com")
+        UpdateExistedAssetView(userMail: "jan.smith@gmail.com", isSubstraction: false)
     }
 }
