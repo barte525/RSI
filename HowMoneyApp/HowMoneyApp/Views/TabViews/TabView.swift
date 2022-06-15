@@ -10,6 +10,7 @@ import SwiftUI
 struct Tab: View {
     @EnvironmentObject var userStateViewModel: UserStateViewModel
     @StateObject var userAssetViewModel: UserAssetViewModel = .init(fetcher: UserAssetFetcher())
+    @StateObject var alertViewModel: AlertViewModel = .init(fetcher: AlertFetcher())
     @State private var selection: String = "Home"
     @State var isEditingProfile: Bool = false
     
@@ -50,7 +51,8 @@ struct Tab: View {
                                 NavigationLink {
             switch selection {
             case TabBarSelection.home.rawValue:
-                AlertsListView()
+                AlertsListView(userMail: userStateViewModel.email)
+                    .environmentObject(alertViewModel)
             case TabBarSelection.assets.rawValue:
                 NewAssetView(userMail: userStateViewModel.email, userId: userStateViewModel.loggedUser?.id)
                     .environmentObject(userAssetViewModel)

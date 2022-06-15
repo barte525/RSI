@@ -49,6 +49,9 @@
 		7AC8ABB328022E2F004E5132 /* HomeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC8ABB228022E2F004E5132 /* HomeTabView.swift */; };
 		7AC8ABB528022E40004E5132 /* AssetsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC8ABB428022E40004E5132 /* AssetsTabView.swift */; };
 		7AC8ABB728022E4C004E5132 /* ProfileTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC8ABB628022E4C004E5132 /* ProfileTabView.swift */; };
+		7AD59EE52859C6B500D13520 /* AssetAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD59EE42859C6B500D13520 /* AssetAlert.swift */; };
+		7AD59EE72859C7A300D13520 /* AlertFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD59EE62859C7A300D13520 /* AlertFetcher.swift */; };
+		7AD59EE92859C98400D13520 /* AlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD59EE82859C98400D13520 /* AlertViewModel.swift */; };
 		7AD706BA28077D6800CBD66B /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD706B928077D6800CBD66B /* Asset.swift */; };
 		7AD706BC2807822900CBD66B /* Asset+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD706BB2807822900CBD66B /* Asset+Mock.swift */; };
 		7AD706BE28078A2000CBD66B /* AssetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD706BD28078A2000CBD66B /* AssetType.swift */; };
@@ -121,6 +124,9 @@
 		7AC8ABB228022E2F004E5132 /* HomeTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabView.swift; sourceTree = "<group>"; };
 		7AC8ABB428022E40004E5132 /* AssetsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsTabView.swift; sourceTree = "<group>"; };
 		7AC8ABB628022E4C004E5132 /* ProfileTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabView.swift; sourceTree = "<group>"; };
+		7AD59EE42859C6B500D13520 /* AssetAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetAlert.swift; sourceTree = "<group>"; };
+		7AD59EE62859C7A300D13520 /* AlertFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AlertFetcher.swift; path = HowMoneyApp/AlertFetcher.swift; sourceTree = SOURCE_ROOT; };
+		7AD59EE82859C98400D13520 /* AlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewModel.swift; sourceTree = "<group>"; };
 		7AD706B928077D6800CBD66B /* Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
 		7AD706BB2807822900CBD66B /* Asset+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Asset+Mock.swift"; sourceTree = "<group>"; };
 		7AD706BD28078A2000CBD66B /* AssetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetType.swift; sourceTree = "<group>"; };
@@ -158,6 +164,7 @@
 		7A10C805280A18C60011EBE4 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				7AD59EE62859C7A300D13520 /* AlertFetcher.swift */,
 				7A10C806280A190F0011EBE4 /* NetworkError.swift */,
 				7A10C808280A19510011EBE4 /* AssetFetcher.swift */,
 				7AEF7370280E01CC004ED2F5 /* RequestProtocol.swift */,
@@ -220,6 +227,7 @@
 				7AD706BD28078A2000CBD66B /* AssetType.swift */,
 				7AEF736E280DFF6B004ED2F5 /* UserCredentials.swift */,
 				7AAA83C4280F452900DF552B /* User.swift */,
+				7AD59EE42859C6B500D13520 /* AssetAlert.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -231,6 +239,7 @@
 				7AAA83C2280F2AF400DF552B /* RegisterViewModel.swift */,
 				7AAD00A92819AE5E0072A2C8 /* UserAssetViewModel.swift */,
 				7AC2D1792826D7F400365800 /* UserStateViewModel.swift */,
+				7AD59EE82859C98400D13520 /* AlertViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -499,6 +508,7 @@
 				7AA5C33E2857A4970080F44C /* AlertsListView.swift in Sources */,
 				7AD706BA28077D6800CBD66B /* Asset.swift in Sources */,
 				7A0267C727FC9C9D009BBCEE /* LogInView.swift in Sources */,
+				7AD59EE72859C7A300D13520 /* AlertFetcher.swift in Sources */,
 				7AAA83C3280F2AF400DF552B /* RegisterViewModel.swift in Sources */,
 				7A20B56F280B7168009B5450 /* Spinner.swift in Sources */,
 				7A10C80B280A1BC10011EBE4 /* AssetsListViewModel.swift in Sources */,
@@ -513,6 +523,7 @@
 				7A78425E27FCE57100F3D05C /* RegisterView.swift in Sources */,
 				7AC2D1782826D7B400365800 /* ApplicationSwitcher.swift in Sources */,
 				7A8560B1280312A20016CEF8 /* UserAsset+Mock.swift in Sources */,
+				7AD59EE52859C6B500D13520 /* AssetAlert.swift in Sources */,
 				7AAA83C8280F48C200DF552B /* User+Mock.swift in Sources */,
 				7A78425A27FCE07E00F3D05C /* UnderlineTextField.swift in Sources */,
 				7A2FA5C62856411300722888 /* UpdateExistedAssetView.swift in Sources */,
@@ -539,6 +550,7 @@
 				7AEF736F280DFF6B004ED2F5 /* UserCredentials.swift in Sources */,
 				7AAD00AA2819AE5E0072A2C8 /* UserAssetViewModel.swift in Sources */,
 				7AAA83C5280F452900DF552B /* User.swift in Sources */,
+				7AD59EE92859C98400D13520 /* AlertViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
