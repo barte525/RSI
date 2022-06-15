@@ -24,9 +24,9 @@ class Asset(models.Model):
     converterUSD = models.FloatField(default=0)
     guidA = models.CharField(max_length=40, unique=True)
     asset_type = models.CharField(max_length=30)
-g
+
     crypto_url = 'http://api.nomics.com/v1/currencies/ticker?key=' + env('API_KEY')
-    server_url = 'https://5f13-2a0c-5a84-630f-5200-ad5c-d49c-633e-7fb2.eu.ngrok.io/api/Asset/'
+    server_url = 'https://9658-188-26-199-50.eu.ngrok.io/api/Asset/'
 
     @staticmethod
     def seed_dev_data():
