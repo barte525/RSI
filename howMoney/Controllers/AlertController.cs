@@ -27,7 +27,9 @@ namespace howMoney.Controllers
         public async Task<Object> Get()
         {
             var email = User.FindFirstValue(ClaimTypes.Email);
-            return await client.GetStringAsync(apiUrl + "?email=" + email);
+            var respone = await client.GetStringAsync(apiUrl + "?email=" + email);
+            var model = JsonConvert.DeserializeObject<List<AlertWithIdDTO>>(respone);
+            return model;
         }
 
         [HttpPost, Authorize]
