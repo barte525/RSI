@@ -67,6 +67,8 @@ class UserManager: RequestProtocol, UserManagerProtocol {
                 try KeychainManager.save(account: userDto.email, service: K.keychainServiceName, token: userDto.token)
                 let user = User(id: userDto.id, email: userDto.email, name: userDto.name, surname: userDto.surname, currencyPreference: userDto.currencyPreference)
                 return user
+            case 404:
+                throw NetworkError.noConnection
             default:
                 throw UserManagerError.registrationFailure
             }

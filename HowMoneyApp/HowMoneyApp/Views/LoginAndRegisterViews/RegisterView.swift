@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RegisterView: View {
     
+    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var userStateViewModel: UserStateViewModel
     @ObservedObject var keyboardManager = KeyboardManager()
     @State var isEditing: Bool = false
@@ -62,8 +63,8 @@ struct RegisterView: View {
                 Text("Already have an account? ")
                     .foregroundColor(.primary)
                     .opacity(0.7)
-                NavigationLink {
-                    LogInView()
+                Button {
+                    presentationMode.wrappedValue.dismiss()
                 } label: {
                     Text("Sign In")
                         .foregroundColor(.primary)
