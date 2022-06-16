@@ -46,7 +46,7 @@ struct AssetsTabView: View {
                                             chosenAsset = userAsset
                                             isShowingUpdateAssetView = true
                                         }
-                                    Text(AmountFormatter.getRoundedAmount(for: userAsset.amount))
+                                    Text(AmountFormatter.getFormattedAmount(for: userAsset.amount))
                                 }
                                 .padding([.leading, .trailing], 10)
                                 

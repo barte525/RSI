@@ -114,15 +114,27 @@ class UserAssetViewModel: ObservableObject {
             return
         }
         if isSubstraction {
+            if safeAmount <= 0 {
+                errorMessage = "You have to enter positive number. Please fix it."
+                areIncorrectData = true
+                return
+            }
             if safeAmount > 0 {
                 safeAmount *= -1
             }
         } else {
-            if safeAmount < 0 {
-                safeAmount *= -1
+            if safeAmount <= 0 {
+                errorMessage = "You have to enter positive number. Please fix it."
+                areIncorrectData = true
+                return
             }
         }
         let amount = safeAmount
+        if isSubstraction && -1 * amount > previousAmount {
+            areIncorrectData = true
+            errorMessage = "You don't have enough resources to this operation."
+            return
+        }
         
         if !areIncorrectData {
             task = Task {

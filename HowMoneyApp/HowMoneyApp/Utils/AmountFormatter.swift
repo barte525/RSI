@@ -93,4 +93,12 @@ struct AmountFormatter {
         }
         return valuesParts[0] + "." + decimalResults
     }
+    
+    static func getFormattedAmount(for value: Double) -> String {
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 8
+        formatter.numberStyle = .decimal
+        return formatter.string(from: NSNumber(value: value)) ?? "\(value)"
+    }
 }

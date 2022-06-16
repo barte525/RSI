@@ -39,7 +39,7 @@ struct UpdateExistedAssetView: View {
                     presentationMode.wrappedValue.dismiss()
                 }
             } label: {
-                Text("Add")
+                Text(isSubstraction ? "Substract" : "Add")
                     .frame(minWidth: 150, maxWidth: .infinity)
                     .frame(height: 55)
                     .background(Color("DarkPurple"))
@@ -53,7 +53,7 @@ struct UpdateExistedAssetView: View {
         }
         .padding(.top, 20)
         .padding([.leading, .trailing], 10)
-        .navigationTitle(Text("Add existed asset"))
+        .navigationTitle(isSubstraction ? Text("Substract asset") : Text("Add asset"))
         .alert(isPresented: $userAssetViewModel.areIncorrectData) {
             Alert(title: Text("Error occurs"),
                   message: Text(userAssetViewModel.errorMessage), dismissButton: .cancel(Text("OK")))
