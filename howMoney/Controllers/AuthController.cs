@@ -94,6 +94,26 @@ namespace howMoney.Controllers
             return Ok(loggedUser);
         }
 
+        [HttpPost("change"), Authorize]
+        public ActionResult<string> Change(PasswordDto request)
+        {
+            User user = _userRepository.GetByEmail(User.FindFirstValue(ClaimTypes.Email));
+
+            if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
+            {
+                return BadRequest("Invalid Password");
+            }
+
+            CreatePasswordHash(request.NewPassword, out string passwordHash, out string passwordSalt);
+
+            user.PasswordSalt = passwordSalt;
+            user.PasswordHash = passwordHash;
+
+            _userRepository.Update(user);
+
+            return Ok();
+        }
+
 
         private string CreateToken(User user)
         {

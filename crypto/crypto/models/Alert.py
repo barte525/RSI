@@ -37,6 +37,7 @@ class Alert(models.Model):
         self.format_message(currency, name, price, receiver_mail)
         context = ssl.create_default_context()
         with smtplib.SMTP_SSL(self.server_address, port=self.port, context=context) as server:
+            print(self.dev_email, env('email_password'))
             server.login(self.dev_email, env('email_password'))
             server.sendmail(self.dev_email, receiver_mail, self.message.as_string())
 
