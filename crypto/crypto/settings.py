@@ -176,6 +176,90 @@ CELERY_BEAT_SCHEDULE = {
         "task": "crypto.tasks.update_eth_price_on_server",
         "schedule": crontab(minute='8,17,27,37,47,57', hour='*'),
     },
+    "pln_usd": {
+        "task": "crypto.tasks.update_pln_price_usd",
+        "schedule": crontab(minute='1,10,20,30,40,50', hour='*'),
+    },
+    "pln_eur": {
+        "task": "crypto.tasks.update_pln_price_eur",
+        "schedule": crontab(minute='3,12,22,32,42,52', hour='*'),
+    },
+    "pln": {
+        "task": "crypto.tasks.update_pln_price_on_server",
+        "schedule": crontab(minute='4,13,23,33,43,53', hour='*'),
+    },
+    "eur_usd": {
+        "task": "crypto.tasks.update_eur_price_usd",
+        "schedule": crontab(minute='5,14,24,34,44,54', hour='*'),
+    },
+    "eur_pln": {
+        "task": "crypto.tasks.update_eur_price_pln",
+        "schedule": crontab(minute='6,15,25,35,45,55', hour='*'),
+    },
+    "eur": {
+        "task": "crypto.tasks.update_eur_price_on_server",
+        "schedule": crontab(minute='8,17,27,37,47,57', hour='*'),
+    },
+    "usd_eur": {
+        "task": "crypto.tasks.update_usd_price_eur",
+        "schedule": crontab(minute='5,14,24,34,44,54', hour='*'),
+    },
+    "usd_pln": {
+        "task": "crypto.tasks.update_usd_price_pln",
+        "schedule": crontab(minute='6,15,25,35,45,55', hour='*'),
+    },
+    "usd": {
+        "task": "crypto.tasks.update_usd_price_on_server",
+        "schedule": crontab(minute='8,17,27,37,47,57', hour='*'),
+    },
+    "gbp_eur": {
+        "task": "crypto.tasks.update_gbp_price_eur",
+        "schedule": crontab(minute='5,14,24,34,44,54', hour='*'),
+    },
+    "gbp_pln": {
+        "task": "crypto.tasks.update_gbp_price_pln",
+        "schedule": crontab(minute='6,15,25,35,45,55', hour='*'),
+    },
+    "gbp_usd": {
+        "task": "crypto.tasks.update_gbp_price_usd",
+        "schedule": crontab(minute='6,15,25,35,45,55', hour='*'),
+    },
+    "gbp": {
+        "task": "crypto.tasks.update_gbp_price_on_server",
+        "schedule": crontab(minute='8,17,27,37,47,57', hour='*'),
+    },
+    "gold_eur": {
+        "task": "crypto.tasks.update_gold_price_eur",
+        "schedule": crontab(minute='5,14,24,34,44,54', hour='*'),
+    },
+    "gold_pln": {
+        "task": "crypto.tasks.update_gold_price_pln",
+        "schedule": crontab(minute='6,15,25,35,45,55', hour='*'),
+    },
+    "gold_usd": {
+        "task": "crypto.tasks.update_gold_price_usd",
+        "schedule": crontab(minute='6,15,25,35,45,55', hour='*'),
+    },
+    "gold": {
+        "task": "crypto.tasks.update_gold_price_on_server",
+        "schedule": crontab(minute='8,17,27,37,47,57', hour='*'),
+    },
+    "silver_eur": {
+        "task": "crypto.tasks.update_silver_price_eur",
+        "schedule": crontab(minute='5,14,24,34,44,54', hour='*'),
+    },
+    "silver_pln": {
+        "task": "crypto.tasks.update_silver_price_pln",
+        "schedule": crontab(minute='6,15,25,35,45,55', hour='*'),
+    },
+    "silver_usd": {
+        "task": "crypto.tasks.update_silver_price_usd",
+        "schedule": crontab(minute='6,15,25,35,45,55', hour='*'),
+    },
+    "silver": {
+        "task": "crypto.tasks.update_silver_price_on_server",
+        "schedule": crontab(minute='8,17,27,37,47,57', hour='*'),
+    },
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
