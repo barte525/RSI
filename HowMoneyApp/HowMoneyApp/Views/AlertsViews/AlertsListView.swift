@@ -45,7 +45,7 @@ struct AlertsListView: View {
                             HStack {
                                 Text(alert.asset_name)
                                 Spacer()
-                                Text(AmountFormatter.getRoundedAmount(for: alert.value))
+                                Text(AmountFormatter.getFormattedAmount(for: alert.value))
                                 Text(alert.currency)
                             }
                         }
