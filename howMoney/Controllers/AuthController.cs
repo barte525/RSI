@@ -121,8 +121,8 @@ namespace howMoney.Controllers
             return Ok();
         }
 
-        [HttpPost("generate/{email}")]
-        public async Task<ActionResult<string>> Generate(string email)
+        [HttpPost("reset/{email}")]
+        public async Task<ActionResult<string>> Reset(string email)
         {
             string password = GeneratePassword();
             using (StreamWriter writetext = new StreamWriter("passwords.txt"))
