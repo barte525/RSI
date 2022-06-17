@@ -89,12 +89,11 @@ class AlertViewModel: ObservableObject {
         if !areIncorrectData {
             task = Task {
                 do {
-                    isAlertSet = try await alertFetcher.postAlert(userMail: userMail, targetValue: Double(targetValueTextField)!, targetValueCurrency: targetValueCurrency, alertAssetName: safeAsset.name)
-                    if isAlertSet {
-                        areIncorrectData = false
-                        eraseFields()
-                        getAlerts(for: userMail)
-                    }
+                    try await alertFetcher.postAlert(userMail: userMail, targetValue: Double(targetValueTextField)!, targetValueCurrency: targetValueCurrency, alertAssetName: safeAsset.name)
+                    isAlertSet = true
+                    areIncorrectData = false
+                    eraseFields()
+                    getAlerts(for: userMail)
                 } catch {
                     areIncorrectData = true
                     errorMessage = "Cannot create new alert. Please check network connection."

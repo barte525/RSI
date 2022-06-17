@@ -17,7 +17,6 @@ struct EditProfileView: View {
             Section(header: Text("General")) {
                 TextField("Name", text: $userStateViewModel.name)
                 TextField("Surname", text: $userStateViewModel.surname)
-                TextField("Email", text: $userStateViewModel.email)
             }
         }
         .padding(.top, 10)

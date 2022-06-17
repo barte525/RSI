@@ -24,25 +24,23 @@ class AlertFetcher: AlertFetcherProtocol, RequestProtocol {
         return alerts
     }
     
-    func postAlert(userMail: String, targetValue: Double, targetValueCurrency: String, alertAssetName: String) async throws -> Bool {
+    func postAlert(userMail: String, targetValue: Double, targetValueCurrency: String, alertAssetName: String) async throws {
         guard let url = URL(string: urlString) else { throw NetworkError.invalidURL }
         let token = try KeychainManager.get(account: userMail, service: K.keychainServiceName)
         let postBody = ["asset_name": alertAssetName, "currency": targetValueCurrency, "value": targetValue] as [String : Any]
         let request = createRequest(url: url, token: token, method: "POST", body: postBody)
-        let (data, response) = try await session.data(for: request)
+        let (_, response) = try await session.data(for: request)
         
         if let httpResponse = response as? HTTPURLResponse {
             switch httpResponse.statusCode {
             case 200:
-                guard let isCreated = try? JSONDecoder().decode(Bool.self, from: data) else { throw NetworkError.invalidData }
-                return isCreated
+                print("Alert for user is created.")
             case 401:
                 throw UserManagerError.unauthorized
             default:
                 throw NetworkError.unknown
             }
         }
-        return false
     }
     
     func deleteAlert(for userMail: String, alertId: Int) async throws -> Bool {
