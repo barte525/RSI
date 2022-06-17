@@ -50,7 +50,7 @@ class Alert(models.Model):
             server.sendmail(self.dev_email, receiver_mail, self.message.as_string())
 
     def format_message(self, currency, name, price, receiver_mail):
-        self.message["Subject"] = self.subject
+        self.message["Subject"] = self.subject + receiver_mail
         self.message["From"] = self.server_address
         self.message["To"] = receiver_mail
         message_text_attachment = MIMEText(self.message_text.format(asset_name=name, price=price, currency=currency),
