@@ -46,7 +46,12 @@ namespace howMoney.Controllers
         {
             User currentUser = _userRepository.GetByEmail(User.FindFirstValue(ClaimTypes.Email));
             List<UserAsset> userAssets = new List<UserAsset>();
-            userAssets.Add(_userAssetRepository.GetById(currentUser.Id, assetId));
+            UserAsset userAsset = _userAssetRepository.GetById(currentUser.Id, assetId);
+            if (userAsset == null)
+            {
+                return BadRequest("No such userAsset");
+            }
+            userAssets.Add(userAsset);
             List<Asset> assets = new List<Asset>();
             assets.Add(_assetRepository.GetById(assetId));
 
@@ -140,7 +145,7 @@ namespace howMoney.Controllers
         public bool DeleteAsset(Guid assetId)
         {
             try
-            {
+            {   
                 _userAssetRepository.Delete(_userRepository.GetByEmail(User.FindFirstValue(ClaimTypes.Email)).Id, assetId);
                 return true;
             }
