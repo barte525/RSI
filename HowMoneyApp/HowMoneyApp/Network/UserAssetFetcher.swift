@@ -33,12 +33,12 @@ class UserAssetFetcher: UserAssetFetcherProtocol, RequestProtocol {
         let token = try KeychainManager.get(account: userMail, service: K.keychainServiceName)
         let postBody = ["userId": userId, "assetId": asset.id, "amount": amount] as [String : Any]
         let request = createRequest(url: url, token: token, method: "POST", body: postBody)
-        let (data, response) = try await session.data(for: request)
+        let (_, response) = try await session.data(for: request)
         
         if let httpResponse = response as? HTTPURLResponse {
             switch httpResponse.statusCode {
             case 200:
-                guard let _ = try? JSONDecoder().decode(Bool.self, from: data) else { throw NetworkError.invalidData }
+                print("User asset was created.")
             case 400:
                 throw UserAssetError.duplicateFailure
             case 401:
