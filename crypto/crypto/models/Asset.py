@@ -73,7 +73,6 @@ class Asset(models.Model):
         if price != EXTERNAL_API_ERROR and price != NOT_EXIST_ERROR:
             self.set_asset_price(asset, currency_code, price)
 
-
     @staticmethod
     def set_asset_price(asset, currency_code, price):
         from crypto.models.Alert import Alert
