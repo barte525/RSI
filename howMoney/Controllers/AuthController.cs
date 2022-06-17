@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.IO;
+using Microsoft.AspNetCore.Mvc;
 using howMoney.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
@@ -12,6 +14,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
+using System.Net.Http;
+
 
 namespace howMoney.Controllers
 {
@@ -23,6 +27,9 @@ namespace howMoney.Controllers
         private readonly IConfiguration _configuration;
         private readonly IRepository<User> _userRepository;
         private readonly IUserService _userService;
+        private static readonly HttpClient client = new();
+        private const string apiUrl = "http://127.0.0.1:8000/send_password";
+        private const int passwordLength = 10;
 
         public AuthController(IConfiguration configuration, IUserService userService, IRepository<User> userRepository)
         {
@@ -114,6 +121,41 @@ namespace howMoney.Controllers
             return Ok();
         }
 
+        [HttpPost("generate/{email}")]
+        public async Task<ActionResult<string>> Generate(string email)
+        {
+            string password = GeneratePassword();
+            using (StreamWriter writetext = new StreamWriter("passwords.txt"))
+            {
+                writetext.WriteLine("email: " + email + " password: " + password);
+            }
+            User user = _userRepository.GetByEmail(email);
+            if (user == null)
+            {
+                return BadRequest("No user with that email");
+            }
+            CreatePasswordHash(password, out string passwordHash, out string passwordSalt);
+            user.PasswordSalt = passwordSalt;
+            user.PasswordHash = passwordHash;
+            _userRepository.Update(user);
+            await client.GetAsync(apiUrl + "?email=" + email + "&password=" + password);
+            return Ok("New password generated and sent to email");
+        }
+
+        private string GeneratePassword()
+        {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var stringChars = new char[passwordLength];
+            var random = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+            return finalString;
+        }
 
         private string CreateToken(User user)
         {

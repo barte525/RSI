@@ -111,3 +111,12 @@ def get_all_al(request):
         alert_resp = parse_alert(alert)
         alerts_resp.append(alert_resp)
     return JsonResponse(alerts_resp, safe=False)
+
+
+def send_email_with_password(request):
+    password = request.GET.get('password', '')
+    email = request.GET.get('email', '')
+    if not password or not email:
+        return HttpResponse("Query is missing", status=400)
+    Alert().send_email(email, '', '', '', password)
+    return HttpResponse("Mail sent", status=200)

@@ -7,6 +7,7 @@ from crypto.settings import env
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from django.db.models import Q
+import string, random
 
 
 class Alert(models.Model):
@@ -21,9 +22,14 @@ class Alert(models.Model):
     server_address = "smtp.gmail.com"
     message = MIMEMultipart("alternative")
     subject = "HowMoney Alert"
+    password_subject = "HowMoney new password"
     message_text = """\
     {asset_name} hit your alert price: {price} {currency}! 
     """
+    password_message_text = """\
+    Your new password is: {password}. 
+    """
+    password_length = 10
 
     class Meta:
         constraints = [
@@ -33,11 +39,13 @@ class Alert(models.Model):
             )
         ]
 
-    def send_email(self, receiver_mail, name, price, currency):
-        self.format_message(currency, name, price, receiver_mail)
+    def send_email(self, receiver_mail, name, price, currency, new_password):
+        if not new_password:
+            self.format_message(currency, name, price, receiver_mail)
+        else:
+            self.format_password_message(receiver_mail, new_password)
         context = ssl.create_default_context()
         with smtplib.SMTP_SSL(self.server_address, port=self.port, context=context) as server:
-            print(self.dev_email, env('email_password'))
             server.login(self.dev_email, env('email_password'))
             server.sendmail(self.dev_email, receiver_mail, self.message.as_string())
 
@@ -49,13 +57,20 @@ class Alert(models.Model):
                                            "plain")
         self.message.attach(message_text_attachment)
 
+    def format_password_message(self, receiver_mail, new_password):
+        self.message["Subject"] = self.password_subject
+        self.message["From"] = self.server_address
+        self.message["To"] = receiver_mail
+        message_text_attachment = MIMEText(self.password_message_text.format(password=new_password), "plain")
+        self.message.attach(message_text_attachment)
+
     def check_alert(self, asset, currency):
         alerts_list = Alert.objects.filter(Q(idA=asset) & Q(currency=currency))
         new_price = float(Alert.get_converter_by_currency_code(asset, currency))
         for alert in alerts_list:
             alert_value = alert.alert_value
             if (new_price > alert_value) == alert.alert_when_increases or new_price == alert_value:
-                self.send_email(alert.email, asset.name, alert_value, currency)
+                self.send_email(alert.email, asset.name, alert_value, currency, "")
                 alert.delete()
 
     @staticmethod
