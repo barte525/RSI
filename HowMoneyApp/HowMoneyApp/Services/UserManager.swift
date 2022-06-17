@@ -82,7 +82,6 @@ class UserManager: RequestProtocol, UserManagerProtocol {
         let patchBody = [
             ["value": name, "path": "/Name", "op": "replace"],
             ["value": surname, "path": "/Surname", "op": "replace"],
-            ["value": email, "path": "/Email", "op": "replace"],
             ["value": currencyPreference, "path": "/CurrencyPreference", "op": "replace"]
         ]
         let token = try KeychainManager.get(account: user.email, service: K.keychainServiceName)
@@ -126,7 +125,7 @@ class UserManager: RequestProtocol, UserManagerProtocol {
     }
     
     func resetPassword(email: String) async throws -> Bool {
-        let resetPassUrl = "\(urlString)/Auth/generate/\(email)"
+        let resetPassUrl = "\(urlString)/Auth/reset/\(email)"
         guard let url = URL(string: resetPassUrl) else { throw NetworkError.invalidURL }
         let request = createRequest(url: url, method: "POST")
         let (_, response) = try await session.data(for: request)
