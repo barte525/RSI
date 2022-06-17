@@ -129,7 +129,7 @@ namespace howMoney.Controllers
                 try
                 {
                     await _userAssetRepository.Create(userAsset);
-                    return true;
+                    return userAsset;
                 }
                 catch (Exception ex)
                 {
