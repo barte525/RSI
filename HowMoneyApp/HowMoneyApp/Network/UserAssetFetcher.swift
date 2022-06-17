@@ -36,7 +36,6 @@ class UserAssetFetcher: UserAssetFetcherProtocol, RequestProtocol {
         let (data, response) = try await session.data(for: request)
         
         if let httpResponse = response as? HTTPURLResponse {
-            print(httpResponse.statusCode)
             switch httpResponse.statusCode {
             case 200:
                 guard let _ = try? JSONDecoder().decode(Bool.self, from: data) else { throw NetworkError.invalidData }
@@ -59,7 +58,6 @@ class UserAssetFetcher: UserAssetFetcherProtocol, RequestProtocol {
         let (data, response) = try await session.data(for: request)
         
         if let httpResponse = response as? HTTPURLResponse {
-            print(httpResponse.statusCode)
             switch httpResponse.statusCode {
             case 200:
                 guard let _ = try? JSONDecoder().decode(Bool.self, from: data) else { throw NetworkError.invalidData }

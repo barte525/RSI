@@ -9,7 +9,10 @@ import SwiftUI
 
 struct RegisterView: View {
     
+    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var userStateViewModel: UserStateViewModel
+    @ObservedObject var keyboardManager = KeyboardManager()
+    @State var isEditing: Bool = false
     @State private var isShowingRegisterDetails: Bool = false
     @State private var isNotValidEmail: Bool = false
     
@@ -18,7 +21,7 @@ struct RegisterView: View {
             Image("logo")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(height: 200)
+                .frame(height: isEditing ? 30 : 200)
                 .scaledToFit()
             VStack {
                 Text("Register Account")
@@ -60,8 +63,8 @@ struct RegisterView: View {
                 Text("Already have an account? ")
                     .foregroundColor(.primary)
                     .opacity(0.7)
-                NavigationLink {
-                    LogInView()
+                Button {
+                    presentationMode.wrappedValue.dismiss()
                 } label: {
                     Text("Sign In")
                         .foregroundColor(.primary)
@@ -79,6 +82,11 @@ struct RegisterView: View {
         .navigationBarTitle("")
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
+        .onChange(of: keyboardManager.isVisible) { _ in
+            withAnimation {
+                isEditing.toggle()
+            }
+        }
     }
 }
 

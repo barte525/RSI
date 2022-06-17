@@ -92,7 +92,7 @@ class UserAssetViewModel: ObservableObject {
         }
     }
     
-    func putAsset(userId: String?, userMail: String, assetId: String?, oldAmount: Double?, additionalAmount: String) {
+    func putAsset(userId: String?, userMail: String, assetId: String?, oldAmount: Double?, additionalAmount: String, isSubstraction: Bool) {
         guard let loggedUserId = userId else {
             areIncorrectData = true
             errorMessage = "You cannot do this operation."
@@ -108,16 +108,38 @@ class UserAssetViewModel: ObservableObject {
             errorMessage = "Cannot fetch previous amount for chosen asset."
             return
         }
-        guard let safeAmount = Double(additionalAmount) else {
+        guard var safeAmount = Double(additionalAmount) else {
             areIncorrectData = true
             errorMessage = "You've entered incorrect amount. Please fix it."
+            return
+        }
+        if isSubstraction {
+            if safeAmount <= 0 {
+                errorMessage = "You have to enter positive number. Please fix it."
+                areIncorrectData = true
+                return
+            }
+            if safeAmount > 0 {
+                safeAmount *= -1
+            }
+        } else {
+            if safeAmount <= 0 {
+                errorMessage = "You have to enter positive number. Please fix it."
+                areIncorrectData = true
+                return
+            }
+        }
+        let amount = safeAmount
+        if isSubstraction && -1 * amount > previousAmount {
+            areIncorrectData = true
+            errorMessage = "You don't have enough resources to this operation."
             return
         }
         
         if !areIncorrectData {
             task = Task {
                 do {
-                    try await userAssetFetcher.putAsset(userId: loggedUserId, userMail: userMail, assetId: chosenAssetId, oldAmount: previousAmount, additionalAmount: safeAmount)
+                    try await userAssetFetcher.putAsset(userId: loggedUserId, userMail: userMail, assetId: chosenAssetId, oldAmount: previousAmount, additionalAmount: amount)
                     areIncorrectData = false
                     getAssets(for: userMail)
                 } catch {

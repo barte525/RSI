@@ -30,6 +30,12 @@ class UserStateViewModel: ObservableObject {
     @Published var loggedUser: User? = nil
     @Published var areIncorrectData: Bool = false
     
+    @Published var oldPasswordTextField: String = ""
+    @Published var newPasswordTextField: String = ""
+    @Published var repeatedNewPasswordTextField: String = ""
+    
+    @Published var isPasswordReseted: Bool = false
+    
     init(userManager: UserManager, fetcher: UserAssetFetcher) {
         self.userManager = userManager
         self.userAssetFetcher = fetcher
@@ -43,10 +49,13 @@ class UserStateViewModel: ObservableObject {
                 do {
                     loggedUser = try await userManager.register(email: email, name: name, surname: surname, password: password, currencyPreference: currencyPreference)
                     if let user = loggedUser {
-                        print(user)
                         updateAllFields(userEmail: user.email, userName: user.name, userSurname: user.surname, userCurrencyPreference: user.currencyPreference)
                     }
                     isLogged = true
+                } catch NetworkError.noConnection {
+                    isLogged = false
+                    areIncorrectData = true
+                    errorMessage = "No connection. Pleasy try again later."
                 } catch {
                     isLogged = false
                     errorMessage = "Please enter all fields with valid values."
@@ -67,6 +76,10 @@ class UserStateViewModel: ObservableObject {
                         updateAllFields(userEmail: user.email, userName: user.name, userSurname: user.surname, userCurrencyPreference: user.currencyPreference)
                     }
                     isLogged = true
+                } catch NetworkError.noConnection {
+                    isLogged = false
+                    areIncorrectData = true
+                    errorMessage = "No connection. Pleasy try again later."
                 } catch {
                     isLogged = false
                     areIncorrectData = true
@@ -97,7 +110,46 @@ class UserStateViewModel: ObservableObject {
                     email = loggedUser?.email ?? ""
                     areIncorrectData = true
                     errorMessage = "Cannot update data. Please try again."
-                    print("Error during user update: \(error)")
+                    print("Error during user update: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    func changePassword() {
+        validateChangedPasswords()
+        if !areIncorrectData {
+            task = Task {
+                do {
+                    let isChanged = try await userManager.changePassword(userMail: loggedUser!.email, oldPassword: oldPasswordTextField, newPassword: newPasswordTextField)
+                    if !isChanged {
+                        areIncorrectData = true
+                        errorMessage = "Cannot change password. Please try again."
+                    }
+                } catch {
+                    areIncorrectData = true
+                    errorMessage = "Cannot change password. Please try again."
+                    print("Error during passwords changing: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    func resetPassword() {
+        guard email.isValidEmail else {
+            areIncorrectData = true
+            errorMessage = "You've enter invalid email. Please fix it."
+            return
+        }
+        if !areIncorrectData {
+            task = Task {
+                do {
+                    isPasswordReseted = try await userManager.resetPassword(email: email)
+                } catch {
+                    isPasswordReseted = false
+                    areIncorrectData = true
+                    errorMessage = "Cannot reset password. Please try again."
+                    print("Error during password reseting: \(error.localizedDescription)")
                 }
             }
         }
@@ -170,5 +222,24 @@ class UserStateViewModel: ObservableObject {
                 print("Error during getting sum for user: \(error)")
             }
         }
+    }
+    
+    func showAlertWithResetPasswordMessage() {
+        areIncorrectData = true
+        errorMessage = "You'll get an email with new password. Please change it after logging."
+    }
+    
+    private func validateChangedPasswords() {
+        guard !newPasswordTextField.isEmpty && !oldPasswordTextField.isEmpty else {
+            errorMessage = "Passwords cannot be empty. Please enter valid ones."
+            areIncorrectData = true
+            return
+        }
+        guard newPasswordTextField == repeatedNewPasswordTextField else {
+            errorMessage = "Passwords have to be the same. Please fix it."
+            areIncorrectData = true
+            return
+        }
+        areIncorrectData = false
     }
 }

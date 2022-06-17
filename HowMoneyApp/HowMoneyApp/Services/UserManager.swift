@@ -40,6 +40,8 @@ class UserManager: RequestProtocol, UserManagerProtocol {
                 try KeychainManager.save(account: userDto.email, service: K.keychainServiceName, token: userDto.token)
                 let user = User(id: userDto.id, email: userDto.email, name: userDto.name, surname: userDto.surname, currencyPreference: userDto.currencyPreference)
                 return user
+            case 404:
+                throw NetworkError.noConnection
             default:
                 throw UserManagerError.loginFailure
             }
@@ -65,6 +67,8 @@ class UserManager: RequestProtocol, UserManagerProtocol {
                 try KeychainManager.save(account: userDto.email, service: K.keychainServiceName, token: userDto.token)
                 let user = User(id: userDto.id, email: userDto.email, name: userDto.name, surname: userDto.surname, currencyPreference: userDto.currencyPreference)
                 return user
+            case 404:
+                throw NetworkError.noConnection
             default:
                 throw UserManagerError.registrationFailure
             }
@@ -98,6 +102,45 @@ class UserManager: RequestProtocol, UserManagerProtocol {
             }
         }
         return nil
+    }
+    
+    func changePassword(userMail: String, oldPassword: String, newPassword: String) async throws -> Bool {
+        let changePassUrl = "\(urlString)/Auth/change"
+        guard let url = URL(string: changePassUrl) else { throw NetworkError.invalidURL }
+        let token = try KeychainManager.get(account: userMail, service: K.keychainServiceName)
+        let postBody = ["password": oldPassword, "newPassword": newPassword]
+        let request = createRequest(url: url, token: token, method: "POST", body: postBody)
+        let (_, response) = try await session.data(for: request)
+        
+        if let httpResponse = response as? HTTPURLResponse {
+            switch httpResponse.statusCode {
+            case 200:
+                return true
+            case 404:
+                throw NetworkError.noConnection
+            default:
+                throw NetworkError.unknown
+            }
+        }
+        return false
+    }
+    
+    func resetPassword(email: String) async throws -> Bool {
+        let resetPassUrl = "\(urlString)/Auth/generate/\(email)"
+        guard let url = URL(string: resetPassUrl) else { throw NetworkError.invalidURL }
+        let request = createRequest(url: url, method: "POST")
+        let (_, response) = try await session.data(for: request)
+        
+        if let httpResponse = response as? HTTPURLResponse {
+            switch httpResponse.statusCode {
+            case 200:
+                print("Reseting password was successfully done.")
+                return true
+            default:
+                throw NetworkError.unknown
+            }
+        }
+        return false
     }
     
 }

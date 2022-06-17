@@ -9,28 +9,25 @@ import SwiftUI
 
 struct AlertsListView: View {
     
-    let alerts: [String] = []
-    @State var searchText: String = ""
+    var userMail: String
+    @EnvironmentObject var alertViewModel: AlertViewModel
     @State var isAlertSet: Bool = false
-    var filteredAlerts: [String] {
-        return alerts.filter { alertAssetName in
-            searchText.isEmpty || alertAssetName.lowercased().contains(searchText.lowercased())
-        }
-    }
-    
     @State private var isEditing: Bool = false
     
     var body: some View {
         ZStack {
-            if alerts.count > 0 {
+            if alertViewModel.alerts.count > 0 {
                 VStack {
                     HStack {
                         if !isEditing {
                             Image(systemName: "magnifyingglass")
                                 .padding(.leading, 5)
+                                .padding([.top, .bottom], 10)
                         }
                         
-                        TextField("Search", text: $searchText)
+                        TextField("Search", text: $alertViewModel.searchText)
+                            .padding(.leading, 5)
+                            .padding([.top, .bottom], 10)
                     }
                     .background(Color("ControlBackground"))
                     .cornerRadius(10)
@@ -43,10 +40,16 @@ struct AlertsListView: View {
                     }
                     
                     List {
-                        ForEach(0..<filteredAlerts.count, id: \.self) { alertIndex in
-                            let alert = filteredAlerts[alertIndex]
-                            Text(alert)
+                        ForEach(0..<alertViewModel.filteredAlerts.count, id: \.self) { alertIndex in
+                            let alert = alertViewModel.filteredAlerts[alertIndex]
+                            HStack {
+                                Text(alert.asset_name)
+                                Spacer()
+                                Text(AmountFormatter.getFormattedAmount(for: alert.value))
+                                Text(alert.currency)
+                            }
                         }
+                        .onDelete(perform: deleteAlert)
                     }
                 }
             } else {
@@ -66,7 +69,8 @@ struct AlertsListView: View {
                             .fontWeight(.medium)
                             .padding(.top, 0)
                         NavigationLink {
-                            NewAlertView(isAlertSet: $isAlertSet)
+                            NewAlertView(userMail: userMail)
+                                .environmentObject(alertViewModel)
                         } label: {
                             Text("here.")
                                 .foregroundColor(Color("DarkPurple"))
@@ -83,20 +87,33 @@ struct AlertsListView: View {
         .navigationBarTitle("Your alerts")
         .navigationBarItems(trailing:
                                 NavigationLink {
-            NewAlertView(isAlertSet: $isAlertSet)
+            NewAlertView(userMail: userMail)
+                .environmentObject(alertViewModel)
         } label: {
             Image(systemName: "plus")
         }
         )
-        .alert(isPresented: $isAlertSet) {
+        .alert(isPresented: $alertViewModel.isAlertSet) {
             Alert(title: Text("You've set alert"),
                   message: Text("You'll get an email when the target value will be achieved."), dismissButton: .cancel(Text("OK")))
         }
+        .onAppear {
+            alertViewModel.getAlerts(for: userMail)
+        }
+    }
+    
+    private func deleteAlert(indexSet: IndexSet) {
+        let alertsToDelete = indexSet.map { alertViewModel.alerts[$0] }
+        guard alertsToDelete.count == 1 else {
+            return
+        }
+        alertViewModel.chosenAlertToDelete = alertsToDelete[0]
+        alertViewModel.deleteAlert(for: userMail)
     }
 }
 
 struct AlertsListView_Previews: PreviewProvider {
     static var previews: some View {
-        AlertsListView()
+        AlertsListView(userMail: "jan.smith@gmail.com")
     }
 }

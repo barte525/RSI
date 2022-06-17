@@ -8,18 +8,20 @@
 import SwiftUI
 
 struct PasswordChangeView: View {
-    
-    @Binding var isShown: Bool
-    @State var newPasswordTextField: String = ""
-    @State var repeatedNewPasswordTextField: String = ""
+    @EnvironmentObject var userStateViewModel: UserStateViewModel
     @State var isEnabledTouchID: Bool = false
+    @Binding var isShown: Bool
     
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Password")) {
-                    SecureField("Password", text: $newPasswordTextField)
-                    SecureField("Verify", text: $repeatedNewPasswordTextField)
+                Section(header: Text("Old password")) {
+                    SecureField("Old password", text: $userStateViewModel.oldPasswordTextField)
+                }
+                
+                Section(header: Text("New password")) {
+                    SecureField("New password", text: $userStateViewModel.newPasswordTextField)
+                    SecureField("Verify", text: $userStateViewModel.repeatedNewPasswordTextField)
                 }
                 
                 Section(header: Text("App Lock")) {
@@ -34,9 +36,15 @@ struct PasswordChangeView: View {
             .navigationBarItems(leading: Button("Cancel") {
                 isShown.toggle()
             }, trailing: Button("Save") {
-                //TODO: Change password on pressing save button
-                isShown.toggle()
+                userStateViewModel.changePassword()
+                if !userStateViewModel.areIncorrectData {
+                    isShown.toggle()
+                }
             })
+            .alert(isPresented: $userStateViewModel.areIncorrectData) {
+                Alert(title: Text("Error occurs"),
+                      message: Text(userStateViewModel.errorMessage), dismissButton: .cancel(Text("OK")))
+            }
         }
     }
 }

@@ -81,12 +81,24 @@ struct AmountFormatter {
         let valuesParts = valueString.components(separatedBy: ".")
         
         var decimalResults = ""
-        for decimalChar in valuesParts[1] {
-            if decimalResults.count > 2 && decimalResults != "00" {
-                return valuesParts[0] + "." + decimalResults
+        if valuesParts.count == 2 {
+            for decimalChar in valuesParts[1] {
+                if decimalResults.count > 2 && decimalResults != "00" {
+                    return valuesParts[0] + "." + decimalResults
+                }
+                decimalResults += "\(decimalChar)"
             }
-            decimalResults += "\(decimalChar)"
+        } else {
+            decimalResults = "00"
         }
         return valuesParts[0] + "." + decimalResults
+    }
+    
+    static func getFormattedAmount(for value: Double) -> String {
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 8
+        formatter.numberStyle = .decimal
+        return formatter.string(from: NSNumber(value: value)) ?? "\(value)"
     }
 }

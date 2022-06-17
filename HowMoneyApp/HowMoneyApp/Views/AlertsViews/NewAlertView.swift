@@ -9,12 +9,9 @@ import SwiftUI
 
 struct NewAlertView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var chosenAsset: Asset? = nil
-    @State var targetValueTextField: String = ""
-    @State var emailTextField: String = ""
+    @EnvironmentObject var alertViewModel: AlertViewModel
     @State var isShowingAssetChoice: Bool = false
-    @State var areIncorrectData: Bool = false
-    @Binding var isAlertSet: Bool
+    var userMail: String
     
     var body: some View {
         VStack {
@@ -26,7 +23,7 @@ struct NewAlertView: View {
                         Text("Asset")
                             .foregroundColor(Color.primary)
                         Spacer()
-                        Text(chosenAsset?.name ?? "")
+                        Text(alertViewModel.chosenAsset?.name ?? "")
                             .foregroundColor(Color.secondary)
                         Image(systemName: "chevron.right")
                     }
@@ -34,33 +31,36 @@ struct NewAlertView: View {
                     .foregroundColor(Color.primary)
                 }
                 
-                TextField("Target value", text: $targetValueTextField)
-                    .onChange(of: targetValueTextField, perform: { amount in
-                        targetValueTextField = AmountFormatter.formatByType(value: amount, of: chosenAsset?.type)
+                TextField("Target value", text: $alertViewModel.targetValueTextField)
+                    .onChange(of: alertViewModel.targetValueTextField, perform: { amount in
+                        alertViewModel.targetValueTextField = AmountFormatter.formatByType(value: amount, of: alertViewModel.chosenAsset?.type)
                 })
-                .disabled(chosenAsset == nil)
+                .disabled(alertViewModel.chosenAsset == nil)
                 .keyboardType(.decimalPad)
                 .padding([.leading, .trailing], 10)
                 
-                TextField("Email", text: $emailTextField)
-                    .padding([.leading, .trailing], 10)
+                VStack {
+                    HStack {
+                        Text("Currency for target value:")
+                            .foregroundColor(Color.secondary)
+                        Spacer()
+                    }
+                    
+                    Picker("", selection: $alertViewModel.targetValueCurrency) {
+                        ForEach(K.preferenceCurrencies, id: \.self) {
+                            Text($0)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .background(Color("PickerBackground"))
+                    .cornerRadius(10)
+                }.padding(.top, 5)
             }
-            .frame(maxHeight: 200)
+            .frame(maxHeight: 240)
             .padding(.top, 5)
             
             Button {
-                //TODO: Move validation to ViewModel
-                if (!emailTextField.isValidEmail) {
-                    areIncorrectData = true
-                }
-                if (!targetValueTextField.isNumber) {
-                    areIncorrectData = true
-                }
-                
-                if !areIncorrectData {
-                    isAlertSet.toggle()
-                    self.presentationMode.wrappedValue.dismiss()
-                }
+                alertViewModel.addAlert(userMail: userMail)
             } label: {
                 Text("Set")
                     .frame(minWidth: 150, maxWidth: .infinity)
@@ -76,17 +76,20 @@ struct NewAlertView: View {
         .background(Color("Background"))
         .navigationTitle("New Alert")
         .sheet(isPresented: $isShowingAssetChoice, onDismiss: {  }) {
-            AssetsList(isShowingAssetChoice: $isShowingAssetChoice, chosenAsset: $chosenAsset)
+            AssetsList(isShowingAssetChoice: $isShowingAssetChoice, chosenAsset: $alertViewModel.chosenAsset)
         }
-        .alert(isPresented: $areIncorrectData) {
+        .alert(isPresented: $alertViewModel.areIncorrectData) {
             Alert(title: Text("Invalid data"),
-                  message: Text("Check if you chose asset, enter valid target value and email."), dismissButton: .cancel(Text("OK")))
+                  message: Text(alertViewModel.errorMessage), dismissButton: .cancel(Text("OK")))
+        }
+        .onChange(of: alertViewModel.isAlertSet) { _ in
+            self.presentationMode.wrappedValue.dismiss()
         }
     }
 }
 
 struct NewAlertView_Previews: PreviewProvider {
     static var previews: some View {
-        NewAlertView(isAlertSet: .constant(false))
+        NewAlertView(userMail: "jan.smith@gmail.com")
     }
 }
