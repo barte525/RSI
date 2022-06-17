@@ -125,4 +125,22 @@ class UserManager: RequestProtocol, UserManagerProtocol {
         return false
     }
     
+    func resetPassword(email: String) async throws -> Bool {
+        let resetPassUrl = "\(urlString)/Auth/generate/\(email)"
+        guard let url = URL(string: resetPassUrl) else { throw NetworkError.invalidURL }
+        let request = createRequest(url: url, method: "POST")
+        let (_, response) = try await session.data(for: request)
+        
+        if let httpResponse = response as? HTTPURLResponse {
+            switch httpResponse.statusCode {
+            case 200:
+                print("Reseting password was successfully done.")
+                return true
+            default:
+                throw NetworkError.unknown
+            }
+        }
+        return false
+    }
+    
 }

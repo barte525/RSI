@@ -11,6 +11,7 @@ struct LogInView: View {
     @EnvironmentObject var userStateViewModel: UserStateViewModel
     @ObservedObject var keyboardManager = KeyboardManager()
     @State var isEditing: Bool = false
+    @State private var isShowingForgotPasswordScreen: Bool = false
     
     var body: some View {
         VStack {
@@ -33,11 +34,24 @@ struct LogInView: View {
                     Spacer()
                     Button {
                         //TODO: Navigate to forgot password view
+                        isShowingForgotPasswordScreen.toggle()
                     } label: {
                         Text("Forgot password?")
                             .foregroundColor(.white)
                             .font(.caption)
                             .fontWeight(.semibold)
+                    }
+                    .sheet(isPresented: $isShowingForgotPasswordScreen) {
+                        NavigationView {
+                            VStack {
+                                ForgotPasswordView(isShowingForgotPasswordScreen: $isShowingForgotPasswordScreen)
+                                    .environmentObject(userStateViewModel)
+                            }
+                            .navigationTitle("Reset password")
+                            .navigationBarItems(leading: Button("Cancel") {
+                                isShowingForgotPasswordScreen.toggle()
+                            })
+                        }
                     }
                 }.padding([.leading, .trailing], 30)
                 
@@ -71,9 +85,12 @@ struct LogInView: View {
             .padding(.bottom, 30)
         }
         .alert(isPresented: $userStateViewModel.areIncorrectData) {
-            Alert(title: Text("Invalid data"),
+            Alert(title: Text(userStateViewModel.isPasswordReseted ? "Email is sent" : "Invalid data"),
                   message: Text(userStateViewModel.errorMessage), dismissButton: .cancel(Text("OK")))
         }
+        .onChange(of: userStateViewModel.isPasswordReseted, perform: { _ in
+            userStateViewModel.showAlertWithResetPasswordMessage()
+        })
         .background(Color("Background"))
         .navigationBarTitle("")
         .navigationBarHidden(true)

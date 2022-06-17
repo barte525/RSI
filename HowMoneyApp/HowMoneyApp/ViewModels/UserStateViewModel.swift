@@ -34,6 +34,8 @@ class UserStateViewModel: ObservableObject {
     @Published var newPasswordTextField: String = ""
     @Published var repeatedNewPasswordTextField: String = ""
     
+    @Published var isPasswordReseted: Bool = false
+    
     init(userManager: UserManager, fetcher: UserAssetFetcher) {
         self.userManager = userManager
         self.userAssetFetcher = fetcher
@@ -133,6 +135,26 @@ class UserStateViewModel: ObservableObject {
         }
     }
     
+    func resetPassword() {
+        guard email.isValidEmail else {
+            areIncorrectData = true
+            errorMessage = "You've enter invalid email. Please fix it."
+            return
+        }
+        if !areIncorrectData {
+            task = Task {
+                do {
+                    isPasswordReseted = try await userManager.resetPassword(email: email)
+                } catch {
+                    isPasswordReseted = false
+                    areIncorrectData = true
+                    errorMessage = "Cannot reset password. Please try again."
+                    print("Error during password reseting: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
     func updateAllFields(userEmail: String, userName: String, userSurname: String, userCurrencyPreference: String) {
         email = userEmail
         name = userName
@@ -200,6 +222,11 @@ class UserStateViewModel: ObservableObject {
                 print("Error during getting sum for user: \(error)")
             }
         }
+    }
+    
+    func showAlertWithResetPasswordMessage() {
+        areIncorrectData = true
+        errorMessage = "You'll get an email with new password. Please change it after logging."
     }
     
     private func validateChangedPasswords() {
