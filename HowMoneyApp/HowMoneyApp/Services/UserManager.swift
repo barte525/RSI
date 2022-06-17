@@ -19,6 +19,8 @@ protocol UserManagerProtocol {
     func signOut()
     func register(email: String, name: String, surname: String, password: String, currencyPreference: String) async throws -> User?
     func update(user: User, name: String, surname: String, email: String, currencyPreference: String) async throws -> User?
+    func changePassword(userMail: String, oldPassword: String, newPassword: String) async throws -> Bool
+    func resetPassword(email: String) async throws -> Bool
 }
 
 class UserManager: RequestProtocol, UserManagerProtocol {
@@ -126,7 +128,7 @@ class UserManager: RequestProtocol, UserManagerProtocol {
     }
     
     func resetPassword(email: String) async throws -> Bool {
-        let resetPassUrl = "\(urlString)/Auth/generate/\(email)"
+        let resetPassUrl = "\(urlString)/Auth/reset/\(email)"
         guard let url = URL(string: resetPassUrl) else { throw NetworkError.invalidURL }
         let request = createRequest(url: url, method: "POST")
         let (_, response) = try await session.data(for: request)
