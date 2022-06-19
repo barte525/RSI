@@ -5,6 +5,12 @@ Project prepared for the course 'Distributed IT systems'.
 The main purpose of system is monitoring user's assets.
 User can create an account and use a <b>mobile app</b> (in iOS) and/or <b>website app</b> to see the sum of his assets in one of the chosen currency (PLN, EUR, USD) according to current exchange rates. The additional functionality of the app are alerts, which user can set to get the e-mail with an information about the asset that has just hit the chosen price.
 
+Services:
+* Microservice - crypto directory
+* Server - howMoney directory
+* Mobile App - howMoneyApp directory
+* Web App - [HowMoneyWebApp Repository](https://github.com/gtyska/HowMoneyWebApp)
+
 ## Tech stack
 ### Microservice
 ![Python](https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white)
